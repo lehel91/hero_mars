@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import com.mycompany.heromarsspring.services.SessionService;
+import com.mycompany.heromarsspring.services.UserService;
 import com.mycompany.heromarsspring.viewmodel.LoginFormData;
 
 @Controller
@@ -19,6 +20,9 @@ public class LoginController {
 	
 	@Autowired
 	private SessionService sessionService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -32,12 +36,14 @@ public class LoginController {
 	public String submitLogin(@ModelAttribute("loginFormData") @Valid LoginFormData loginFormData, BindingResult bindingResult,  Model model) {
 
 		System.out.println(loginFormData);
+		
+		boolean isValidUser = userService.isValidLogin(loginFormData);
 
-		if (!bindingResult.hasErrors() && "Ubul".equals(loginFormData.getUserName()) && "password".equals(loginFormData.getPassword())) {
+		if (!bindingResult.hasErrors() && isValidUser) {
 
 			sessionService.setCurrentUserName(loginFormData.getUserName());
 			model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
-			return "login.html";
+			return "index.html";
 		}
 
 		return "login.html";

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mycompany.heromarsspring.daos.UserRepository;
 import com.mycompany.heromarsspring.entities.User;
+import com.mycompany.heromarsspring.viewmodel.LoginFormData;
 import com.mycompany.heromarsspring.viewmodel.RegistrationFormData;
 
 public class UserService {
@@ -28,6 +29,20 @@ public class UserService {
 			return true;
 		} 
 		
+		return false;
+	}
+	
+	public boolean isValidLogin(LoginFormData loginFormData) {
+		
+		User user = userRepository.findByUserName(loginFormData.getUserName());
+		
+		if (user == null) {
+			return false;
+			
+		} else if (loginFormData.getPassword().equals(user.getPassword())) {
+			return true;
+			
+		}
 		return false;
 	}
 }
