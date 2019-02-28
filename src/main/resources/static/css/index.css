@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
 body {
-	background-image: url("../img/mars2.jpg");
+	background-image: url('../img/mars2.jpg');
+	background-color: black;
 	background-repeat: no-repeat;
+	color: whitesmoke;
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif,
 		Haettenschweiler, 'Arial Narrow Bold', sans-serif, 'Gill Sans MT',
-		Calibri, 'Trebuchet MS', sans-serif
+		Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h1 {
-	text-align: right;
-	color: whitesmoke;
+	text-align: center;
 }
