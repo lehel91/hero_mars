@@ -14,12 +14,6 @@ public class MainPageController {
 		return "index.html";
 	}
 	
-	@RequestMapping(value = "register", method = RequestMethod.GET)
-	public String showRegister() {
-
-		return "registration.html";
-	}
-	
 	@RequestMapping(value = "stb", method = RequestMethod.GET)
 	public String showStb() {
 

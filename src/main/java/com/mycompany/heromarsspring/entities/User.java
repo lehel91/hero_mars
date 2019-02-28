@@ -42,7 +42,7 @@ public class User implements Serializable {
     private String eMail;
 
     @Column(nullable = false)
-    private int birthYear;
+    private Integer birthYear;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Hero> heroes = new ArrayList<>();

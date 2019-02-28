@@ -1,6 +1,5 @@
 package com.mycompany.heromarsspring.viewmodel;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
