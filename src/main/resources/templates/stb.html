@@ -24,22 +24,33 @@
 	<link rel="stylesheet" type="text/css" href="../css/index.css" />
 
 </head>
-<body>
+<body onload="loginCeck()">
 
-      <ul class="nav nav-tabs justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/index}">Main Page</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/register}">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/login}">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" th:href="@{/stb}">Stb...</a>
-        </li>
-      </ul>
+    <ul class="nav nav-tabs justify-content-center">
+       <li class="nav-item">
+         <a class="nav-link" th:href="@{/index}">Main Page</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" th:href="@{/register}">Register</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" th:href="@{/login}">Login</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link active" th:href="@{/stb}">Stb...</a>
+       </li>
+    </ul>
+      
+    <h1 align="center">&ltHero!Mars!/&gt</h1>
+	
+	<br/>
+	
+	<p th:text="'Logged in as: ' + ${loggedInUserName}" th:unless="${loggedInUserName == null}"></p>
+	
+	<div th:switch="${loggedInUserName}"> 
+  		<p th:case="null">Not logged in</p>
+  		<p th:case="*" th:text="'Logged in as: ' + ${loggedInUserName}"></p>
+	</div>
 
 </body>
 </html>

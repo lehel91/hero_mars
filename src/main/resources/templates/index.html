@@ -15,18 +15,10 @@
    crossorigin="anonymous"></script>
    
    <link rel="stylesheet" type="text/css" href="../css/index.css" />
-   
-   <script>
-   
-   
-   
-   document.getElementsByClassName("userNameSession").item(0).style.visibility="hidden";
-   
-   </script>
 
 </head>
 
-<body>
+<body onload="loginCeck()">
 
 
       <ul class="nav nav-tabs justify-content-center">
@@ -49,7 +41,12 @@
 	
 	<br/>
 	
-	<p>${model.loggedInUserName}</p>
+	<p th:text="'Logged in as: ' + ${loggedInUserName}" th:unless="${loggedInUserName == null}"></p>
+	
+	<div th:switch="${loggedInUserName}"> 
+  		<p th:case="null">Not logged in</p>
+  		<p th:case="*" th:text="'Logged in as: ' + ${loggedInUserName}"></p>
+	</div>
 
 </body>
 </html>
