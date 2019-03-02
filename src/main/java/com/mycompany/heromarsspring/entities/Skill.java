@@ -5,7 +5,7 @@
  */
 package com.mycompany.heromarsspring.entities;
 
-import com.mycompany.heromarsspring.model.SkillNameEnum;
+import com.mycompany.heromarsspring.model.SkillEnum;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +38,7 @@ public class Skill implements Serializable {
     private Integer skillId;
     
     @Enumerated(EnumType.STRING)
-    private SkillNameEnum skillType;
+    private SkillEnum skillType;
     
     private Integer skillHpMod;
     

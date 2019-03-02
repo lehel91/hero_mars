@@ -9,13 +9,12 @@ package com.mycompany.heromarsspring.model;
  *
  * @author GaussGun
  */
-public enum SkillNameEnum {
+public enum ItemEnum {
     
-    WELLDRILLING_PADAVAN,
-    WELLDRILLING_MASTER,
-    WELLDRILLING_MAGE,
-    HUNTER_PADAVAN,
-    HUNTER_MASTER,
-    HUNTER_MAGE;
-    
+    LIGHTSWORD(),
+    MACE(),
+    SHIELD(),
+    HELMET(),
+    MAGIC_RING(),
+    TALISMAN();
 }

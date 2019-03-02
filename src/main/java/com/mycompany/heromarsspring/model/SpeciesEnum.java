@@ -2,10 +2,11 @@
 package com.mycompany.heromarsspring.model;
 
 public enum SpeciesEnum {
-    ORK(10,170,1,10,10,10,10,10,10),
-    ELF(10,190,1,10,10,10,10,10,10),
-    HUMAN(10,180,1,10,10,10,10,10,10),
-    DWARF(10,150,1,10,10,10,10,10,10);
+    RAPTOID(80,170,1,10,10,10,10,10,10),
+    SAURIAN(90,190,1,10,10,10,10,10,10),
+    ZETAN(60,160,1,10,10,10,10,10,10),
+    MANTID(80,230,1,10,10,10,10,10,10),
+    PLEIADIAN(70,180,1,10,10,10,10,10,10);
     
     private final int weight;
     private final int height;

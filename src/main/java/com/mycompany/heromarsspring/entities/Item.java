@@ -1,7 +1,7 @@
 
 package com.mycompany.heromarsspring.entities;
 
-import com.mycompany.heromarsspring.model.ItemNameEnum;
+import com.mycompany.heromarsspring.model.ItemEnum;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +34,7 @@ public class Item implements Serializable {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ItemNameEnum type;
+    private ItemEnum name;
 
     @Column(nullable = false)
     private Integer itemHpMod;
@@ -47,6 +47,15 @@ public class Item implements Serializable {
     
     @Column(nullable = false)
     private Integer durability;
+    
+    @Column(nullable = false)
+    private Integer level;
+    
+    @Column(nullable = false)
+    private String type;
+    
+    @Column(nullable = false)
+    private Boolean isInUse;
 
     @JoinColumn(name = "hero", referencedColumnName = "heroId")
     @ManyToOne(cascade = CascadeType.REFRESH) //ha az item-ek megváltoztatjuk a Heroját, akkor a régi hero itemlistájából törlődjön, az újnál pedig adódjon hozzá automatikusan az elem
@@ -77,7 +86,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "Item{" + "itemId=" + itemId + ", type=" + type + '}';
+        return "Item{" + "itemId=" + itemId + ", type=" + name + '}';
     }
 
 

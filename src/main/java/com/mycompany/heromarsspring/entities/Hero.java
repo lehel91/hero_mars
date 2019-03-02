@@ -87,6 +87,7 @@ public class Hero implements Serializable {
 
     @OneToMany(mappedBy = "hero", cascade = CascadeType.REMOVE)
     private Set<Item> items = new HashSet<>();
+    
 
     @Override
     public int hashCode() {

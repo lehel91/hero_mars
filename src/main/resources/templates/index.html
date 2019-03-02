@@ -18,7 +18,7 @@
 
 </head>
 
-<body onload="loginCeck()">
+<body>
 
 
       <ul class="nav nav-tabs justify-content-center">
@@ -42,11 +42,6 @@
 	<br/>
 	
 	<p th:text="'Logged in as: ' + ${loggedInUserName}" th:unless="${loggedInUserName == null}"></p>
-	
-	<div th:switch="${loggedInUserName}"> 
-  		<p th:case="null">Not logged in</p>
-  		<p th:case="*" th:text="'Logged in as: ' + ${loggedInUserName}"></p>
-	</div>
 
 </body>
 </html>
