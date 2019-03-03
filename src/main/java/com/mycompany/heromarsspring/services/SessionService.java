@@ -16,4 +16,6 @@ public class SessionService {
 
 	private String currentUserName;
 	
+	private String currentHeroName;
+	
 }

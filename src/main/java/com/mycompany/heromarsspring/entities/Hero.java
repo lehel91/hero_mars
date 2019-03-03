@@ -37,7 +37,7 @@ public class Hero implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer heroId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String heroName;
 
     private LocalDate creationDate;
