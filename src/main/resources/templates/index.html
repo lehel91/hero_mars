@@ -32,6 +32,9 @@
           <a class="nav-link" th:href="@{/login}">Login</a>
         </li>
         <li class="nav-item">
+			<a class="nav-link" th:href="@{/profile}" th:unless="${loggedInUserName == null}">Profile</a>
+		</li>
+        <li class="nav-item">
           <a class="nav-link" th:href="@{/stb}">Stb...</a>
         </li>
       </ul>

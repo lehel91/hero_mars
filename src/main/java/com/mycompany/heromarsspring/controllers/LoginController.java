@@ -28,6 +28,7 @@ public class LoginController {
 	public String login(Model model) {
 
 		model.addAttribute("loginFormData", new LoginFormData());
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 
 		return "login.html";
 	}
@@ -42,10 +43,15 @@ public class LoginController {
 		if (!bindingResult.hasErrors() && isValidUser) {
 
 			sessionService.setCurrentUserName(loginFormData.getUserName());
+			sessionService.setCurrentHeroName(null);
+			
 			model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
-			return "index.html";
+			
+			return "profile.html";
 		}
 
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		
 		return "login.html";
 	}
 

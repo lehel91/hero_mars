@@ -28,6 +28,7 @@ public class RegistrationController {
 	public String register(Model model) {
 
 		model.addAttribute("registrationFormData", new RegistrationFormData());
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 
 		return "registration.html";
 	}
@@ -38,6 +39,8 @@ public class RegistrationController {
 			BindingResult bindingResult, Model model) {
 
 		System.out.println(registrationFormData);
+		
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 
 		boolean hasUniqueUserName = userservice.checkUniqueUserName(registrationFormData.getUserName());
 		
