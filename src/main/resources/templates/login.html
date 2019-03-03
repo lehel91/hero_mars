@@ -49,13 +49,14 @@
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>
 
-	<form action="#" th:action="@{/login}" th:object="${loginFormData}"
-		method="POST">
-		<p th:errors="*{userName}"></p>
-		Username: <input type="text" th:field="*{userName}" /><br/><br/>
-		<p th:errors="*{password}"></p>
-		Password: <input type="password" th:field="*{password}" /> <input
-			type="submit" value="Belépés" />
+	<form action="#" th:action="@{/login}" th:object="${loginFormData}" method="POST">
+		<p th:errors="*{userName}"></p>Username:
+		<input type="text" th:field="*{userName}" />
+		<br/>
+		<br/>
+		<p th:errors="*{password}"></p>Password:
+		<input type="password" th:field="*{password}" />
+		<input type="submit" value="Belépés" />
 	</form>
 </body>
 

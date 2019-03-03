@@ -46,6 +46,31 @@
 	</ul>
 
 	<h1 align="center" th:text="'Welcome in the world of HeroMars ' + ${loggedInUserName} + '!'"></h1>
+	
+	<br/>
+
+	<div th:unless="${profileData.heroNames == null}">
+	
+		<form action="#" th:action="@{/setHero}" th:object="${profileData}" method="POST">
+		
+			<select th:field="*{selectedHeroName}">
+			
+				<option value="" selected> --- Válassz Hőst! --- </option>
+		  		<option th:each="String: *{heroNames}" th:value="${String}" th:text="${String}"></option>
+		  		
+			</select>
+			
+			<input type="submit" value="Hős kiválasztása" />
+		
+		</form>
+	
+	</div>
+	
+	<div th:switch="${currentHeroName}"> 
+  		<p th:case="null">No selected hero</p>
+  		<p th:case="*" th:text="'Selected hero: ' + ${currentHeroName}"></p>
+	</div>
+	
 
 </body>
 </html>

@@ -45,9 +45,7 @@ public class LoginController {
 			sessionService.setCurrentUserName(loginFormData.getUserName());
 			sessionService.setCurrentHeroName(null);
 			
-			model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
-			
-			return "profile.html";
+			return "redirect:/profile";
 		}
 
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());

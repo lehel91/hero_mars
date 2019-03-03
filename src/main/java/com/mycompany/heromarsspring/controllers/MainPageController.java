@@ -18,6 +18,7 @@ SessionService sessionService;
 	public String showMainMenu(Model model) {
 
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 		
 		return "index.html";
 	}
@@ -26,6 +27,7 @@ SessionService sessionService;
 	public String showStb(Model model) {
 		
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 
 		return "stb.html";
 	}
