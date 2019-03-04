@@ -3,6 +3,7 @@ package com.mycompany.heromarsspring.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,13 @@ public class RegistrationController {
 		
 		if (!bindingResult.hasErrors() && hasUniqueUserName
 				&& registrationFormData.getPassword().equals(registrationFormData.getConfirmPassword())) {
+			
+			String enryptedPwd = BCrypt.hashpw(registrationFormData.getPassword(), BCrypt.gensalt());
+			
+			System.out.println(enryptedPwd);
+			
+			registrationFormData.setPassword(enryptedPwd);
+			
 			userservice.saveUser(registrationFormData);
 
 			model.addAttribute("loginFormData", new LoginFormData());

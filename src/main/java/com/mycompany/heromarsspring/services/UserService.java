@@ -1,6 +1,7 @@
 package com.mycompany.heromarsspring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import com.mycompany.heromarsspring.daos.UserRepository;
 import com.mycompany.heromarsspring.entities.User;
@@ -39,7 +40,7 @@ public class UserService {
 		if (user == null) {
 			return false;
 			
-		} else if (loginFormData.getPassword().equals(user.getPassword())) {
+		} else if (BCrypt.checkpw(loginFormData.getPassword(), user.getPassword())) {
 			return true;
 			
 		}
