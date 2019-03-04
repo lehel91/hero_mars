@@ -96,4 +96,13 @@ public class UserService {
 		return heroNames;
 
 	}
+	
+	public void setUserEmail(String eMail, String userName) {
+		userRepository.setUserEmail(eMail, userName);
+	}
+	
+	public void setUserPassword(String password, String userName) {
+		System.out.println(password + " " + userName);
+		userRepository.setUserPassword(password, userName);
+	}
 }

@@ -29,19 +29,39 @@ public class ProfileController {
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 		
-		ProfileData profiledata = new ProfileData();
-		profiledata.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
-		model.addAttribute("profileData", profiledata);
+		ProfileData profileData = new ProfileData();
+		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
+		model.addAttribute("profileData", profileData);
 		
 		return "profile.html";
 	}
 	
-	@RequestMapping(value = "modifyUser", method = RequestMethod.POST)
-	public String modifyUser(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
+	@RequestMapping(value = "modifyEmail", method = RequestMethod.POST)
+	public String modifyUserEmail(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
 
+		if (!bindingResult.hasFieldErrors("eMail")) {
+			userService.setUserEmail(profileData.getEMail(), sessionService.getCurrentUserName());
+		}
+		
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
+		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		
+		
+		return "profile.html";
+	}
+	
+	@RequestMapping(value = "modifyPassword", method = RequestMethod.POST)
+	public String modifyUserPassword(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
+		
+		
+		if (!bindingResult.hasFieldErrors("newPassword") && !bindingResult.hasFieldErrors("confirmNewPassword")) {
+		userService.setUserPassword(profileData.getNewPassword(), sessionService.getCurrentUserName());
+		}
+		
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
+		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		
 		return "profile.html";
 	}
@@ -51,7 +71,7 @@ public class ProfileController {
 
 		sessionService.setCurrentHeroName(profileData.getSelectedHeroName());
 		
-		return "redirect:/index";
+		return "redirect:/profile";
 	}
 
 }

@@ -48,6 +48,33 @@
 	<h1 align="center" th:text="'Welcome in the world of HeroMars ' + ${loggedInUserName} + '!'"></h1>
 	
 	<br/>
+	
+	<div th:object="${profileData}">
+		
+		<p>Amennyiben módosítani kívánja a jelszavát, azt itt teheti meg:</p>
+		
+		<form action="#" th:action="@{/modifyPassword}" method="POST">
+			<p th:errors="*{newPassword}"></p>Új jelszó:
+			<input type="password" th:field="*{newPassword}" />
+			<br/>
+			<br/>
+			<p th:errors="*{confirmNewPassword}"></p>Új jelszó megerősítése:
+			<input type="password" th:field="*{confirmNewPassword}" />
+			<input type="submit" value="Új jelszó mentése" />
+		</form>
+		
+		<br/>
+		<p>Amennyiben módosítani kívánja az e-Mail címét, azt itt teheti meg:</p>
+		
+		<form action="#" th:action="@{/modifyEmail}" method="POST">
+			<p th:errors="*{eMail}"></p>Új e-Mail cím:
+			<input type="email" th:field="*{eMail}" />
+			<input type="submit" value="Új e-Mail cím mentése" />
+		</form>
+	
+	</div>
+	
+	<br/>
 
 	<div th:unless="${profileData.heroNames == null}">
 	
@@ -65,6 +92,8 @@
 		</form>
 	
 	</div>
+	
+	<br/>
 	
 	<div th:switch="${currentHeroName}"> 
   		<p th:case="null">No selected hero</p>
