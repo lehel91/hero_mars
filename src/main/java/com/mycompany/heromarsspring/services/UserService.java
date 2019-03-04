@@ -16,7 +16,7 @@ public class UserService {
 	public User saveUser(RegistrationFormData registrationFormData) {
 		User user = new User();
 		user.setUserName(registrationFormData.getUserName());
-		user.setPassword(registrationFormData.getPassword());
+		user.setPassword(BCrypt.hashpw(registrationFormData.getPassword(), BCrypt.gensalt()));
 		user.setEMail(registrationFormData.getEMail());
 		user.setBirthYear(registrationFormData.getBirthYear());
 		
