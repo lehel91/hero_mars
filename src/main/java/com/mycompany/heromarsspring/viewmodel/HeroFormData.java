@@ -2,10 +2,11 @@ package com.mycompany.heromarsspring.viewmodel;
 
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import org.springframework.format.annotation.NumberFormat;
+import org.springframework.lang.NonNull;
 
+import com.mycompany.heromarsspring.entities.User;
+import com.mycompany.heromarsspring.model.HairColorEnum;
 import com.mycompany.heromarsspring.model.SexEnum;
 import com.mycompany.heromarsspring.model.SpeciesEnum;
 
@@ -19,25 +20,20 @@ import lombok.ToString;
 public class HeroFormData {
 	
 	@NotEmpty
-	private String heroName;
+	private String userName;
 	
 	@NotEmpty
+	private String heroName;
+	
+	@NonNull
 	@Enumerated
 	private SpeciesEnum species;
 	
-	@NotEmpty
+	@NonNull
 	@Enumerated
 	private SexEnum sex;
 	
-	@NotNull
-	@NumberFormat
-	private Integer height;
-
-	@NotNull
-	@NumberFormat
-    private Integer weight;
-	
-	@NotEmpty
+	@NonNull
 	@Enumerated
-	private SexEnum hairColor;
+	private HairColorEnum hairColor;
 }

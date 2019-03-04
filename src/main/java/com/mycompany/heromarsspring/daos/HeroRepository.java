@@ -8,5 +8,7 @@ import com.mycompany.heromarsspring.entities.Hero;
 public interface HeroRepository extends JpaRepository<Hero, Integer> {
 
 	Hero findByHeroId(Integer heroId);
+
+	Hero findByHeroName(String heroName);
 	
 }

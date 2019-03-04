@@ -32,6 +32,10 @@ public class UserService {
 		return false;
 	}
 	
+	public User findByUserName(String userName) {
+		return userRepository.findByUserName(userName);
+	}
+	
 	public boolean isValidLogin(LoginFormData loginFormData) {
 		
 		User user = userRepository.findByUserName(loginFormData.getUserName());
