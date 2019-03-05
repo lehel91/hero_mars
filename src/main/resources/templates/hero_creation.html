@@ -44,30 +44,39 @@
 
 	<form action="#" th:action="@{/create_hero}"
 		th:object="${heroFormData}" method="POST">
-		<input type="hidden" th:value="${user}" />
+		<!-- <input type="hidden" th:value="${userName}" th:field="*{userName}"/> --> 
 		<br />
 		<p th:errors="*{heroName}"></p>
 		Hero Name: <input type="text" th:field="*{heroName}" /> 
 		<br /> 
 		<br />
-		Species: 
-		<select>
+		<label for="species">Faj:</label>
+		<select th:field="*{species}">
+  			<option value="" selected> Válassz fajt! </option>
   			<option th:each="species : ${T(com.mycompany.heromarsspring.model.SpeciesEnum).values()}" 
-  			th:value="${species}" th:text="${species}"></option>
+  				th:value="${species}" 
+  				th:selected="${species == T(com.mycompany.heromarsspring.model.SpeciesEnum)}"
+  				th:text="${species.description}"></option>
 		</select>
 		<br /> 
 		<br />
-		Sex: 
-		<select>
+		<label for="sex">Nem:</label>
+		<select th:field="*{sex}">
+  			<option value="" selected> Válassz nemet! </option>
   			<option th:each="sex : ${T(com.mycompany.heromarsspring.model.SexEnum).values()}" 
-  			th:value="${sex}" th:text="${sex}"></option>
+  				th:value="${sex}" 
+  				th:selected="${sex == T(com.mycompany.heromarsspring.model.SexEnum)}"
+  				th:text="${sex.description}"></option>
 		</select>
 		<br /> 
 		<br />
-		Hair Color: 
-		<select>
-  			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
-  			th:value="${hairColor}" th:text="${hairColor}"></option>
+		<label for="hairColor">Hajszín:</label> 
+		<select th:field="*{hairColor}">
+			<option value="" selected> Válassz hajszínt! </option>
+ 			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
+  				th:value="${hairColor}" 
+  				th:selected="${hairColor == T(com.mycompany.heromarsspring.model.HairColorEnum)}"
+  				th:text="${hairColor.description}"></option>
 		</select>
 		<br /> 
 		<br />

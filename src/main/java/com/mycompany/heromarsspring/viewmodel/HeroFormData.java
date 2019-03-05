@@ -2,6 +2,7 @@ package com.mycompany.heromarsspring.viewmodel;
 
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.lang.NonNull;
 
@@ -19,8 +20,7 @@ import lombok.ToString;
 @ToString
 public class HeroFormData {
 	
-	@NotEmpty
-	private String userName;
+	private User user;
 	
 	@NotEmpty
 	private String heroName;

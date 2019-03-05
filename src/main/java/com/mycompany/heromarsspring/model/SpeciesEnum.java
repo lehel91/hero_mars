@@ -2,12 +2,13 @@
 package com.mycompany.heromarsspring.model;
 
 public enum SpeciesEnum {
-    RAPTOID(80,170,1,10,10,10,10,10,10),
-    SAURIAN(90,190,1,10,10,10,10,10,10),
-    ZETAN(60,160,1,10,10,10,10,10,10),
-    MANTID(80,230,1,10,10,10,10,10,10),
-    PLEIADIAN(70,180,1,10,10,10,10,10,10);
+    RAPTOID("Raptoid",80,170,1,10,10,10,10,10,10),
+    SAURIAN("Szaurián",90,190,1,10,10,10,10,10,10),
+    ZETAN("Zéta",60,160,1,10,10,10,10,10,10),
+    MANTID("Mantid",80,230,1,10,10,10,10,10,10),
+    PLEIADIAN("Plejádi",70,180,1,10,10,10,10,10,10);
     
+	private final String description;
     private final int weight;
     private final int height;
     private final int level;
@@ -18,8 +19,9 @@ public enum SpeciesEnum {
     private final int food;
     private final int money;
 
-    private SpeciesEnum(int weight, int height, int level, int hp, int wisdom, int strenght, int water, int food, int money) {
-        this.weight = weight;
+    private SpeciesEnum(String description, int weight, int height, int level, int hp, int wisdom, int strenght, int water, int food, int money) {
+        this.description = description;
+    	this.weight = weight;
         this.height = height;
         this.level = level;
         this.hp = hp;
@@ -66,7 +68,7 @@ public enum SpeciesEnum {
         return money;
     }
     
-    
-    
-    
+    public String getDescription() {
+		return description;
+	}
 }
