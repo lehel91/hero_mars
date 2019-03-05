@@ -1,12 +1,15 @@
 
 package com.mycompany.heromarsspring.model;
 
+import lombok.Getter;
+
+@Getter
 public enum SpeciesEnum {
-    RAPTOID("Raptoid",80,170,1,10,10,10,10,10,10),
-    SAURIAN("Szaurián",90,190,1,10,10,10,10,10,10),
-    ZETAN("Zéta",60,160,1,10,10,10,10,10,10),
-    MANTID("Mantid",80,230,1,10,10,10,10,10,10),
-    PLEIADIAN("Plejádi",70,180,1,10,10,10,10,10,10);
+    RAPTOID("Raptoid",80,170,1,10,10,10,10,10,10,20),
+    SAURIAN("Szaurián",90,190,1,10,10,10,10,10,10,15),
+    ZETAN("Zéta",60,160,1,10,10,10,10,10,10,25),
+    MANTID("Mantid",80,230,1,10,10,10,10,10,10,20),
+    PLEIADIAN("Plejádi",70,180,1,10,10,10,10,10,10,22);
     
 	private final String description;
     private final int weight;
@@ -18,8 +21,9 @@ public enum SpeciesEnum {
     private final int water;
     private final int food;
     private final int money;
+    private final int actionPoint;
 
-    private SpeciesEnum(String description, int weight, int height, int level, int hp, int wisdom, int strenght, int water, int food, int money) {
+    private SpeciesEnum(String description, int weight, int height, int level, int hp, int wisdom, int strenght, int water, int food, int money, int actionPoint) {
         this.description = description;
     	this.weight = weight;
         this.height = height;
@@ -30,45 +34,7 @@ public enum SpeciesEnum {
         this.water = water;
         this.food = food;
         this.money = money;
+        this.actionPoint = actionPoint;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public int getWisdom() {
-        return wisdom;
-    }
-
-    public int getStrenght() {
-        return strenght;
-    }
-
-    public int getWater() {
-        return water;
-    }
-
-    public int getFood() {
-        return food;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-    
-    public String getDescription() {
-		return description;
-	}
 }

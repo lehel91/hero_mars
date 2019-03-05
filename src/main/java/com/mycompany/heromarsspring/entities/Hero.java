@@ -77,12 +77,13 @@ public class Hero implements Serializable {
     private Integer food;
 
     private Integer money;
+    
+    private Integer actionPoint;
 
     @ManyToMany()
     @JoinTable(name = "hero_skills",
             joinColumns = @JoinColumn(name = "heroId"),
-            inverseJoinColumns = @JoinColumn(name = "skillId")
-    )
+            inverseJoinColumns = @JoinColumn(name = "skillId"))
     private Set<Skill> skills = new HashSet<>();
 
     @OneToMany(mappedBy = "hero", cascade = CascadeType.REMOVE)

@@ -45,6 +45,7 @@ public class HeroService {
 		hero.setHp(hero.getSpecies().getHp());
 		hero.setMoney(hero.getSpecies().getMoney());
 		hero.setStrength(hero.getSpecies().getStrenght());
+		hero.setActionPoint(hero.getSpecies().getActionPoint());
 				
 		return heroRepository.saveAndFlush(hero);
 	}
