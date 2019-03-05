@@ -17,16 +17,17 @@ public class HeroService {
 	@Autowired
 	private HeroRepository heroRepository;
 	
-	@Autowired UserRepository userRepository;
+	@Autowired 
+	private UserRepository userRepository;
 	
 	public Hero findHeroById(Integer heroId) {
 		
 		return heroRepository.findByHeroId(heroId);
 	}
 	
-	public Hero saveHero(HeroFormData heroFormData) {
+	public Hero saveHero(HeroFormData heroFormData, String userName) {
 		Hero hero = new Hero();
-		hero.setUser(userRepository.findByUserName(heroFormData.getUser().getUserName()));
+		hero.setUser(userRepository.findByUserName(userName));
 		hero.setHeroName(heroFormData.getHeroName());
 		hero.setCreationDate(LocalDate.now());
 		hero.setLastActivity(LocalDateTime.now());

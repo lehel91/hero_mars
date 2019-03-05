@@ -20,8 +20,6 @@ import lombok.ToString;
 @ToString
 public class HeroFormData {
 	
-	private User user;
-	
 	@NotEmpty
 	private String heroName;
 	

@@ -24,33 +24,30 @@ public class HeroController {
 	@Autowired
 	private HeroService heroService;
 
-	@Autowired
-	private UserService userService;
-
 	@RequestMapping(value = "create_hero", method = RequestMethod.GET)
 	public String createHero(Model model) {
 
 		model.addAttribute("heroFormData", new HeroFormData());
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 
 		return "hero_creation.html";
 	}
 
 	@RequestMapping(value = "create_hero", method = RequestMethod.POST)
-	public String submitHeroCreation(@ModelAttribute("heroFormData") @Valid HeroFormData heroFormData,
-			/* @ModelAttribute("userName") @Valid String userName, */
-			BindingResult bindingResult, Model model) {
-		heroFormData.setUser(userService.findByUserName(sessionService.getCurrentUserName()));
+	public String submitHeroCreation(@ModelAttribute("heroFormData") @Valid HeroFormData heroFormData, BindingResult bindingResult, Model model) {
 		
 		System.out.println(heroFormData);
 
 		boolean hasUniqueHeroName = heroService.checkUniqueHeroName(heroFormData.getHeroName());
 
 		if (!bindingResult.hasErrors() && hasUniqueHeroName) {
-			heroService.saveHero(heroFormData);
+			
+			heroService.saveHero(heroFormData, sessionService.getCurrentUserName());
 
-			return "profile.html";
+			return "redirect:/profile";
 		}
 
+		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		return "hero_creation.html";
 	}
 }
