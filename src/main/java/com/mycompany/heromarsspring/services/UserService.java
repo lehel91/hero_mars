@@ -1,5 +1,7 @@
 package com.mycompany.heromarsspring.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -50,4 +52,28 @@ public class UserService {
 		}
 		return false;
 	}
+	
+	public List<String> getHeroNames(String username) {
+
+		List<String> heroNames = userRepository.getHeroNames(username);
+		
+		if (heroNames.isEmpty()) {
+			
+			return null;
+			
+		}
+		
+		return heroNames;
+
+	}
+	
+	public void setUserEmail(String eMail, String userName) {
+		userRepository.setUserEmail(eMail, userName);
+	}
+	
+	public void setUserPassword(String password, String userName) {
+		System.out.println(password + " " + userName);
+		userRepository.setUserPassword(BCrypt.hashpw(password, BCrypt.gensalt()), userName);
+	}
+
 }
