@@ -52,6 +52,11 @@
   		<p th:case="null">Not logged in</p>
   		<p th:case="*" th:text="'Logged in as: ' + ${loggedInUserName}"></p>
 	</div>
+	
+	<div th:switch="${currentHeroName}"> 
+  		<p th:case="null">No selected hero</p>
+  		<p th:case="*" th:text="'Selected hero: ' + ${currentHeroName}"></p>
+	</div>
 
 </body>
 </html>

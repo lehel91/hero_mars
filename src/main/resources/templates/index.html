@@ -45,6 +45,7 @@
 	<br/>
 	
 	<p th:text="'Logged in as: ' + ${loggedInUserName}" th:unless="${loggedInUserName == null}"></p>
+	<p th:text="'Selected hero: ' + ${currentHeroName}" th:unless="${currentHeroName == null}"></p>
 
 </body>
 </html>
