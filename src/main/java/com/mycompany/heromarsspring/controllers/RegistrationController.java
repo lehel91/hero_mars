@@ -46,6 +46,7 @@ public class RegistrationController {
 		
 		if (!bindingResult.hasErrors() && hasUniqueUserName
 				&& registrationFormData.getPassword().equals(registrationFormData.getConfirmPassword())) {
+			
 			userservice.saveUser(registrationFormData);
 
 			model.addAttribute("loginFormData", new LoginFormData());
