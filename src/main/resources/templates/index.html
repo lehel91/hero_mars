@@ -47,6 +47,14 @@
 	
 	<p th:text="'Logged in as: ' + ${loggedInUserName}" th:unless="${loggedInUserName == null}"></p>
 	<p th:text="'Selected hero: ' + ${currentHeroName}" th:unless="${currentHeroName == null}"></p>
+	
+	
+	<div>
+	
+	<p th:text="'Logged in as: ' + ${session2.currentUserName}" th:unless="${session2 == null || session2.currentUserName == null}"></p>
+	<p th:text="'Selected hero: ' + ${session2.currentHeroName}" th:unless="${session2 == null || session2.currentHeroName == null}"></p>
+	
+	</div>
 
 </body>
 </html>

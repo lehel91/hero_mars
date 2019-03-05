@@ -16,9 +16,11 @@ SessionService sessionService;
 	
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String showMainMenu(Model model) {
-
+		
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
+		
+		model.addAttribute("session2", sessionService);
 		
 		return "index.html";
 	}

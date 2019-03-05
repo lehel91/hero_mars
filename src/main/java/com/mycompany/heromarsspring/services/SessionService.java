@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Service
 @Getter
 @Setter
+@ToString
 @Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 //@SessionScope
 public class SessionService {
