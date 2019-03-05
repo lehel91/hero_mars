@@ -2,11 +2,9 @@ package com.mycompany.heromarsspring.viewmodel;
 
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.lang.NonNull;
 
-import com.mycompany.heromarsspring.entities.User;
 import com.mycompany.heromarsspring.model.HairColorEnum;
 import com.mycompany.heromarsspring.model.SexEnum;
 import com.mycompany.heromarsspring.model.SpeciesEnum;

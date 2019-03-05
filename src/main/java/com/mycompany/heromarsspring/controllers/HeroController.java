@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mycompany.heromarsspring.services.HeroService;
 import com.mycompany.heromarsspring.services.SessionService;
-import com.mycompany.heromarsspring.services.UserService;
 import com.mycompany.heromarsspring.viewmodel.HeroFormData;
 
 @Controller
