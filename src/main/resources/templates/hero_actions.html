@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>HeroMars - Create a new hero</title>
+<title>HeroMars - Hero action page</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -25,9 +25,7 @@
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
 </head>
-
 <body>
-
 	<ul class="nav nav-tabs justify-content-center">
 		<li class="nav-item"><a class="nav-link" th:href="@{/index}">Main
 				Page</a></li>
@@ -36,52 +34,29 @@
 		<li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a>
 		</li>
 		<li class="nav-item"><a class="nav-link" th:href="@{/profile}"
-			th:unless="${loggedInUserName == null}">Profile</a></li>
+			th:unless="${session.currentUserName == null}">Profile</a></li>
+		<li class="nav-item"><a class="nav-link" th:href="@{/hero_actions}"
+			th:unless="${session.currentHeroName == null}">Hős akciók</a></li>
 		<li class="nav-item"><a class="nav-link" th:href="@{/stb}">Stb...</a>
 		</li>
 	</ul>
-
-	<h1 align="center">&ltHero!Mars!/&gt</h1>
-
-	<form action="#" th:action="@{/create_hero}"
-		th:object="${heroFormData}" method="POST">
+	
+	<h1 align="center">Hősöd lehetséges lépései</h1>
+	<form action="#" th:action="@{/hero_actions}"method="GET">
 		<br />
-		<p th:errors="*{heroName}"></p>
-		Hero Name: <input type="text" th:field="*{heroName}" /> 
-		<br /> 
+		<input type="submit" value="Vizért megyek" />
 		<br />
-		<label for="species">Faj:</label>
-		<select th:field="*{species}">
-  			<option value="" selected> Válassz fajt! </option>
-  			<option th:each="species : ${T(com.mycompany.heromarsspring.model.SpeciesEnum).values()}" 
-  				th:value="${species}" 
-  				th:selected="${species == T(com.mycompany.heromarsspring.model.SpeciesEnum)}"
-  				th:text="${species.description}"></option>
-		</select>
-		<br /> 
+		<input type="submit" value="Vadászni megyek" />
 		<br />
-		<label for="sex">Nem:</label>
-		<select th:field="*{sex}">
-  			<option value="" selected> Válassz nemet! </option>
-  			<option th:each="sex : ${T(com.mycompany.heromarsspring.model.SexEnum).values()}" 
-  				th:value="${sex}" 
-  				th:selected="${sex == T(com.mycompany.heromarsspring.model.SexEnum)}"
-  				th:text="${sex.description}"></option>
-		</select>
-		<br /> 
+		<input type="submit" value="Kincsre vadászok" />
 		<br />
-		<label for="hairColor">Hajszín:</label> 
-		<select th:field="*{hairColor}">
-			<option value="" selected> Válassz hajszínt! </option>
- 			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
-  				th:value="${hairColor}" 
-  				th:selected="${hairColor == T(com.mycompany.heromarsspring.model.HairColorEnum)}"
-  				th:text="${hairColor.description}"></option>
-		</select>
-		<br /> 
+		<input type="submit" value="Kovácshoz megyek" />
 		<br />
-		<input type="submit" value="Hős létrehozása" />
+		<input type="submit" value="Küldetésre megyek" />
+		<br />
+		<input type="submit" value="Tanulni megyek" />
 	</form>
-
+	
+	
 </body>
 </html>
