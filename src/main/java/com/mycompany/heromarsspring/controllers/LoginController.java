@@ -29,6 +29,7 @@ public class LoginController {
 
 		model.addAttribute("loginFormData", new LoginFormData());
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("sessionData", sessionService);
 
 		return "login.html";
 	}
@@ -49,6 +50,7 @@ public class LoginController {
 		}
 
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("sessionData", sessionService);
 		
 		return "login.html";
 	}

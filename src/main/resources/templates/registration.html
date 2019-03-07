@@ -30,21 +30,21 @@
 
 	<ul class="nav nav-tabs justify-content-center">
 		<li class="nav-item">
-			<a class="nav-link" th:href="@{/index}">Main Page</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link active" th:href="@{/register}">Register</a>
-		</li>
-		<li class="nav-item">
+        	<a class="nav-link" th:href="@{/index}">Main Page</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link active" th:href="@{/register}">Register</a>
+      	</li>
+      	<li class="nav-item">
 			<a class="nav-link" th:href="@{/login}">Login</a>
+      	</li>
+      	<li class="nav-item">
+			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profile</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" th:unless="${loggedInUserName == null}">Profile</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/stb}">Stb...</a>
-		</li>
-	</ul>
+      	<li class="nav-item">
+        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hero</a>
+      	</li>
+    </ul>
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>
 

@@ -32,6 +32,7 @@ public class ProfileController {
 		ProfileData profileData = new ProfileData();
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		model.addAttribute("profileData", profileData);
+		model.addAttribute("sessionData", sessionService);
 		
 		return "profile.html";
 	}
@@ -46,6 +47,7 @@ public class ProfileController {
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
+		model.addAttribute("sessionData", sessionService);
 		
 		
 		return "profile.html";
@@ -62,6 +64,7 @@ public class ProfileController {
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
+		model.addAttribute("sessionData", sessionService);
 		
 		return "profile.html";
 	}

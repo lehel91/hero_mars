@@ -29,6 +29,7 @@ public class RegistrationController {
 
 		model.addAttribute("registrationFormData", new RegistrationFormData());
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("sessionData", sessionService);
 
 		return "registration.html";
 	}
@@ -50,10 +51,12 @@ public class RegistrationController {
 			userservice.saveUser(registrationFormData);
 
 			model.addAttribute("loginFormData", new LoginFormData());
+			model.addAttribute("sessionData", sessionService);
 
 			return "login.html";
 		}
 
+		model.addAttribute("sessionData", sessionService);
 		return "registration.html";
 	}
 }

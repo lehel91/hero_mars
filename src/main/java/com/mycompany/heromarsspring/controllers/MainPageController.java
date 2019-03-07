@@ -20,7 +20,7 @@ SessionService sessionService;
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 		
-		model.addAttribute("session2", sessionService);
+		model.addAttribute("sessionData", sessionService);
 		
 		return "index.html";
 	}
@@ -30,6 +30,7 @@ SessionService sessionService;
 		
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
+		model.addAttribute("sessionData", sessionService);
 
 		return "stb.html";
 	}

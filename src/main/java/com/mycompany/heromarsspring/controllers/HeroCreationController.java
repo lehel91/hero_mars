@@ -28,6 +28,8 @@ public class HeroCreationController {
 
 		model.addAttribute("heroFormData", new HeroFormData());
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		
+		model.addAttribute("sessionData", sessionService);
 
 		return "hero_creation.html";
 	}
@@ -47,6 +49,8 @@ public class HeroCreationController {
 		}
 
 		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		model.addAttribute("sessionData", sessionService);
+		
 		return "hero_creation.html";
 	}
 }

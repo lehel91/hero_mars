@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+.tableContainer{
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+td {
+    border-collapse: collapse;
+    border: 3px solid antiquewhite;
+    padding: 10px;
+}
+
+th {
+	text-align: center;
+}
