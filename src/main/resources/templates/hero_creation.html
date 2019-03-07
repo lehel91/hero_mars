@@ -39,6 +39,11 @@
 			th:unless="${loggedInUserName == null}">Profile</a></li>
 		<li class="nav-item"><a class="nav-link" th:href="@{/stb}">Stb...</a>
 		</li>
+			<li class="nav-item"><form class="nav-link" id="logout" action="#"
+				th:action="@{/logout}" method="GET"
+				th:unless="${loggedInUserName == null}">
+				<input type="submit" value="Logout" />
+			</form></li>
 	</ul>
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>
