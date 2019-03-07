@@ -1,0 +1,107 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml11-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Hero data</title>
+	
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+		crossorigin="anonymous">
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous">
+	</script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous">
+	</script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous">
+	</script>
+	
+	<link rel="stylesheet" type="text/css" href="../css/index.css" />
+</head>
+
+<body>
+
+	<ul class="nav nav-tabs justify-content-center">
+		<li class="nav-item">
+        	<a class="nav-link active" th:href="@{/index}">Main Page</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" th:href="@{/register}">Register</a>
+      	</li>
+      	<li class="nav-item">
+			<a class="nav-link" th:href="@{/login}">Login</a>
+      	</li>
+      	<li class="nav-item">
+			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profile</a>
+		</li>
+      	<li class="nav-item">
+        	<a class="nav-link active" th:href="@{/stb}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hero</a>
+      	</li>
+    </ul>
+    
+    <div style="width:60%">
+    
+		<table>
+			<tr>
+		    	<th colspan="2">Név: Fangorn</td>
+		  	</tr>
+			<tr>
+				<td rowspan="4">Ez itt a kép helye</td>
+				<td>Szint:</td>
+				<td>1</td>
+			</tr>
+		  	<tr>
+		    	<td>Élet:</td>
+		    	<td>23</td>
+		  	</tr>
+		  	<tr>
+		    	<td>Erő:</td>
+		    	<td>22</td>
+		  	</tr>
+		  	<tr>
+		    	<td>Bölcsesség:</td>
+		    	<td>26</td>
+		  	</tr>
+		</table>
+		
+		<br/>
+		
+		<table>
+			<tr>
+		    	<th colspan="2">Kinézet</td>
+		    	<th colspan="2">Nyersanyagok</td>
+		  	</tr>
+			<tr>
+				<td>Magasság:</td>
+				<td>170</td>
+				<td>Étel:</td>
+				<td>30</td>
+			</tr>
+		  	<tr>
+				<td>Súly:</td>
+				<td>80</td>
+				<td>Víz:</td>
+				<td>23</td>
+		  	</tr>
+		  	<tr>
+				<td>Hajszín:</td>
+				<td>kék</td>
+				<td>Arany:</td>
+				<td>230</td>
+		  	</tr>
+		</table>
+    
+    </div>
+
+</body>
+</html>

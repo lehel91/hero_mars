@@ -15,7 +15,7 @@ import com.mycompany.heromarsspring.services.SessionService;
 import com.mycompany.heromarsspring.viewmodel.HeroFormData;
 
 @Controller
-public class HeroController {
+public class HeroCreationController {
 
 	@Autowired
 	private SessionService sessionService;
