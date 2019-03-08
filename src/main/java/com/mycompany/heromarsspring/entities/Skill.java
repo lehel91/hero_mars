@@ -40,12 +40,6 @@ public class Skill implements Serializable {
     @Enumerated(EnumType.STRING)
     private SkillEnum skillType;
     
-    private Integer skillHpMod;
-    
-    private Integer skillStrengthMod;
-    
-    private Integer skillWisdomMod;
-    
     @ManyToMany(mappedBy="skills")
     private Set<Hero> heroes = new HashSet<>();
     
