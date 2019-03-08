@@ -6,13 +6,14 @@ import com.mycompany.heromarsspring.model.SpeciesEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,88 +32,87 @@ import lombok.Setter;
 @Table(name = "Heroes")
 public class Hero implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer heroId;
+	private static final long serialVersionUID = 1L;
 
-    @Column(nullable = false, unique = true)
-    private String heroName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer heroId;
 
-    private LocalDate creationDate;
-    
-    private LocalDateTime lastActivity;
+	@Column(nullable = false, unique = true)
+	private String heroName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private SpeciesEnum species;
+	private LocalDate creationDate;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private SexEnum sex;
+	private LocalDateTime lastActivity;
 
-    private Integer height;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private SpeciesEnum species;
 
-    private Integer weight;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private SexEnum sex;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private HairColorEnum hairColor;
+	private Integer height;
 
-    @JoinColumn(name = "user", referencedColumnName = "userId")
-    @ManyToOne
-    private User user;
+	private Integer weight;
 
-    private Integer heroLevel;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private HairColorEnum hairColor;
 
-    private Integer hp;
+	@JoinColumn(name = "user", referencedColumnName = "userId")
+	@ManyToOne
+	private User user;
 
-    private Integer wisdom;
+	private Integer heroLevel;
 
-    private Integer strength;
+	private Integer hp;
 
-    private Integer water;
+	private Integer wisdom;
 
-    private Integer food;
+	private Integer strength;
 
-    private Integer money;
-    
-    private Integer actionPoint;
+	private Integer water;
 
-    @ManyToMany()
-    @JoinTable(name = "hero_skills",
-            joinColumns = @JoinColumn(name = "heroId"),
-            inverseJoinColumns = @JoinColumn(name = "skillId"))
-    private Set<Skill> skills = new HashSet<>();
+	private Integer food;
 
-    @OneToMany(mappedBy = "hero", cascade = CascadeType.REMOVE)
-    private Set<Item> items = new HashSet<>();
-    
+	private Integer money;
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (heroId != null ? heroId.hashCode() : 0);
-        return hash;
-    }
+	private Integer actionPoint;
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the heroId fields are not set
-        if (!(object instanceof Hero)) {
-            return false;
-        }
-        Hero other = (Hero) object;
-        if ((this.heroId == null && other.heroId != null) || (this.heroId != null && !this.heroId.equals(other.heroId))) {
-            return false;
-        }
-        return true;
-    }
+	@ManyToMany()
+	@JoinTable(name = "hero_skills", joinColumns = @JoinColumn(name = "heroId"), inverseJoinColumns = @JoinColumn(name = "skillId"))
+	private List<Skill> skills = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "Hero{" + "heroName=" + heroName + '}';
-    }
+	@OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Item> items = new ArrayList<>();
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (heroId != null ? heroId.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the heroId fields are not
+		// set
+		if (!(object instanceof Hero)) {
+			return false;
+		}
+		Hero other = (Hero) object;
+		if ((this.heroId == null && other.heroId != null)
+				|| (this.heroId != null && !this.heroId.equals(other.heroId))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Hero{" + "heroName=" + heroName + '}';
+	}
 
 }

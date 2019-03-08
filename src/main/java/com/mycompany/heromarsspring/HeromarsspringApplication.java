@@ -15,7 +15,7 @@ public class HeromarsspringApplication {
 		
 		HeroService heroService = context.getBean(HeroService.class);
 		
-		System.out.println(heroService.findHeroById(2));
+		System.out.println(heroService.findHeroById(1));
 		
 	}
 

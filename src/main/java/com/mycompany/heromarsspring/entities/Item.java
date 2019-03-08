@@ -54,8 +54,8 @@ public class Item implements Serializable {
     @Column(nullable = false)
     private Boolean isInUse;
 
-    @JoinColumn(name = "hero", referencedColumnName = "heroId")
-    @ManyToOne(cascade = CascadeType.REFRESH) //ha az item-ek megváltoztatjuk a Heroját, akkor a régi hero itemlistájából törlődjön, az újnál pedig adódjon hozzá automatikusan az elem
+    @ManyToOne()
+    @JoinColumn(name = "heroId", referencedColumnName = "heroId")
     private Hero hero;
     
     @OneToOne(cascade = CascadeType.REMOVE)

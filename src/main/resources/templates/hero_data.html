@@ -51,28 +51,28 @@
       	</li>
     </ul>
     
-    <div class="tableContainer">
+    <div class="tableContainer" th:object="${hero}">
     
 		<table>
 			<tr>
-		    	<th colspan="3">Név: Fangorn</td>
+		    	<th colspan="3" th:text="${sessionData.currentHeroName}"></th>
 		  	</tr>
 			<tr>
 				<td rowspan="4">Ez itt a kép helye</td>
 				<td>Szint:</td>
-				<td>1</td>
+				<td th:text="*{heroLevel}"></td>
 			</tr>
 		  	<tr>
 		    	<td>Élet:</td>
-		    	<td>23</td>
+		    	<td th:text="*{hp}"></td>
 		  	</tr>
 		  	<tr>
 		    	<td>Erő:</td>
-		    	<td>22</td>
+		    	<td th:text="*{strength}"></td>
 		  	</tr>
 		  	<tr>
 		    	<td>Bölcsesség:</td>
-		    	<td>26</td>
+		    	<td th:text="*{wisdom}"></td>
 		  	</tr>
 		</table>
 		
@@ -80,27 +80,73 @@
 		
 		<table>
 			<tr>
-		    	<th colspan="2">Kinézet</td>
-		    	<th colspan="2">Nyersanyagok</td>
+		    	<th colspan="2">Kinézet</th>
+		    	<th colspan="2">Nyersanyagok</th>
 		  	</tr>
 			<tr>
 				<td>Magasság:</td>
-				<td>170</td>
+				<td th:text="*{height}"></td>
 				<td>Étel:</td>
-				<td>30</td>
+				<td th:text="*{food}"></td>
 			</tr>
 		  	<tr>
 				<td>Súly:</td>
-				<td>80</td>
+				<td th:text="*{weight}"></td>
 				<td>Víz:</td>
-				<td>23</td>
+				<td th:text="*{water}"></td>
 		  	</tr>
 		  	<tr>
 				<td>Hajszín:</td>
-				<td>kék</td>
+				<td th:text="*{hairColor.description}"></td>
 				<td>Arany:</td>
-				<td>230</td>
+				<td th:text="*{money}"></td>
 		  	</tr>
+		  	<tr>
+				<td>Nem:</td>
+				<td th:text="*{sex.description}"></td>
+				<td>Akció pontok:</td>
+				<td th:text="*{actionPoint}"></td>
+		  	</tr>
+		</table>
+		
+		<br/>
+		
+		<table>
+			<tr>
+		    	<th colspan="4">A hős által használt eszközök</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Név</th>
+		    	<th>Szint</th>
+		    	<th>Típus</th>
+		  	</tr>
+		  	<tr th:each="item: *{items}" th:unless="${item.marketPresence != null || item.isInUse == false}">
+				<td th:text="${item.name.description}" />
+				<td th:text="${item.level}" />
+				<td th:text="${item.type}" />
+			</tr>
+		</table>
+		
+		<br/>
+		
+		<table>
+			<tr>
+		    	<th colspan="4">A raktárban elfekvő eszközök</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Név</th>
+		    	<th>Szint</th>
+		    	<th>Típus</th>
+		    	<th>Eladás</th>
+		  	</tr>
+		  	<tr th:each="item: *{items}" th:unless="${item.marketPresence != null || item.isInUse == true}">
+				<td th:text="${item.name.description}" />
+				<td th:text="${item.level}" />
+				<td th:text="${item.type}" />
+				<td>
+					<input type="submit" value="Piacra kitesz" />
+				</td>
+			</tr>
 		</table>
     
     </div>
