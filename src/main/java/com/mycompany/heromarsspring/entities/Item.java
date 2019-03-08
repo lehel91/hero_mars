@@ -40,7 +40,7 @@ public class Item implements Serializable {
     private Integer itemStrengthMod;
 
     @Column(nullable = false)
-    private Integer skillWisdomMod;
+    private Integer itemWisdomMod;
     
     @Column(nullable = false)
     private Integer durability;
