@@ -41,6 +41,7 @@ public class HeroActionController {
 		return "hero_actions.html";
 	}
 	
+	@RequestMapping(value = "water_gathering", method = RequestMethod.GET)
 	public int getWater() { 
 		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getWaterCost());
 		return heroActionService.getWaterAmount(sessionService.getCurrentHeroName());

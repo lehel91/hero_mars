@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.heromarsspring.entities.Hero;
 
+import lombok.Value;
+
 @Repository
 public interface HeroRepository extends JpaRepository<Hero, Integer> {
 
@@ -23,22 +25,22 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 	
 	@Transactional // ez az annotacio mit is csinal pontosan?
 	@Modifying(clearAutomatically = true)
-	@Query(value= "UPDATE Hero h SET h.actionPoint =: actionPointAfterDecrease WHERE h.heroName =: heroName")
+	@Query(value= "UPDATE Hero h SET h.actionPoint = :actionPointAfterDecrease WHERE h.heroName = :heroName")
 	void setHeroActionPoints(@Param("heroName") String heroName, @Param("actionPointAfterDecrease") int actionPointAfterDecrease);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query(value= "UPDATE Hero h SET h.lastActivity =: lastActivity WHERE h.heroName =: heroName")
+	@Query(value= "UPDATE Hero h SET h.lastActivity = :lastActivity WHERE h.heroName = :heroName")
 	void setLastActivity(@Param("heroName") String heroName, @Param("lastActivity") LocalDateTime lastActivity);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query(value= "UPDATE Hero h SET h.food =: food WHERE h.heroName =: heroName")
+	@Query(value= "UPDATE Hero h SET h.food = :food WHERE h.heroName = :heroName")
 	void setFood(@Param("heroName") String heroName, @Param("food") int food);
 
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query(value= "UPDATE Hero h SET h.water =: water WHERE h.heroName =: heroName")
+	@Query(value= "UPDATE Hero h SET h.water = :water WHERE h.heroName = :heroName")
 	void setWater(@Param("heroName") String heroName, @Param("water") int water);
 	
 	

@@ -51,7 +51,7 @@
 	<h1 align="center">Hősöd lehetséges lépései</h1>
 	<form action="#" th:action="@{/hero_actions}"method="GET">
 		<br />
-		<input type="submit" value="Vizért megyek" />
+		<input type="submit" th:href="@{/water_gathering}" value="Vizért megyek" method = "GET"/>
 		<br />
 		<input type="submit" value="Vadászni megyek" />
 		<br />
