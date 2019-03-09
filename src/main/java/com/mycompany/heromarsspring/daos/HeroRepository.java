@@ -31,6 +31,16 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 	@Query(value= "UPDATE Hero h SET h.lastActivity =: lastActivity WHERE h.heroName =: heroName")
 	void setLastActivity(@Param("heroName") String heroName, @Param("lastActivity") LocalDateTime lastActivity);
 	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query(value= "UPDATE Hero h SET h.food =: food WHERE h.heroName =: heroName")
+	void setFood(@Param("heroName") String heroName, @Param("food") int food);
+
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query(value= "UPDATE Hero h SET h.water =: water WHERE h.heroName =: heroName")
+	void setWater(@Param("heroName") String heroName, @Param("water") int water);
+	
 	
 	
 }

@@ -33,6 +33,7 @@ public enum SkillEnum {
     private final Integer skillWisdomMod;
     private final Double successRate;
     private final Integer actionPointCost;
+
     
 	private SkillEnum(String description, Integer skillHpMod, Integer skillStrengthMod, Integer skillWisdomMod,
 			Double successRate, Integer actionPointCost) {
