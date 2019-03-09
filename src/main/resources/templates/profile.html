@@ -30,7 +30,7 @@
 <body>
 
 	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
+		<li class="nav-item"><a class="nav-link" th:href="@{/index}">Main
         	<a class="nav-link" th:href="@{/index}">Main Page</a>
       	</li>
       	<li class="nav-item">
@@ -45,8 +45,11 @@
       	<li class="nav-item">
         	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hero</a>
       	</li>
-		<li class="nav-item"><a class="nav-link" th:href="@{/hero_actions}"
-			th:unless="${currentHeroName == null}">Hős akciók</a></li>
+		<li class="nav-item"><form class="nav-link" action="#"
+				th:action="@{/logout}" method="GET"
+				th:unless="${loggedInUserName == null}">
+				<input type="submit" value="Logout" />
+			</form></li>
     </ul>
 
 	<h1 align="center"
