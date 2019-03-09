@@ -50,7 +50,6 @@
 
 	<form action="#" th:action="@{/create_hero}"
 		th:object="${heroFormData}" method="POST">
-		<!-- <input type="hidden" th:value="${userName}" th:field="*{userName}"/> --> 
 		<br />
 		<p th:errors="*{heroName}"></p>
 		Hero Name: <input type="text" th:field="*{heroName}" /> 
