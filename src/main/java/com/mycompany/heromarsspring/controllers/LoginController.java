@@ -27,8 +27,13 @@ public class LoginController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(Model model) {
 
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		}
+		
 		model.addAttribute("loginFormData", new LoginFormData());
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("sessionData", sessionService);
 
 		return "login.html";
@@ -37,7 +42,11 @@ public class LoginController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String submitLogin(@ModelAttribute("loginFormData") @Valid LoginFormData loginFormData, BindingResult bindingResult,  Model model) {
 
-		System.out.println(loginFormData);
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		}
 		
 		boolean isValidUser = userService.isValidLogin(loginFormData);
 
@@ -49,7 +58,6 @@ public class LoginController {
 			return "redirect:/profile";
 		}
 
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("sessionData", sessionService);
 		
 		return "login.html";

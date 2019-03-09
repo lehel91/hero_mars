@@ -26,8 +26,15 @@ public class ProfileController {
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String showProfile(Model model) {
 
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
-		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		}
 		
 		ProfileData profileData = new ProfileData();
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
@@ -40,15 +47,23 @@ public class ProfileController {
 	@RequestMapping(value = "modifyEmail", method = RequestMethod.POST)
 	public String modifyUserEmail(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
 
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		}
+		
+		
 		if (!bindingResult.hasFieldErrors("eMail")) {
 			userService.setUserEmail(profileData.getEMail(), sessionService.getCurrentUserName());
 		}
-		
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
-		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
+
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		model.addAttribute("sessionData", sessionService);
-		
 		
 		return "profile.html";
 	}
@@ -56,13 +71,20 @@ public class ProfileController {
 	@RequestMapping(value = "modifyPassword", method = RequestMethod.POST)
 	public String modifyUserPassword(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
 		
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		}
 		
 		if (!bindingResult.hasFieldErrors("newPassword") && !bindingResult.hasFieldErrors("confirmNewPassword")) {
 		userService.setUserPassword(profileData.getNewPassword(), sessionService.getCurrentUserName());
 		}
 		
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
-		model.addAttribute("currentHeroName", sessionService.getCurrentHeroName());
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		model.addAttribute("sessionData", sessionService);
 		
@@ -72,6 +94,16 @@ public class ProfileController {
 	@RequestMapping(value = "setHero", method = RequestMethod.POST)
 	public String setHero(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
 
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		}
+		
 		sessionService.setCurrentHeroName(profileData.getSelectedHeroName());
 		
 		return "redirect:/profile";

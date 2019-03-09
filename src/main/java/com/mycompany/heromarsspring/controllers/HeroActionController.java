@@ -21,7 +21,20 @@ public class HeroActionController {
 	@RequestMapping(value = "hero_actions", method = RequestMethod.GET)
 	public String showActionsMenu(Model model) {
 		
-		model.addAttribute("session", sessionService);
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		} else if (sessionService.getCurrentHeroName()==null) {
+			
+			return "redirect:/profile";
+		}
+		
+		model.addAttribute("sessionData", sessionService);
 		
 		return "hero_actions.html";
 	}

@@ -27,8 +27,13 @@ public class RegistrationController {
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String register(Model model) {
 
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		}
+		
 		model.addAttribute("registrationFormData", new RegistrationFormData());
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
 		model.addAttribute("sessionData", sessionService);
 
 		return "registration.html";
@@ -39,9 +44,11 @@ public class RegistrationController {
 			@ModelAttribute("registrationFormData") @Valid RegistrationFormData registrationFormData,
 			BindingResult bindingResult, Model model) {
 
-		System.out.println(registrationFormData);
-		
-		model.addAttribute("loggedInUserName", sessionService.getCurrentUserName());
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		}
 
 		boolean hasUniqueUserName = userservice.checkUniqueUserName(registrationFormData.getUserName());
 		

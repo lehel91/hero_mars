@@ -30,25 +30,23 @@
 
 	<ul class="nav nav-tabs justify-content-center">
 		<li class="nav-item">
-        	<a class="nav-link" th:href="@{/index}">Main Page</a>
+        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
       	</li>
       	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}">Register</a>
+        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}">Regisztráció</a>
       	</li>
       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}">Login</a>
+			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}">Bejelentkezés</a>
       	</li>
       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profile</a>
+			<a class="nav-link" th:href="@{/profile}" >Profil</a>
 		</li>
       	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hero</a>
+        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData.currentHeroName == null}">Hős</a>
       	</li>
-			<li class="nav-item"><form class="nav-link" id="logout" action="#"
-				th:action="@{/logout}" method="GET"
-				th:unless="${loggedInUserName == null}">
-				<input type="submit" value="Logout" />
-			</form></li>
+		<li class="nav-item">
+			<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
+		</li>
     </ul>
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>

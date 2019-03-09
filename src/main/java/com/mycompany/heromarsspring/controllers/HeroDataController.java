@@ -21,6 +21,19 @@ public class HeroDataController {
 	@RequestMapping(value = "hero", method = RequestMethod.GET)
 	public String showMainMenu(Model model) {
 		
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		} else if (sessionService.getCurrentHeroName()==null) {
+			
+			return "redirect:/profile";
+		}
+		
 		model.addAttribute("sessionData", sessionService);
 		
 		model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));

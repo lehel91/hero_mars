@@ -26,20 +26,27 @@
 
 </head>
 <body>
+
 	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item"><a class="nav-link" th:href="@{/index}">Main
-				Page</a></li>
-		<li class="nav-item"><a class="nav-link"
-			th:href="@{/register}">Register</a></li>
-		<li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a>
+		<li class="nav-item">
+        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
+      	</li>
+      	<li class="nav-item">
+			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
+      	</li>
+      	<li class="nav-item">
+			<a class="nav-link" th:href="@{/profile}">Profil</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" th:href="@{/profile}"
-			th:unless="${session.currentUserName == null}">Profile</a></li>
-		<li class="nav-item"><a class="nav-link" th:href="@{/hero_actions}"
-			th:unless="${session.currentHeroName == null}">Hős akciók</a></li>
-		<li class="nav-item"><a class="nav-link" th:href="@{/stb}">Stb...</a>
+      	<li class="nav-item">
+        	<a class="nav-link active" th:href="@{/hero}">Hős</a>
+      	</li>
+		<li class="nav-item">
+			<a class="nav-link" th:href="@{/logout}">Kijelentkezés</a>
 		</li>
-	</ul>
+    </ul>
 	
 	<h1 align="center">Hősöd lehetséges lépései</h1>
 	<form action="#" th:action="@{/hero_actions}"method="GET">

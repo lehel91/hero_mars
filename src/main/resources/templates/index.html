@@ -31,44 +31,43 @@
 
 	<ul class="nav nav-tabs justify-content-center">
 		<li class="nav-item">
-        	<a class="nav-link active" th:href="@{/index}">Main Page</a>
+        	<a class="nav-link active" th:href="@{/index}">Főoldal</a>
       	</li>
       	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}">Register</a>
+        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >Regisztráció</a>
       	</li>
       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}">Login</a>
+			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >Bejelentkezés</a>
       	</li>
       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profile</a>
+			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profil</a>
 		</li>
       	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hero</a>
+        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hős</a>
       	</li>
-		<li class="nav-item"><form class="nav-link" action="#"
-				th:action="@{/logout}" method="GET"
-				th:unless="${loggedInUserName == null}">
-				<input type="submit" value="Logout" />
-			</form></li>
+		<li class="nav-item">
+			<a class="nav-link" th:href="@{/logout}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Kijelentkezés</a>
+		</li>
     </ul>
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>
 
 	<br />
 
-	<p th:text="'Logged in as: ' + ${loggedInUserName}"
-		th:unless="${loggedInUserName == null}"></p>
-	<p th:text="'Selected hero: ' + ${currentHeroName}"
-		th:unless="${currentHeroName == null}"></p>
+	<p th:text="'Logged in as: ' + ${sessionData.currentUserName}"
+		th:unless="${sessionData == null || sessionData.currentUserName == null}"></p>
+	<p th:text="'Selected hero: ' + ${sessionData.currentHeroName}"
+		th:unless="${sessionData == null || sessionData.currentHeroName == null}"></p>
 
+	
+	<div th:switch="${sessionData.currentUserName}" th:unless="${sessionData == null}">
+		<p th:case="null">Not logged in</p>
+		<p th:case="*" th:text="'Logged in as: ' + ${sessionData.currentUserName}"></p>
+	</div>
 
-	<div>
-
-		<p th:text="'Logged in as: ' + ${session2.currentUserName}"
-			th:unless="${session2 == null || session2.currentUserName == null}"></p>
-		<p th:text="'Selected hero: ' + ${session2.currentHeroName}"
-			th:unless="${session2 == null || session2.currentHeroName == null}"></p>
-
+	<div th:switch="${sessionData.currentHeroName}" th:unless="${sessionData == null}">
+		<p th:case="null">No selected hero</p>
+		<p th:case="*" th:text="'Selected hero: ' + ${sessionData.currentHeroName}"></p>
 	</div>
 
 </body>
