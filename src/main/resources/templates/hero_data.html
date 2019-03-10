@@ -45,26 +45,39 @@
 
 <body>
 
-	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
-        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
-      	</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" >Profil</a>
-		</li>
-      	<li class="nav-item">
-        	<a class="nav-link active" th:href="@{/hero}" >Hős</a>
-      	</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
-		</li>
-    </ul>
+	<div class="menuLine">
+	
+		<div class="mainMenu">
+
+			<ul class="nav nav-tabs justify-content-center">
+				<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/profile}" >Profil</a>
+				</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link active" th:href="@{/hero}" >Hős</a>
+		      	</li>
+		    </ul>
+		
+	    	<div class="secondaryMenu">
+				<a class="nav-link active" th:href="@{/hero}" >Hős statisztika</a>
+			</div>
+	    
+	    </div>
+    
+ 	</div>
+ 	
+ 	<div class="logout">
+		<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
+	</div>
     
     <div class="contentContainer" th:object="${hero}">
     
@@ -130,6 +143,10 @@
 		
 		<br/>
 		
+		<p th:text="${itemChangeMessage}" th:unless="${itemChangeMessage == null}"></p>
+		
+		<br/>
+		
 		<table>
 			<tr>
 		    	<th colspan="4">A hős által használt eszközök</th>
@@ -178,7 +195,28 @@
 		
 		<br/>
 		
-		<p th:text="${itemChangeMessage}" th:unless="${itemChangeMessage == null}"></p>
+		<table>
+		
+			<tr>
+		    	<th colspan="4">Skillek</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Név</th>
+		    	<th>+Élet</th>
+		    	<th>+Erő</th>
+		    	<th>+Bölcsesség</th>
+		  	</tr>
+		  	<tbody>
+		  	<tr th:each="skill: *{skills}" th:unless="${skills == null}">
+				<td th:text="${skill.skillType.description}" />
+				<td th:text="${skill.skillType.skillHpMod}" />
+				<td th:text="${skill.skillType.skillStrengthMod}" />
+				<td th:text="${skill.skillType.skillWisdomMod}" />
+			</tr>
+			</tbody>
+		
+		</table>
+		
     
     </div>
 

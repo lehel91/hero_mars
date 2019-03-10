@@ -7,8 +7,9 @@ table {
 
 .contentContainer {
     margin: auto;
-    width: 60%;
-    padding: 10px;
+    width: 70%;
+    padding-top: 60px;
+    display: block;
 }
 
 td {

@@ -10,7 +10,9 @@ import com.mycompany.heromarsspring.daos.ItemRepository;
 import com.mycompany.heromarsspring.daos.UserRepository;
 import com.mycompany.heromarsspring.entities.Hero;
 import com.mycompany.heromarsspring.entities.Item;
+import com.mycompany.heromarsspring.entities.Skill;
 import com.mycompany.heromarsspring.model.ItemEnum;
+import com.mycompany.heromarsspring.model.SkillEnum;
 import com.mycompany.heromarsspring.viewmodel.HeroFormData;
 
 @Service
@@ -91,6 +93,16 @@ public class HeroService {
 		hero.getItems().add(item2);
 		hero.getItems().add(item3);
 
+		hero.setWisdom(hero.getWisdom() + item2.getItemStrengthMod());
+		hero.setHp(hero.getHp() + item2.getItemHpMod());
+		hero.setStrength(hero.getStrength() + item2.getItemStrengthMod());
+
+		Skill skill = new Skill();
+		skill.setSkillType(SkillEnum.WELLDRILLING_PADAVAN);
+		skill.getHeroes().add(hero);
+		
+		hero.getSkills().add(skill);
+		
 		return heroRepository.saveAndFlush(hero);
 	}
 
@@ -126,28 +138,29 @@ public class HeroService {
 			hero.setHp(hero.getHp() - item.getItemHpMod());
 			hero.setStrength(hero.getStrength() - item.getItemStrengthMod());
 			hero.setWisdom(hero.getWisdom() - item.getItemWisdomMod());
-			
-			System.out.println("HP: "+ hero.getHp()+ "STR: "+hero.getStrength()+" WIS: "+hero.getWisdom());
-			
+
+			System.out.println("HP: " + hero.getHp() + "STR: " + hero.getStrength() + " WIS: " + hero.getWisdom());
+
 			heroRepository.updateHeroStats(hero.getHeroName(), hero.getHp(), hero.getStrength(), hero.getWisdom());
 			itemRepository.updateItemUsage(itemId, item.getIsInUse());
-			
+
 			return "A(z) " + item.getLevel() + ". szintű " + item.getName().getDescription()
 					+ "-(o)t a hős sikeresen a fegyver-raktárba helyezte";
 
 		}
 
-		boolean hasSimilarType = hero.getItems().stream().filter(i -> i.getIsInUse().equals(true)).anyMatch(i -> i.getType().equals(item.getType()));
+		boolean hasSimilarType = hero.getItems().stream().filter(i -> i.getIsInUse().equals(true))
+				.anyMatch(i -> i.getType().equals(item.getType()));
 
 		if (!hasSimilarType) {
 			item.setIsInUse(true);
 			hero.setHp(hero.getHp() + item.getItemHpMod());
 			hero.setStrength(hero.getStrength() + item.getItemStrengthMod());
 			hero.setWisdom(hero.getWisdom() + item.getItemWisdomMod());
-			
+
 			heroRepository.updateHeroStats(hero.getHeroName(), hero.getHp(), hero.getStrength(), hero.getWisdom());
 			itemRepository.updateItemUsage(itemId, item.getIsInUse());
-			
+
 			return "A(z) " + item.getLevel() + ". szintű " + item.getName().getDescription()
 					+ "-(o)t a hős sikeresen használatba vette";
 		}

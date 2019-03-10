@@ -106,7 +106,7 @@ public class ProfileController {
 		
 		sessionService.setCurrentHeroName(profileData.getSelectedHeroName());
 		
-		return "redirect:/profile";
+		return "redirect:/hero";
 	}
 
 }
