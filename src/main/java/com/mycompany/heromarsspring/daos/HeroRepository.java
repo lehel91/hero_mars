@@ -21,16 +21,19 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 	@Query(value = "SELECT h.actionPoint FROM Hero h WHERE h.heroName = :heroName")
 	int getHeroActionPoints(@Param("heroName") String heroName);
 	
-	@Transactional // ez az annotacio mit is csinal pontosan?
+	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query(value= "UPDATE Hero h SET h.actionPoint =: actionPointAfterDecrease WHERE h.heroName =: heroName")
+	@Query(value= "UPDATE Hero h SET h.actionPoint = :actionPointAfterDecrease WHERE h.heroName = :heroName")
 	void setHeroActionPoints(@Param("heroName") String heroName, @Param("actionPointAfterDecrease") int actionPointAfterDecrease);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query(value= "UPDATE Hero h SET h.lastActivity =: lastActivity WHERE h.heroName =: heroName")
+	@Query(value= "UPDATE Hero h SET h.lastActivity = :lastActivity WHERE h.heroName = :heroName")
 	void setLastActivity(@Param("heroName") String heroName, @Param("lastActivity") LocalDateTime lastActivity);
 	
-	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query(value= "UPDATE Hero h SET h.hp = :hp, h.strength = :strength, h.wisdom = :wisdom WHERE h.heroName = :heroName")
+	void updateHeroStats(@Param("heroName") String heroName, @Param("hp") Integer hp, @Param("strength") Integer strength, @Param("wisdom") Integer wisdom);
 	
 }

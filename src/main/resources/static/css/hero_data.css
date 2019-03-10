@@ -5,7 +5,7 @@ table {
     margin-right:auto;
 }
 
-.tableContainer{
+.contentContainer {
     margin: auto;
     width: 60%;
     padding: 10px;
@@ -19,4 +19,9 @@ td {
 
 th {
 	text-align: center;
+}
+
+.itemList tr:hover {
+    background-color: dodgerblue;
+    opacity: 0.5;
 }
