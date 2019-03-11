@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>HeroMars - Registration</title>
+<title>Marketplace</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -23,9 +23,9 @@
 	crossorigin="anonymous"></script>
 
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
+<link rel="stylesheet" type="text/css" href="../css/hero_data.css" />
 
 </head>
-
 <body>
 
 	<ul class="nav nav-tabs justify-content-center">
@@ -33,49 +33,62 @@
         	<a class="nav-link" th:href="@{/index}">Főoldal</a>
       	</li>
       	<li class="nav-item">
-        	<a class="nav-link active" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
+        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
       	</li>
       	<li class="nav-item">
 			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
       	</li>
       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData.currentUserName == null}">Profil</a>
+			<a class="nav-link" th:href="@{/profile}">Profil</a>
 		</li>
       	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData.currentHeroName == null}">Hős</a>
-      	</li>      	
+        	<a class="nav-link" th:href="@{/hero}">Hős</a>
+      	</li>
       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/market}" th:unless="${sessionData.currentHeroName == null}">Marketplace</a>
+			<a class="nav-link active" th:href="@{/market}">Marketplace</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}" th:unless="${sessionData.currentUserName == null}">Kijelentkezés</a>
+			<a class="nav-link" th:href="@{/logout}">Kijelentkezés</a>
 		</li>
     </ul>
+    
+    <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
 
-	<h1 align="center">&ltHero!Mars!/&gt</h1>
+	<br/>
+	<br/>
+	
+	<h3 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h3>
+	
+	<br/>
+	<br/>
 
-	<form action="#" th:action="@{/register}" th:object="${registrationFormData}" method="POST">
-		<p th:errors="*{userName}"></p>
-		Username: <input type="text" th:field="*{userName}" />
-		<br />
-		<br />
-		<p th:errors="*{password}"></p>
-		Password: <input type="password" th:field="*{password}" /> 
-		<br />
-		<br />
-		<p th:errors="*{confirmPassword}"></p>
-		Password: <input type="password" th:field="*{confirmPassword}" /> 
-		<br />
-		<br />
-		<p th:errors="*{eMail}"></p>
-		E-mail: <input type="email" th:field="*{eMail}" /> 
-		<br />
-		<br />
-		<p th:errors="*{birthYear}"></p>
-		Year of birth: <input type="number" min="1930" max="2001" value="1988" th:field="*{birthYear}" />
-		<br/> 
-		<input type="submit" value="Regisztráció" />
-	</form>
+	<div class="tableContainer" th:object="${itemMarket}">
+		<table>
+		 <thead>
+			<tr>
+				<th>Eszköz neve</th>
+				<th>Eszköz szintje</th>
+				<th>Eszköz típusa</th>
+				<th>Vételár</th>
+				<th>Eladó</th>
+				<th></th>
+			</tr>
+		 </thead>
+		 <tbody>
+<!-- 			<tr th:if="${itemMarkets.empty}"> -->
+<!--             <td colspan="2"> There is no item on market! </td> -->
+<!--         	</tr> -->
+			<tr th:each="itemMarket: ${itemMarkets}" >
+				<td th:text="${itemMarket.item.name.description}" />
+				<td th:text="${itemMarket.item.level}" />
+				<td th:text="${itemMarket.item.type}" />
+				<td th:text="${itemMarket.price}" />
+		    	<td th:text="${itemMarket.item.hero.heroName}"></td>
+		    	<td><input type="submit" value="Megveszem"></td>
+		  	</tr>
+		  	</tbody>
+		</table>
+	</div>
 
 </body>
 </html>
