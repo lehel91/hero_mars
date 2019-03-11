@@ -3,9 +3,11 @@ package com.mycompany.heromarsspring.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
 import com.mycompany.heromarsspring.entities.Item;
 import com.mycompany.heromarsspring.model.ItemEnum;
 import com.mycompany.heromarsspring.services.HeroActionService;
@@ -13,71 +15,106 @@ import com.mycompany.heromarsspring.services.SessionService;
 
 @Controller
 public class HeroActionController {
-	
+
 	@Autowired
 	private SessionService sessionService;
-	
+
 	@Autowired
 	private HeroActionService heroActionService;
-	
+
 	@RequestMapping(value = "hero_actions", method = RequestMethod.GET)
 	public String showActionsMenu(Model model) {
-		
+
 		if (sessionService == null) {
-			
+
 			return "redirect:/index";
-			
-		} else if (sessionService.getCurrentUserName()==null) {
-			
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
 			return "redirect:/login";
-			
-		} else if (sessionService.getCurrentHeroName()==null) {
-			
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		model.addAttribute("sessionData", sessionService);
+
+		return "hero_actions.html";
+	}
+
+	@RequestMapping(value = "gathering_water", method = RequestMethod.GET)
+	public String getWater(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getWaterCost());
+		String message = heroActionService.gatherWater(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
+		
+		return "redirect:/hero_actions";
+
+	}
+
+	@RequestMapping(value = "gathering_food", method = RequestMethod.GET)
+	public String getFood(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
 			return "redirect:/profile";
 		}
 		
+		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getHuntingCost());
+		String message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
 		model.addAttribute("sessionData", sessionService);
 		
-		return "hero_actions.html";
+		return "redirect:/hero_actions";
 	}
-	
-	@RequestMapping(value = "water_gathering", method = RequestMethod.GET)
-	public int getWater() { 
-		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getWaterCost());
-		return heroActionService.getWaterAmount(sessionService.getCurrentHeroName());
-		
-	}
-	
-	public int getFood() {
-		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getHuntingCost());
-		return heroActionService.getFood(sessionService.getCurrentHeroName());
-	}
-	
-	public Item getTreasures() {
-		Item item = null;
-		
-		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getTreasureHuntingCost());
-		if (heroActionService.getTreasureHuntingSuccesRate(sessionService.getCurrentHeroName()) > 0.5) {
-			return item;
+
+	@RequestMapping(value = "hunting_treasure", method = RequestMethod.GET)
+	public String getTreasures(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
 		}
-		return item;
-	}
-	
-	public Item setItemProperties(ItemEnum type, int level) {
-		Item item1 = new Item();
-		item1.setName(ItemEnum.LIGHTSWORD);
-		item1.setLevel(3);
-		item1.setIsInUse(false);
-		item1.setDurability(item1.getName().getDurability());
-		item1.setItemHpMod(item1.getName().getHealthMod() * item1.getLevel());
-		item1.setItemStrengthMod(item1.getName().getStrengthMod() * item1.getLevel());
-		item1.setItemWisdomMod(item1.getName().getWisdomMod() * item1.getLevel());
-		item1.setType(item1.getName().getType());
-		item1.setMarketPresence(null);
-		//item1.setHero(hero);
-		return item1;
+
+		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(),
+				heroActionService.getTreasureHuntingCost());
+		String message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
 		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
 		
+		return "redirect:/hero_actions";
 	}
-	
+
 }

@@ -21,7 +21,15 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-
+	
+<script type="text/javascript">
+		function gatherWater() {					
+			var messageToShow = JSON.parse('${message}');
+	        alert(messageToShow);		
+		}
+	
+</script> 
+		
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
 </head>
@@ -50,20 +58,20 @@
 	
 	<h1 align="center">Hősöd lehetséges lépései</h1>
 	<form action="#" th:action="@{/hero_actions}"method="GET">
+		
 		<br />
-		<input type="submit" th:href="@{/water_gathering}" value="Vizért megyek" method = "GET"/>
+		<input type="button" th:onclick="'window.location.href = \'' + @{/gathering_water} + '\''" value="Vizért megyek"/>
 		<br />
-		<input type="submit" value="Vadászni megyek" />
+		<input type="button" th:onclick="'window.location.href = \'' + @{/gathering_food} + '\''" value="Vadászni megyek" />
 		<br />
-		<input type="submit" value="Kincsre vadászok" />
+		<input type="button" th:onclick="'window.location.href = \'' + @{/hunting_treasure} + '\''" value="Kincsre vadászok" />
 		<br />
-		<input type="submit" value="Kovácshoz megyek" />
+		<input type="button" th:onclick="'window.location.href = \'' + @{/visiting_blacksmith} + '\''" value="Kovácshoz megyek" />
 		<br />
-		<input type="submit" value="Küldetésre megyek" />
+		<input type="button" th:onclick="'window.location.href = \'' + @{/going_to_mission} + '\''" value="Küldetésre megyek" />
 		<br />
-		<input type="submit" value="Tanulni megyek" />
+		<input type="button" th:onclick="'window.location.href = \'' + @{/learning_skill} + '\''" value="Tanulni megyek" />
 	</form>
-	
 	
 </body>
 </html>
