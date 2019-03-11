@@ -19,6 +19,10 @@ public class HeroActionService {
 
 	@Autowired
 	private HeroRepository heroRepository;
+	
+	public static final int treasureHuntSuccessRateLow = 1;
+	public static final int treasureHuntSuccessRateMedium = 2;
+	public static final int treasureHuntSuccessRateHigh = 3;
 
 	public Hero findHeroByHeroName(String heroName) {
 		return heroRepository.findByHeroName(heroName);
@@ -46,11 +50,13 @@ public class HeroActionService {
 	public String gatherWater(String heroName) {
 		int waterGathered;
 		
-		if (findHeroByHeroName(heroName).getSkills().contains(SkillEnum.WELLDRILLING_MAGE)) {
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		
+		if (heroSkills.contains(SkillEnum.WELLDRILLING_MAGE.getDescription())) {
 			waterGathered = (int) (SkillEnum.WELLDRILLING_MAGE.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
-		} else if (findHeroByHeroName(heroName).getSkills().contains(SkillEnum.WELLDRILLING_MASTER)) {
+		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
 			waterGathered = (int) (SkillEnum.WELLDRILLING_MASTER.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
-		} else if (findHeroByHeroName(heroName).getSkills().contains(SkillEnum.WELLDRILLING_PADAVAN)) {
+		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
 			waterGathered = (int) (SkillEnum.WELLDRILLING_PADAVAN.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
 		} else {
 			waterGathered = (int) (0.1 * getWisdomModificationRate(heroName) * 10);
@@ -59,8 +65,7 @@ public class HeroActionService {
 		int actualWaterAmount = heroRepository.findByHeroName(heroName).getWater();
 		heroRepository.setWater(heroName, actualWaterAmount + waterGathered);
 		return waterGathered + " vizet sikerült szerezned.";
-		
-		
+			
 	}
 
 	public int getHuntingCost() {
@@ -70,16 +75,13 @@ public class HeroActionService {
 	public String gatherFood(String heroName) {
 		int foodGathered;
 		
-		List<String> heroSkills = findHeroByHeroName(heroName).getSkills()
-				.stream()
-				.map(s -> s.getSkillType().getDescription())
-				.collect(Collectors.toList());
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
 		
-		if (heroSkills.contains("Kútfúró mágus")) {
+		if (heroSkills.contains(SkillEnum.HUNTER_MAGE.getDescription())) {
 			foodGathered = (int) (SkillEnum.HUNTER_MAGE.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
-		} else if (heroSkills.contains("Kútfúró mester")) {
+		} else if (heroSkills.contains(SkillEnum.HUNTER_MASTER.getDescription())) {
 			foodGathered = (int) (SkillEnum.HUNTER_MASTER.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
-		} else if (heroSkills.contains("Kútfúró inas")) {
+		} else if (heroSkills.contains(SkillEnum.HUNTER_PADAVAN.getDescription())) {
 			foodGathered = (int) (SkillEnum.HUNTER_PADAVAN.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
 		} else {
 			foodGathered = (int) (0.1 * getWisdomModificationRate(heroName) * 10);
@@ -95,18 +97,35 @@ public class HeroActionService {
 	}
 	
 	public String getTreasure(String heroName) {
-		Item item = null;
+		Item item;
+		Hero hero = heroRepository.findByHeroName(heroName);
+		double treasureHuntSuccessRate = getTreasureHuntingSuccesRate(heroName);
+		
+		if (treasureHuntSuccessRate > treasureHuntSuccessRateHigh) {
+			item = getItemForTreasureHuntReward(ItemEnum.MAGIC_RING, 3);
+		} else if (treasureHuntSuccessRate > treasureHuntSuccessRateMedium) {
+			item = getItemForTreasureHuntReward(ItemEnum.LIGHTSWORD, 3);
+		} else {
+			item = getItemForTreasureHuntReward(ItemEnum.HELMET, 3);
+		}
+		
+		item.setHero(hero);
+		heroRepository.findByHeroName(heroName).getItems().add(item);
+		
+		heroRepository.saveAndFlush(hero);
 		
 		return item.getType() + "-t sikerült szerezned.";
 	}
 	
 	public double getTreasureHuntingSuccesRate(String heroName) {
 		
-		if (findHeroByHeroName(heroName).getSkills().contains(SkillEnum.TREASURE_HUNTER_MAGE)) {
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		
+		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MAGE.getDescription())) {
 			return SkillEnum.TREASURE_HUNTER_MAGE.getSuccessRate() * getWisdomModificationRate(heroName);
-		} else if (findHeroByHeroName(heroName).getSkills().contains(SkillEnum.TREASURE_HUNTER_MASTER)) {
+		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MASTER.getDescription())) {
 			return SkillEnum.TREASURE_HUNTER_MASTER.getSuccessRate() * getWisdomModificationRate(heroName);
-		} else if (findHeroByHeroName(heroName).getSkills().contains(SkillEnum.TREASURE_HUNTER_PADAVAN)) {
+		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_PADAVAN.getDescription())) {
 			return SkillEnum.TREASURE_HUNTER_PADAVAN.getSuccessRate() * getWisdomModificationRate(heroName);
 		} else {
 			return 0.1 * getWisdomModificationRate(heroName);
@@ -126,10 +145,18 @@ public class HeroActionService {
 		return 2;
 	}
 	
-	public Item setItemProperties(ItemEnum type, int level) {
+	public List<String> getStringifiedHeroSkillList(String heroName) {
+		List<String> heroSkills = findHeroByHeroName(heroName).getSkills()
+				.stream()
+				.map(s -> s.getSkillType().getDescription())
+				.collect(Collectors.toList());
+		return heroSkills;
+	}
+	
+	public Item getItemForTreasureHuntReward(ItemEnum type, int level) {
 		Item item = new Item();
-		item.setName(ItemEnum.LIGHTSWORD);
-		item.setLevel(3);
+		item.setName(type);
+		item.setLevel(level);
 		item.setIsInUse(false);
 		item.setDurability(item.getName().getDurability());
 		item.setItemHpMod(item.getName().getHealthMod() * item.getLevel());
@@ -137,7 +164,6 @@ public class HeroActionService {
 		item.setItemWisdomMod(item.getName().getWisdomMod() * item.getLevel());
 		item.setType(item.getName().getType());
 		item.setMarketPresence(null);
-		// item1.setHero(hero);
 		return item;
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.heromarsspring.entities.Hero;
+import com.mycompany.heromarsspring.entities.Item;
 
 import lombok.Value;
 
@@ -41,8 +42,5 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value= "UPDATE Hero h SET h.water = :water WHERE h.heroName = :heroName")
-	void setWater(@Param("heroName") String heroName, @Param("water") int water);
-	
-	
-	
+	void setWater(@Param("heroName") String heroName, @Param("water") int water);	
 }

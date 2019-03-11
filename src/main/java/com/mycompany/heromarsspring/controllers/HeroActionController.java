@@ -109,7 +109,7 @@ public class HeroActionController {
 
 		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(),
 				heroActionService.getTreasureHuntingCost());
-		String message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
+		String message = heroActionService.getTreasure(sessionService.getCurrentHeroName());
 		
 		model.addAttribute("message", new Gson().toJson(message));
 		model.addAttribute("sessionData", sessionService);
