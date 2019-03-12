@@ -26,6 +26,18 @@
 		crossorigin="anonymous">
 	</script>
 	
+	<script type="text/javascript">
+		
+		function handleItemMove(itemId) {
+			
+			console.log(itemId);
+			
+			window.location.href = '/itemChange?itemId=' + itemId;
+			
+		}
+	
+	</script>
+	
 	<link rel="stylesheet" type="text/css" href="../css/index.css" />
 	<link rel="stylesheet" type="text/css" href="../css/hero_data.css" />
 	
@@ -33,35 +45,52 @@
 
 <body>
 
-	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
-        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
-      	</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" >Profil</a>
-		</li>
-      	<li class="nav-item">
-        	<a class="nav-link active" th:href="@{/hero}" >Hős</a>
-      	</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
-		</li>
-    </ul>
+	<div class="menuLine">
+	
+		<div class="mainMenu">
+
+			<ul class="nav nav-tabs justify-content-center">
+				<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/profile}" >Profil</a>
+				</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link active" th:href="@{/hero}" >Hős</a>
+		      	</li>
+		    </ul>
+		
+	    	<div class="secondaryMenu">
+				<a class="nav-link active" th:href="@{/hero}" >Hős statisztika</a>
+			</div>
+	    
+	    </div>
     
-    <div class="tableContainer" th:object="${hero}">
+ 	</div>
+ 	
+ 	<div class="logout">
+		<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
+	</div>
+    
+    <div class="contentContainer" th:object="${hero}">
     
 		<table>
 			<tr>
 		    	<th colspan="3" th:text="${sessionData.currentHeroName}"></th>
 		  	</tr>
 			<tr>
-				<td rowspan="4">Ez itt a kép helye</td>
+				<td rowspan="4">
+				
+				<img th:src="@{*{'../img/' + species.description + '.jpg'}}" th:title="*{species.description}" />
+				
+				</td>
 				<td>Szint:</td>
 				<td th:text="*{heroLevel}"></td>
 			</tr>
@@ -114,6 +143,10 @@
 		
 		<br/>
 		
+		<p th:text="${itemChangeMessage}" th:unless="${itemChangeMessage == null}"></p>
+		
+		<br/>
+		
 		<table>
 			<tr>
 		    	<th colspan="4">A hős által használt eszközök</th>
@@ -122,12 +155,16 @@
 		    	<th>Név</th>
 		    	<th>Szint</th>
 		    	<th>Típus</th>
+		    	<th>Tartósság</th>
 		  	</tr>
-		  	<tr th:each="item: *{items}" th:unless="${item.marketPresence != null || item.isInUse == false}">
+		  	<tbody class="itemList">
+		  	<tr th:each="item: *{items}" th:unless="${item.marketPresence != null || item.isInUse == false}" th:ondblclick="'handleItemMove(\'' + ${item.itemId} + '\');'">
 				<td th:text="${item.name.description}" />
 				<td th:text="${item.level}" />
 				<td th:text="${item.type}" />
+				<td th:text="${item.durability}" />
 			</tr>
+			</tbody>
 		</table>
 		
 		<br/>
@@ -140,17 +177,46 @@
 		    	<th>Név</th>
 		    	<th>Szint</th>
 		    	<th>Típus</th>
+		    	<th>Tartósság</th>
 		    	<th>Eladás</th>
 		  	</tr>
-		  	<tr th:each="item: *{items}" th:unless="${item.marketPresence != null || item.isInUse == true}">
+		  	<tbody class="itemList">
+		  	<tr th:each="item: *{items}" th:unless="${item.marketPresence != null || item.isInUse == true}" th:ondblclick="'handleItemMove(\'' + ${item.itemId} + '\');'">
 				<td th:text="${item.name.description}" />
 				<td th:text="${item.level}" />
 				<td th:text="${item.type}" />
+				<td th:text="${item.durability}" />
 				<td>
 					<input type="submit" value="Piacra kitesz" />
 				</td>
 			</tr>
+			</tbody>
 		</table>
+		
+		<br/>
+		
+		<table>
+		
+			<tr>
+		    	<th colspan="4">Skillek</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Név</th>
+		    	<th>+Élet</th>
+		    	<th>+Erő</th>
+		    	<th>+Bölcsesség</th>
+		  	</tr>
+		  	<tbody>
+		  	<tr th:each="skill: *{skills}" th:unless="${skills == null}">
+				<td th:text="${skill.skillType.description}" />
+				<td th:text="${skill.skillType.skillHpMod}" />
+				<td th:text="${skill.skillType.skillStrengthMod}" />
+				<td th:text="${skill.skillType.skillWisdomMod}" />
+			</tr>
+			</tbody>
+		
+		</table>
+		
     
     </div>
 
