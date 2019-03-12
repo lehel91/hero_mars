@@ -30,29 +30,31 @@
 
 <body>
 
-      <ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
-        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
-      	</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}">Regisztráció</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link active" th:href="@{/login}">Bejelentkezés</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData.currentUserName == null}">Profil</a>
-		</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hős</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/market}" th:unless="${sessionData.currentHeroName == null}">Marketplace</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}" th:unless="${sessionData.currentUserName == null}">Kijelentkezés</a>
-		</li>
-    </ul>
+	<div class="menuLine">
+	
+		<div class="mainMenu">
+		
+			<ul class="nav nav-tabs justify-content-center">
+				<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/register}">Regisztráció</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link active" th:href="@{/login}">Bejelentkezés</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData.currentUserName == null}">Profil</a>
+				</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hős</a>
+		      	</li>
+		    </ul>
+
+	    </div>
+    
+ 	</div>
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>
 

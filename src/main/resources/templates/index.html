@@ -28,30 +28,35 @@
 
 <body>
 
+	<div class="menuLine">
+	
+		<div class="mainMenu">
 
-	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
-        	<a class="nav-link active" th:href="@{/index}">Főoldal</a>
-      	</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >Regisztráció</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >Bejelentkezés</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profil</a>
-		</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hős</a>
-      	</li>
-       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/market}" th:unless="${sessionData == null || sessionData.currentHeroName == null}">Marketplace</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Kijelentkezés</a>
-		</li>
-    </ul>
+			<ul class="nav nav-tabs justify-content-center">
+				<li class="nav-item">
+		        	<a class="nav-link active" th:href="@{/index}">Főoldal</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >Regisztráció</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/login}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >Bejelentkezés</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Profil</a>
+				</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">Hős</a>
+		      	</li>
+		    </ul>
+    
+	    </div>
+    
+ 	</div>
+ 	
+ 	<div class="logout">
+		<a class="nav-link" th:href="@{/logout}" th:unless="${sessionData == null || sessionData.currentUserName == null}">Kijelentkezés</a>
+	</div>    
 
 	<h1 align="center">&ltHero!Mars!/&gt</h1>
 
