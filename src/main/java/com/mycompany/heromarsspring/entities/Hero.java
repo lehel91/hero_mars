@@ -81,7 +81,7 @@ public class Hero implements Serializable {
 
 	private Integer actionPoint;
 
-	@ManyToMany()
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "hero_skills", joinColumns = @JoinColumn(name = "heroId"), inverseJoinColumns = @JoinColumn(name = "skillId"))
 	private List<Skill> skills = new ArrayList<>();
 
