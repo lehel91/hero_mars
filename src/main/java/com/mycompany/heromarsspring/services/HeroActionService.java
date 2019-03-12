@@ -176,7 +176,7 @@ public class HeroActionService {
 		} else {
 			skill = getSkillAsLearningReward(SkillEnum.HUNTER_PADAVAN);
 		}
-
+		
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
