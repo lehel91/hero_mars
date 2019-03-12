@@ -58,7 +58,6 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getWaterCost());
 		String message = heroActionService.gatherWater(sessionService.getCurrentHeroName());
 		
 		model.addAttribute("message", new Gson().toJson(message));
@@ -83,7 +82,6 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 		
-		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(), heroActionService.getHuntingCost());
 		String message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
 		
 		model.addAttribute("message", new Gson().toJson(message));
@@ -107,8 +105,6 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		heroActionService.decreaseActionPoints(sessionService.getCurrentHeroName(),
-				heroActionService.getTreasureHuntingCost());
 		String message = heroActionService.getTreasure(sessionService.getCurrentHeroName());
 		
 		model.addAttribute("message", new Gson().toJson(message));
@@ -116,5 +112,96 @@ public class HeroActionController {
 		
 		return "redirect:/hero_actions";
 	}
+	
+	@RequestMapping(value = "learning_welldrilling_skill", method = RequestMethod.GET)
+	public String developWelldrillingSkill(Model model) {
+		if (sessionService == null) {
 
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		String message = heroActionService.developWelldrillingSkill(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
+		
+		return "redirect:/hero_actions";
+	}
+	
+	@RequestMapping(value = "learning_hunting_skill", method = RequestMethod.GET)
+	public String developHuntingSkill(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		String message = heroActionService.developHuntingSkill(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
+		
+		return "redirect:/hero_actions";
+	}
+	
+	@RequestMapping(value = "learning_astronomer_skill", method = RequestMethod.GET)
+	public String developAstronomerSkill(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		String message = heroActionService.developAstronomerSkill(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
+		
+		return "redirect:/hero_actions";
+	}
+	
+	@RequestMapping(value = "learning_treasure_hunter_skill", method = RequestMethod.GET)
+	public String developTreasureHunterSkill(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		String message = heroActionService.developTreasureHunterSkill(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
+		
+		return "redirect:/hero_actions";
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.heromarsspring.daos.HeroRepository;
+import com.mycompany.heromarsspring.daos.SkillRepository;
 import com.mycompany.heromarsspring.entities.Hero;
 import com.mycompany.heromarsspring.entities.Item;
 import com.mycompany.heromarsspring.entities.Skill;
@@ -20,6 +21,9 @@ public class HeroActionService {
 	@Autowired
 	private HeroRepository heroRepository;
 	
+	@Autowired
+	private SkillRepository skillRepository;
+
 	public static final int treasureHuntSuccessRateLow = 1;
 	public static final int treasureHuntSuccessRateMedium = 2;
 	public static final int treasureHuntSuccessRateHigh = 3;
@@ -37,7 +41,7 @@ public class HeroActionService {
 			heroRepository.setLastActivity(heroName, LocalDateTime.now());
 		}
 	}
-	
+
 	public int getWisdomModificationRate(String heroName) {
 		int currentWisdom = heroRepository.findByHeroName(heroName).getWisdom();
 		return (int) (Math.random() * ((currentWisdom + 3) - (currentWisdom - 3) + 1) + (currentWisdom - 3));
@@ -50,33 +54,40 @@ public class HeroActionService {
 	public String gatherWater(String heroName) {
 		int waterGathered;
 		
+		decreaseActionPoints(heroName, getWaterCost());
+
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
-		
+
 		if (heroSkills.contains(SkillEnum.WELLDRILLING_MAGE.getDescription())) {
-			waterGathered = (int) (SkillEnum.WELLDRILLING_MAGE.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
+			waterGathered = (int) (SkillEnum.WELLDRILLING_MAGE.getSuccessRate() * getWisdomModificationRate(heroName)
+					* 10);
 		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
-			waterGathered = (int) (SkillEnum.WELLDRILLING_MASTER.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
+			waterGathered = (int) (SkillEnum.WELLDRILLING_MASTER.getSuccessRate() * getWisdomModificationRate(heroName)
+					* 10);
 		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
-			waterGathered = (int) (SkillEnum.WELLDRILLING_PADAVAN.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
+			waterGathered = (int) (SkillEnum.WELLDRILLING_PADAVAN.getSuccessRate() * getWisdomModificationRate(heroName)
+					* 10);
 		} else {
 			waterGathered = (int) (0.1 * getWisdomModificationRate(heroName) * 10);
 		}
-		
+
 		int actualWaterAmount = heroRepository.findByHeroName(heroName).getWater();
 		heroRepository.setWater(heroName, actualWaterAmount + waterGathered);
 		return waterGathered + " vizet sikerült szerezned.";
-			
+
 	}
 
 	public int getHuntingCost() {
 		return 2;
 	}
-	
+
 	public String gatherFood(String heroName) {
 		int foodGathered;
+
+		decreaseActionPoints(heroName, getHuntingCost());
 		
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
-		
+
 		if (heroSkills.contains(SkillEnum.HUNTER_MAGE.getDescription())) {
 			foodGathered = (int) (SkillEnum.HUNTER_MAGE.getSuccessRate() * getWisdomModificationRate(heroName) * 10);
 		} else if (heroSkills.contains(SkillEnum.HUNTER_MASTER.getDescription())) {
@@ -86,7 +97,7 @@ public class HeroActionService {
 		} else {
 			foodGathered = (int) (0.1 * getWisdomModificationRate(heroName) * 10);
 		}
-		
+
 		int actualFoodAmount = heroRepository.findByHeroName(heroName).getFood();
 		heroRepository.setFood(heroName, actualFoodAmount + foodGathered);
 		return foodGathered + " kaját sikerült szerezned.";
@@ -95,32 +106,150 @@ public class HeroActionService {
 	public int getTreasureHuntingCost() {
 		return 2;
 	}
-	
+
 	public String getTreasure(String heroName) {
 		Item item;
 		Hero hero = heroRepository.findByHeroName(heroName);
 		double treasureHuntSuccessRate = getTreasureHuntingSuccesRate(heroName);
 		
 		if (treasureHuntSuccessRate > treasureHuntSuccessRateHigh) {
-			item = getItemForTreasureHuntReward(ItemEnum.MAGIC_RING, 3);
+			item = getItemAsTreasureHuntReward(ItemEnum.MAGIC_RING, 3);
 		} else if (treasureHuntSuccessRate > treasureHuntSuccessRateMedium) {
-			item = getItemForTreasureHuntReward(ItemEnum.LIGHTSWORD, 3);
+			item = getItemAsTreasureHuntReward(ItemEnum.LIGHTSWORD, 3);
 		} else {
-			item = getItemForTreasureHuntReward(ItemEnum.HELMET, 3);
+			item = getItemAsTreasureHuntReward(ItemEnum.HELMET, 3);
 		}
-		
+
 		item.setHero(hero);
-		heroRepository.findByHeroName(heroName).getItems().add(item);
-		
+		hero.getItems().add(item);
+
 		heroRepository.saveAndFlush(hero);
 		
+		decreaseActionPoints(heroName, getTreasureHuntingCost());
+
 		return item.getType() + "-t sikerült szerezned.";
 	}
 	
-	public double getTreasureHuntingSuccesRate(String heroName) {
-		
+	public String developWelldrillingSkill(String heroName) {
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		Hero hero = heroRepository.findByHeroName(heroName);
+
+		if(heroSkills.contains(SkillEnum.WELLDRILLING_MAGE.getDescription())) {
+			return "Már maximumra fejlesztetted ezt a képességet.";
+		}
 		
+		Skill skill;
+		 
+		if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.WELLDRILLING_MAGE);
+		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.WELLDRILLING_MASTER);
+		} else {
+			skill = getSkillAsLearningReward(SkillEnum.WELLDRILLING_PADAVAN);
+		}
+
+		skill.getHeroes().add(hero);
+		hero.getSkills().add(skill);
+
+		skillRepository.saveAndFlush(skill);
+		heroRepository.saveAndFlush(hero);
+		
+		decreaseActionPoints(heroName, getLearningCost());
+
+		return skill.getSkillType() + "képességet sikerült szerezned.";
+	}
+	
+	public String developHuntingSkill(String heroName) {
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		Hero hero = heroRepository.findByHeroName(heroName);
+
+		if(heroSkills.contains(SkillEnum.HUNTER_MAGE.getDescription())) {
+			return "Már maximumra fejlesztetted ezt a képességet.";
+		}
+		
+		Skill skill;
+		 
+		if (heroSkills.contains(SkillEnum.HUNTER_MASTER.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.HUNTER_MAGE);
+		} else if (heroSkills.contains(SkillEnum.HUNTER_PADAVAN.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.HUNTER_MASTER);
+		} else {
+			skill = getSkillAsLearningReward(SkillEnum.HUNTER_PADAVAN);
+		}
+
+		skill.getHeroes().add(hero);
+		hero.getSkills().add(skill);
+
+		skillRepository.saveAndFlush(skill);
+		heroRepository.saveAndFlush(hero);
+		
+		decreaseActionPoints(heroName, getLearningCost());
+
+		return skill.getSkillType() + "képességet sikerült szerezned.";
+	}
+	
+	public String developAstronomerSkill(String heroName) {
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		Hero hero = heroRepository.findByHeroName(heroName);
+
+		if(heroSkills.contains(SkillEnum.ASTRONOMER_MAGE.getDescription())) {
+			return "Már maximumra fejlesztetted ezt a képességet.";
+		}
+		
+		Skill skill;
+		 
+		if (heroSkills.contains(SkillEnum.ASTRONOMER_MASTER.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.ASTRONOMER_MAGE);
+		} else if (heroSkills.contains(SkillEnum.ASTRONOMER_PADAVAN.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.ASTRONOMER_MASTER);
+		} else {
+			skill = getSkillAsLearningReward(SkillEnum.ASTRONOMER_PADAVAN);
+		}
+
+		skill.getHeroes().add(hero);
+		hero.getSkills().add(skill);
+
+		skillRepository.saveAndFlush(skill);
+		heroRepository.saveAndFlush(hero);
+		
+		decreaseActionPoints(heroName, getLearningCost());
+
+		return skill.getSkillType() + "képességet sikerült szerezned.";
+	}
+	
+	public String developTreasureHunterSkill(String heroName) {
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		Hero hero = heroRepository.findByHeroName(heroName);
+
+		if(heroSkills.contains(SkillEnum.TREASURE_HUNTER_MAGE.getDescription())) {
+			return "Már maximumra fejlesztetted ezt a képességet.";
+		}
+		
+		Skill skill;
+		 
+		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MASTER.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.TREASURE_HUNTER_MAGE);
+		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_PADAVAN.getDescription())) {
+			skill = getSkillAsLearningReward(SkillEnum.TREASURE_HUNTER_MASTER);
+		} else {
+			skill = getSkillAsLearningReward(SkillEnum.TREASURE_HUNTER_PADAVAN);
+		}
+
+		skill.getHeroes().add(hero);
+		hero.getSkills().add(skill);
+
+		skillRepository.saveAndFlush(skill);
+		heroRepository.saveAndFlush(hero);
+		
+		decreaseActionPoints(heroName, getLearningCost());
+
+		return skill.getSkillType() + "képességet sikerült szerezned.";
+	}
+
+	public double getTreasureHuntingSuccesRate(String heroName) {
+
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+
 		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MAGE.getDescription())) {
 			return SkillEnum.TREASURE_HUNTER_MAGE.getSuccessRate() * getWisdomModificationRate(heroName);
 		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MASTER.getDescription())) {
@@ -130,7 +259,6 @@ public class HeroActionService {
 		} else {
 			return 0.1 * getWisdomModificationRate(heroName);
 		}
-		
 	}
 
 	public int getBlacksmithVisitingCost() {
@@ -144,16 +272,14 @@ public class HeroActionService {
 	public int getLearningCost() {
 		return 2;
 	}
-	
+
 	public List<String> getStringifiedHeroSkillList(String heroName) {
-		List<String> heroSkills = findHeroByHeroName(heroName).getSkills()
-				.stream()
-				.map(s -> s.getSkillType().getDescription())
-				.collect(Collectors.toList());
+		List<String> heroSkills = findHeroByHeroName(heroName).getSkills().stream()
+				.map(s -> s.getSkillType().getDescription()).collect(Collectors.toList());
 		return heroSkills;
 	}
-	
-	public Item getItemForTreasureHuntReward(ItemEnum type, int level) {
+
+	public Item getItemAsTreasureHuntReward(ItemEnum type, int level) {
 		Item item = new Item();
 		item.setName(type);
 		item.setLevel(level);
@@ -165,6 +291,13 @@ public class HeroActionService {
 		item.setType(item.getName().getType());
 		item.setMarketPresence(null);
 		return item;
+	}
+	
+	public Skill getSkillAsLearningReward(SkillEnum skillType) {
+		Skill skill = new Skill();
+		skill.setSkillType(skillType);
+		return skill;
+		
 	}
 
 }
