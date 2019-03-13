@@ -28,29 +28,41 @@
 </head>
 <body>
 
-	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
-        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
-      	</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}">Profil</a>
-		</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}">Hős</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link active" th:href="@{/market}">Marketplace</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}">Kijelentkezés</a>
-		</li>
-    </ul>
+	<div class="menuLine">
+	
+		<div class="mainMenu">
+
+			<ul class="nav nav-tabs justify-content-center">
+				<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/index}">Főoldal</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
+		      	</li>
+		      	<li class="nav-item">
+					<a class="nav-link" th:href="@{/profile}">Profil</a>
+				</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" th:href="@{/hero}">Hős</a>
+		      	</li>
+		    </ul>
+		    
+	    	<div class="secondaryMenu">
+				<a class="nav-link" th:href="@{/hero}" >Hős statisztika</a>
+				<a class="nav-link" th:href="@{/hero_actions}" >Hős akciók</a>
+				<a class="nav-link active" th:href="@{/market}">Marketplace</a>
+			</div>
+	    
+	    </div>
+    
+ 	</div>
+ 	
+ 	<div class="logout">
+		<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
+	</div>		    
     
     <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
 
