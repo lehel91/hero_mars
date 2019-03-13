@@ -209,7 +209,7 @@
 		    	<th>+Bölcsesség</th>
 		  	</tr>
 		  	<tbody>
-		  	<tr th:each="skill: *{skills}" th:unless="${skills == null}">
+		  	<tr th:each="skill: *{skills}" th:unless="*{skills == null}">
 				<td th:text="${skill.skillType.description}" />
 				<td th:text="${skill.skillType.skillHpMod}" />
 				<td th:text="${skill.skillType.skillStrengthMod}" />

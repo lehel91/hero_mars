@@ -36,7 +36,6 @@ public class HeroDataController {
 		}
 		
 		model.addAttribute("sessionData", sessionService);
-		
 		model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
 		
 		return "hero_data.html";
