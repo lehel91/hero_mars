@@ -64,6 +64,9 @@
 		<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
 	</div>		    
     
+    <br/>
+	<br/>
+    
     <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
 
 	<br/>
@@ -74,6 +77,17 @@
 	<br/>
 	<br/>
 
+	
+	<form align="center" th:object="${itemMarket}" th:action="@{/searchByType}" method="get">
+        <input type="text" name="type" th:value="${type}"/>
+        <input type="submit" value="Keresés"/>
+    </form>
+    <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
+        <input type="submit" value="Mutass mindent"/>
+    </form>
+    <form align="center" th:object="${itemMarket}" th:action="@{/orderedByPrice}" method="get">
+        <input type="submit" value="Ár szerint növekvő lista"/>
+    </form>
 	<div class="tableContainer" th:object="${itemMarket}">
 		<table>
 		 <thead>
@@ -87,16 +101,21 @@
 			</tr>
 		 </thead>
 		 <tbody>
-<!-- 			<tr th:if="${itemMarkets.empty}"> -->
-<!--             <td colspan="2"> There is no item on market! </td> -->
-<!--         	</tr> -->
+			<tr th:if="${itemMarkets.empty}">
+            <td align="center" colspan="2"> There is no item on market! </td>
+        	</tr>
 			<tr th:each="itemMarket: ${itemMarkets}" >
 				<td th:text="${itemMarket.item.name.description}" />
 				<td th:text="${itemMarket.item.level}" />
 				<td th:text="${itemMarket.item.type}" />
 				<td th:text="${itemMarket.price}" />
 		    	<td th:text="${itemMarket.item.hero.heroName}"></td>
-		    	<td><input type="submit" value="Megveszem"></td>
+		    	<td>
+		    		<form th:object="${itemMarket}" th:action="@{/buyItem}" method="get">
+		    			<input type="hidden" name="id" th:value="${itemMarket.marketId}" />
+        				<input type="submit" value="Megveszem" >
+    				</form>
+    			</td>
 		  	</tr>
 		  	</tbody>
 		</table>
