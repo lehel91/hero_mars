@@ -96,12 +96,6 @@ public class HeroService {
 		hero.setWisdom(hero.getWisdom() + item2.getItemStrengthMod());
 		hero.setHp(hero.getHp() + item2.getItemHpMod());
 		hero.setStrength(hero.getStrength() + item2.getItemStrengthMod());
-
-		Skill skill = new Skill();
-		skill.setSkillType(SkillEnum.WELLDRILLING_PADAVAN);
-		skill.getHeroes().add(hero);
-		
-		hero.getSkills().add(skill);
 		
 		return heroRepository.saveAndFlush(hero);
 	}

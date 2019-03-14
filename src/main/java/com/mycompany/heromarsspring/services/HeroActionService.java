@@ -139,18 +139,28 @@ public class HeroActionService {
 		}
 		
 		Skill skill;
-		 
+		SkillEnum skillToGain; 
+		
 		if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.WELLDRILLING_MAGE);
+			skillToGain= SkillEnum.WELLDRILLING_MAGE;
 		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.WELLDRILLING_MASTER);
+			skillToGain= SkillEnum.WELLDRILLING_MASTER;
 		} else {
-			skill = getSkillAsLearningReward(SkillEnum.WELLDRILLING_PADAVAN);
+			skillToGain= SkillEnum.WELLDRILLING_PADAVAN;
+		}
+		
+		Skill skillInDb = skillRepository.findBySkillType(skillToGain);
+		skill = getSkillAsLearningReward(skillToGain);
+		
+		if (skillInDb != null) {
+			//skill.setSkillId(skillInDb.getSkillId());
+			skill = skillInDb;
+
 		}
 
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
-
+		
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 		
@@ -274,8 +284,10 @@ public class HeroActionService {
 	}
 
 	public List<String> getStringifiedHeroSkillList(String heroName) {
-		List<String> heroSkills = findHeroByHeroName(heroName).getSkills().stream()
-				.map(s -> s.getSkillType().getDescription()).collect(Collectors.toList());
+		
+		 List<String> heroSkills = findHeroByHeroName(heroName).getSkills().stream()
+				.map(s -> s.getSkillType().getDescription())
+				.collect(Collectors.toList());
 		return heroSkills;
 	}
 
