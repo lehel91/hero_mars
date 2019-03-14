@@ -14,7 +14,7 @@ public class ScheduleService {
 	@Autowired
 	HeroRepository heroRepository;
 
-	@Scheduled(fixedRate = 10000000, initialDelay = 100000)
+	@Scheduled(fixedRate = 100000, initialDelay = 100000)
 	public void drinkWater() {
 
 		System.out.println("Fixed rate task: drinkWater - " + System.currentTimeMillis() / 1000);
