@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.heromarsspring.services.HeroService;
 import com.mycompany.heromarsspring.services.MarketService;
@@ -44,4 +45,28 @@ public class MarketController {
 
 		return "marketplace.html";
 	}
+	
+	@RequestMapping(value = "orderedByPrice", method = RequestMethod.GET)
+	public String orderedList(Model model) {
+		model.addAttribute("sessionData", sessionService);
+		model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
+		model.addAttribute("itemMarkets", marketService.orderedListByPrice());
+		return "marketplace.html";
+	}
+	
+    @RequestMapping(value = "searchByType", method = RequestMethod.GET)
+    public String searchByType(@RequestParam (value = "type", required = false) String type, Model model) {
+    	model.addAttribute("sessionData", sessionService);
+    	model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
+        model.addAttribute("itemMarkets", marketService.findByType(type));
+        return "marketplace.html";
+    }
+    
+    @RequestMapping(value = "buyItem", method = RequestMethod.GET)
+    public String searchByType(@RequestParam (value = "id", required = true) Integer id, Model model) {
+    	model.addAttribute("sessionData", sessionService);
+    	model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
+        model.addAttribute("itemMarkets", marketService.buyItem(id));
+        return "marketplace.html";
+    }
 }

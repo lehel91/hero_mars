@@ -27,4 +27,17 @@ public class MarketService {
 	public List<ItemMarket> getItems(){
 		return marketRepo.findAll();
 	}
+	
+	public List<ItemMarket> orderedListByPrice(){
+		return marketRepo.orderedListByPrice();
+	}
+	
+	public List<ItemMarket> findByType(String type){
+		return marketRepo.findByType(type);
+	}
+	
+	public List<ItemMarket> buyItem(Integer id){
+		marketRepo.deleteById(id);
+		return marketRepo.findAll();
+	}
 }
