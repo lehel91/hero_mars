@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.heromarsspring.services.HeroService;
+import com.mycompany.heromarsspring.services.MarketService;
 import com.mycompany.heromarsspring.services.SessionService;
 
 @Controller
@@ -18,6 +19,9 @@ public class HeroDataController {
 	
 	@Autowired
 	HeroService heroService;
+	
+	@Autowired
+	MarketService marketService;
 	
 	@RequestMapping(value = "hero", method = RequestMethod.GET)
 	public String showMainMenu(Model model) {
@@ -58,6 +62,31 @@ public class HeroDataController {
 		}
 		
 		String message = heroService.changeItems(itemId, sessionService.getCurrentHeroName());
+		
+		model.addAttribute("sessionData", sessionService);
+		model.addAttribute("itemChangeMessage", message);
+		model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
+		
+		return "hero_data.html";
+	}
+	
+	@RequestMapping(value = "placeToMarket", method = RequestMethod.GET)
+	public String placeToMarket(@RequestParam Integer itemId, Model model) {
+		
+		if (sessionService == null) {
+			
+			return "redirect:/index";
+			
+		} else if (sessionService.getCurrentUserName()==null) {
+			
+			return "redirect:/login";
+			
+		} else if (sessionService.getCurrentHeroName()==null) {
+			
+			return "redirect:/profile";
+		}
+		
+		String message = marketService.saveItem(itemId, 200);
 		
 		model.addAttribute("sessionData", sessionService);
 		model.addAttribute("itemChangeMessage", message);

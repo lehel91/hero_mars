@@ -6,6 +6,8 @@
 package com.mycompany.heromarsspring.entities;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +28,7 @@ public class ItemMarket implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer marketId;
 
-    @OneToOne
+    @OneToOne(mappedBy = "marketPresence", cascade = CascadeType.REFRESH)
     private Item item;
 
     private Integer price;

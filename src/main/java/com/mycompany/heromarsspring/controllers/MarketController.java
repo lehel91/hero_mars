@@ -66,7 +66,7 @@ public class MarketController {
     public String searchByType(@RequestParam (value = "id", required = true) Integer id, Model model) {
     	model.addAttribute("sessionData", sessionService);
     	model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
-        model.addAttribute("itemMarkets", marketService.buyItem(id));
+        model.addAttribute("itemMarkets", marketService.buyItem(id, sessionService.getCurrentHeroName()));
         return "marketplace.html";
     }
 }

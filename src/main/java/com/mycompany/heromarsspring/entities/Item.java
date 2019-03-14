@@ -58,7 +58,7 @@ public class Item implements Serializable {
     @JoinColumn(name = "heroId", referencedColumnName = "heroId")
     private Hero hero;
     
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private ItemMarket marketPresence;
 
     @Override

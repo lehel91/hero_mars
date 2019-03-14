@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.mycompany.heromarsspring.entities.Item;
 import com.mycompany.heromarsspring.entities.ItemMarket;
 
 @Repository
@@ -20,5 +21,8 @@ public interface MarketRepository extends JpaRepository<ItemMarket, Integer>{
 	List<ItemMarket> findByType(String typeValue);
 	
 	void deleteById(Integer id);
+	
+	@Query("select m.item from ItemMarket m  where m.marketId = ?1")
+	Item getItemById(Integer id);
 	
 }

@@ -33,6 +33,12 @@
 			window.location.href = '/itemChange?itemId=' + itemId;
 			
 		}
+		
+		function placeItemToMarket(itemId) {
+			
+			window.location.href = '/placeToMarket?itemId=' + itemId;
+			
+		}
 	
 	</script>
 	
@@ -187,7 +193,7 @@
 				<td th:text="${item.type}" />
 				<td th:text="${item.durability}" />
 				<td>
-					<input type="submit" value="Piacra kitesz" />
+					<input type="submit" value="Piacra kitesz" th:onclick="'placeItemToMarket(\'' + ${item.itemId} + '\');'" />
 				</td>
 			</tr>
 			</tbody>
