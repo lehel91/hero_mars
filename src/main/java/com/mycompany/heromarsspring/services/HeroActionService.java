@@ -50,6 +50,18 @@ public class HeroActionService {
 	public int getWaterCost() {
 		return 2;
 	}
+	
+	public int getBlacksmithVisitingCost() {
+		return 2;
+	}
+
+	public int getMissionCost() {
+		return 2;
+	}
+
+	public int getLearningCost() {
+		return 2;
+	}
 
 	public String gatherWater(String heroName) {
 		int waterGathered;
@@ -149,13 +161,11 @@ public class HeroActionService {
 			skillToGain= SkillEnum.WELLDRILLING_PADAVAN;
 		}
 		
-		Skill skillInDb = skillRepository.findBySkillType(skillToGain);
+		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
 		skill = getSkillAsLearningReward(skillToGain);
 		
-		if (skillInDb != null) {
-			//skill.setSkillId(skillInDb.getSkillId());
-			skill = skillInDb;
-
+		if (existingSkillInDb != null) {
+			skill = existingSkillInDb;
 		}
 
 		skill.getHeroes().add(hero);
@@ -178,13 +188,21 @@ public class HeroActionService {
 		}
 		
 		Skill skill;
+		SkillEnum skillToGain; 
 		 
 		if (heroSkills.contains(SkillEnum.HUNTER_MASTER.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.HUNTER_MAGE);
+			skillToGain= SkillEnum.HUNTER_MAGE;
 		} else if (heroSkills.contains(SkillEnum.HUNTER_PADAVAN.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.HUNTER_MASTER);
+			skillToGain= SkillEnum.HUNTER_MASTER;
 		} else {
-			skill = getSkillAsLearningReward(SkillEnum.HUNTER_PADAVAN);
+			skillToGain= SkillEnum.HUNTER_PADAVAN;
+		}
+		
+		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
+		skill = getSkillAsLearningReward(skillToGain);
+		
+		if (existingSkillInDb != null) {
+			skill = existingSkillInDb;
 		}
 		
 		skill.getHeroes().add(hero);
@@ -207,15 +225,23 @@ public class HeroActionService {
 		}
 		
 		Skill skill;
+		SkillEnum skillToGain; 
 		 
 		if (heroSkills.contains(SkillEnum.ASTRONOMER_MASTER.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.ASTRONOMER_MAGE);
+			skillToGain= SkillEnum.ASTRONOMER_MAGE;
 		} else if (heroSkills.contains(SkillEnum.ASTRONOMER_PADAVAN.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.ASTRONOMER_MASTER);
+			skillToGain= SkillEnum.ASTRONOMER_MASTER;
 		} else {
-			skill = getSkillAsLearningReward(SkillEnum.ASTRONOMER_PADAVAN);
+			skillToGain= SkillEnum.ASTRONOMER_PADAVAN;
 		}
-
+		
+		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
+		skill = getSkillAsLearningReward(skillToGain);
+		
+		if (existingSkillInDb != null) {
+			skill = existingSkillInDb;
+		}
+		
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -236,15 +262,23 @@ public class HeroActionService {
 		}
 		
 		Skill skill;
+		SkillEnum skillToGain; 
 		 
 		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MASTER.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.TREASURE_HUNTER_MAGE);
+			skillToGain= SkillEnum.TREASURE_HUNTER_MAGE;
 		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_PADAVAN.getDescription())) {
-			skill = getSkillAsLearningReward(SkillEnum.TREASURE_HUNTER_MASTER);
+			skillToGain= SkillEnum.TREASURE_HUNTER_MASTER;
 		} else {
-			skill = getSkillAsLearningReward(SkillEnum.TREASURE_HUNTER_PADAVAN);
+			skillToGain= SkillEnum.TREASURE_HUNTER_PADAVAN;
 		}
-
+		
+		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
+		skill = getSkillAsLearningReward(skillToGain);
+		
+		if (existingSkillInDb != null) {
+			skill = existingSkillInDb;
+		}
+		
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -269,18 +303,6 @@ public class HeroActionService {
 		} else {
 			return 0.1 * getWisdomModificationRate(heroName);
 		}
-	}
-
-	public int getBlacksmithVisitingCost() {
-		return 2;
-	}
-
-	public int getMissionCost() {
-		return 2;
-	}
-
-	public int getLearningCost() {
-		return 2;
 	}
 
 	public List<String> getStringifiedHeroSkillList(String heroName) {
