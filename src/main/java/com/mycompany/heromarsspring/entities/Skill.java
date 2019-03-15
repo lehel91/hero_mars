@@ -45,8 +45,7 @@ public class Skill implements Serializable {
     
     @OneToMany(mappedBy="skill")
     private Set<Question> questions = new HashSet<>();
-
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -63,13 +62,16 @@ public class Skill implements Serializable {
         Skill other = (Skill) object;
         if ((this.skillId == null && other.skillId != null) || (this.skillId != null && !this.skillId.equals(other.skillId))) {
             return false;
-        }
+       }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "Skill{" + "skillId=" + skillId + ", skillType=" + skillType + '}';
     }
 
+	
+
 }
+

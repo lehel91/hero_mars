@@ -105,7 +105,30 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.getTreasure(sessionService.getCurrentHeroName());
+		String message = heroActionService.getTreasures(sessionService.getCurrentHeroName());
+		
+		model.addAttribute("message", new Gson().toJson(message));
+		model.addAttribute("sessionData", sessionService);
+		
+		return "redirect:/hero_actions";
+	}
+	
+	@RequestMapping(value = "go_to_an_adventure", method = RequestMethod.GET)
+	public String goToAnAdvanture(Model model) {
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		} else if (sessionService.getCurrentHeroName() == null) {
+
+			return "redirect:/profile";
+		}
+
+		String message = heroActionService.goToAnAdvanture(sessionService.getCurrentHeroName());
 		
 		model.addAttribute("message", new Gson().toJson(message));
 		model.addAttribute("sessionData", sessionService);

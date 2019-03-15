@@ -2,6 +2,7 @@ package com.mycompany.heromarsspring.entities;
 
 import com.mycompany.heromarsspring.model.HairColorEnum;
 import com.mycompany.heromarsspring.model.SexEnum;
+import com.mycompany.heromarsspring.model.SkillEnum;
 import com.mycompany.heromarsspring.model.SpeciesEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -87,7 +88,7 @@ public class Hero implements Serializable {
 
 	@OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Item> items = new ArrayList<>();
-
+	
 	@Override
 	public int hashCode() {
 		int hash = 0;
