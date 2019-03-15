@@ -125,11 +125,34 @@ public class HeroActionService {
 		double treasureHuntSuccessRate = getTreasureHuntingSuccesRate(heroName);
 		
 		if (treasureHuntSuccessRate > treasureHuntSuccessRateHigh) {
-			item = getItemAsTreasureHuntReward(ItemEnum.MAGIC_RING, 3);
+			item = getItemAsAdvantureReward(ItemEnum.MAGIC_RING, 3);
 		} else if (treasureHuntSuccessRate > treasureHuntSuccessRateMedium) {
-			item = getItemAsTreasureHuntReward(ItemEnum.LIGHTSWORD, 3);
+			item = getItemAsAdvantureReward(ItemEnum.LIGHTSWORD, 3);
 		} else {
-			item = getItemAsTreasureHuntReward(ItemEnum.HELMET, 3);
+			item = getItemAsAdvantureReward(ItemEnum.HELMET, 3);
+		}
+
+		item.setHero(hero);
+		hero.getItems().add(item);
+
+		heroRepository.saveAndFlush(hero);
+		
+		decreaseActionPoints(heroName, getTreasureHuntingCost());
+
+		return item.getType() + "-t sikerült szerezned.";
+	}
+	
+	public String goToAnAdvanture(String heroName) {
+		Item item;
+		Hero hero = heroRepository.findByHeroName(heroName);
+		double treasureHuntSuccessRate = getTreasureHuntingSuccesRate(heroName);
+		
+		if (treasureHuntSuccessRate > treasureHuntSuccessRateHigh) {
+			item = getItemAsAdvantureReward(ItemEnum.MAGIC_RING, 3);
+		} else if (treasureHuntSuccessRate > treasureHuntSuccessRateMedium) {
+			item = getItemAsAdvantureReward(ItemEnum.LIGHTSWORD, 3);
+		} else {
+			item = getItemAsAdvantureReward(ItemEnum.HELMET, 3);
 		}
 
 		item.setHero(hero);
@@ -313,7 +336,7 @@ public class HeroActionService {
 		return heroSkills;
 	}
 
-	public Item getItemAsTreasureHuntReward(ItemEnum type, int level) {
+	public Item getItemAsAdvantureReward(ItemEnum type, int level) {
 		Item item = new Item();
 		item.setName(type);
 		item.setLevel(level);
