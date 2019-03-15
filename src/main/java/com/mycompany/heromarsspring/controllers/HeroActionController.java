@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.mycompany.heromarsspring.entities.Item;
@@ -44,7 +45,7 @@ public class HeroActionController {
 	}
 
 	@RequestMapping(value = "gathering_water", method = RequestMethod.GET)
-	public String getWater(Model model) {
+	public @ResponseBody String getWater(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -60,15 +61,16 @@ public class HeroActionController {
 
 		String message = heroActionService.gatherWater(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
 		
-		return "redirect:/hero_actions";
+//		return "redirect:/hero_actions";
+		return message;
 
 	}
 
 	@RequestMapping(value = "gathering_food", method = RequestMethod.GET)
-	public String getFood(Model model) {
+	public @ResponseBody String getFood(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -84,14 +86,15 @@ public class HeroActionController {
 		
 		String message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 
 	@RequestMapping(value = "hunting_treasure", method = RequestMethod.GET)
-	public String getTreasures(Model model) {
+	public @ResponseBody String getTreasures(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -107,14 +110,15 @@ public class HeroActionController {
 
 		String message = heroActionService.getTreasures(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 	
 	@RequestMapping(value = "go_to_an_adventure", method = RequestMethod.GET)
-	public String goToAnAdvanture(Model model) {
+	public @ResponseBody String goToAnAdvanture(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -130,14 +134,15 @@ public class HeroActionController {
 
 		String message = heroActionService.goToAnAdvanture(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 	
 	@RequestMapping(value = "learning_welldrilling_skill", method = RequestMethod.GET)
-	public String developWelldrillingSkill(Model model) {
+	public @ResponseBody String developWelldrillingSkill(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -153,14 +158,15 @@ public class HeroActionController {
 
 		String message = heroActionService.developWelldrillingSkill(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 	
 	@RequestMapping(value = "learning_hunting_skill", method = RequestMethod.GET)
-	public String developHuntingSkill(Model model) {
+	public @ResponseBody String developHuntingSkill(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -176,14 +182,15 @@ public class HeroActionController {
 
 		String message = heroActionService.developHuntingSkill(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 	
 	@RequestMapping(value = "learning_astronomer_skill", method = RequestMethod.GET)
-	public String developAstronomerSkill(Model model) {
+	public @ResponseBody String developAstronomerSkill(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
@@ -199,14 +206,15 @@ public class HeroActionController {
 
 		String message = heroActionService.developAstronomerSkill(sessionService.getCurrentHeroName());
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 	
 	@RequestMapping(value = "learning_treasure_hunter_skill", method = RequestMethod.GET)
-	public String developTreasureHunterSkill(Model model) {
+	public @ResponseBody String developTreasureHunterSkill(Model model) {
 		if (sessionService == null) {
 
 			return "redirect:/index";
