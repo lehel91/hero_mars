@@ -63,6 +63,14 @@ public class HeroActionService {
 		return 2;
 	}
 
+	public int getHuntingCost() {
+		return 2;
+	}
+	
+	public int getTreasureHuntingCost() {
+		return 2;
+	}
+	
 	public String gatherWater(String heroName) {
 		int waterGathered;
 		
@@ -89,10 +97,6 @@ public class HeroActionService {
 
 	}
 
-	public int getHuntingCost() {
-		return 2;
-	}
-
 	public String gatherFood(String heroName) {
 		int foodGathered;
 
@@ -113,10 +117,6 @@ public class HeroActionService {
 		int actualFoodAmount = heroRepository.findByHeroName(heroName).getFood();
 		heroRepository.setFood(heroName, actualFoodAmount + foodGathered);
 		return foodGathered + " kaját sikerült szerezned.";
-	}
-
-	public int getTreasureHuntingCost() {
-		return 2;
 	}
 
 	public String getTreasure(String heroName) {
