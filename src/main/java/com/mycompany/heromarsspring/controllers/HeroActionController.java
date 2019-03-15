@@ -105,7 +105,7 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.getTreasure(sessionService.getCurrentHeroName());
+		String message = heroActionService.getTreasures(sessionService.getCurrentHeroName());
 		
 		model.addAttribute("message", new Gson().toJson(message));
 		model.addAttribute("sessionData", sessionService);

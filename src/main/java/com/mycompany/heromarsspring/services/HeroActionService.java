@@ -120,7 +120,7 @@ public class HeroActionService {
 		return foodGathered + " kaját sikerült szerezned.";
 	}
 
-	public String getTreasure(String heroName) {
+	public String getTreasures(String heroName) {
 		
 		Hero hero = heroRepository.findByHeroName(heroName);
 		int treasuresGatheredOnTreasureHunt = getMoneyAsTreasureHuntingReward(hero.getHeroName());
