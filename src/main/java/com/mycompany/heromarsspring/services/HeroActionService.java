@@ -27,6 +27,7 @@ public class HeroActionService {
 	public static final int treasureHuntSuccessRateLow = 1;
 	public static final int treasureHuntSuccessRateMedium = 2;
 	public static final int treasureHuntSuccessRateHigh = 3;
+	public static final int defaultAmountOfMoneyOnTreasureHunt = 10;
 
 	public Hero findHeroByHeroName(String heroName) {
 		return heroRepository.findByHeroName(heroName);
@@ -120,26 +121,17 @@ public class HeroActionService {
 	}
 
 	public String getTreasure(String heroName) {
-		Item item;
-		Hero hero = heroRepository.findByHeroName(heroName);
-		double treasureHuntSuccessRate = getTreasureHuntingSuccesRate(heroName);
 		
-		if (treasureHuntSuccessRate > treasureHuntSuccessRateHigh) {
-			item = getItemAsAdvantureReward(ItemEnum.MAGIC_RING, 3);
-		} else if (treasureHuntSuccessRate > treasureHuntSuccessRateMedium) {
-			item = getItemAsAdvantureReward(ItemEnum.LIGHTSWORD, 3);
-		} else {
-			item = getItemAsAdvantureReward(ItemEnum.HELMET, 3);
-		}
-
-		item.setHero(hero);
-		hero.getItems().add(item);
+		Hero hero = heroRepository.findByHeroName(heroName);
+		int treasuresGatheredOnTreasureHunt = getMoneyAsTreasureHuntingReward(hero.getHeroName());
+		
+		hero.setMoney(hero.getMoney() + treasuresGatheredOnTreasureHunt);
 
 		heroRepository.saveAndFlush(hero);
 		
 		decreaseActionPoints(heroName, getTreasureHuntingCost());
 
-		return item.getType() + "-t sikerült szerezned.";
+		return treasuresGatheredOnTreasureHunt + " pénzt sikerült szerezned.";
 	}
 	
 	public String goToAnAdvanture(String heroName) {
@@ -357,4 +349,8 @@ public class HeroActionService {
 		
 	}
 
+	public int getMoneyAsTreasureHuntingReward(String heroName) {
+		int additionalMoneyOnTreasureHunt = getWisdomModificationRate(heroName);
+		return defaultAmountOfMoneyOnTreasureHunt + additionalMoneyOnTreasureHunt;
+	}
 }
