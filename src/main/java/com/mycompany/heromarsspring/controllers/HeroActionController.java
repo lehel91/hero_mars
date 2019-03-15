@@ -3,15 +3,14 @@ package com.mycompany.heromarsspring.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.mycompany.heromarsspring.entities.Item;
-import com.mycompany.heromarsspring.model.ItemEnum;
+import com.mycompany.heromarsspring.exceptions.InsufficientActionPointsException;
 import com.mycompany.heromarsspring.services.HeroActionService;
+import com.mycompany.heromarsspring.services.HeroService;
 import com.mycompany.heromarsspring.services.SessionService;
 
 @Controller
@@ -22,6 +21,9 @@ public class HeroActionController {
 
 	@Autowired
 	private HeroActionService heroActionService;
+	
+	@Autowired
+	private HeroService heroService;
 
 	@RequestMapping(value = "hero_actions", method = RequestMethod.GET)
 	public String showActionsMenu(Model model) {
@@ -40,6 +42,15 @@ public class HeroActionController {
 		}
 
 		model.addAttribute("sessionData", sessionService);
+		model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
+		model.addAttribute("waterGatheringCost", heroActionService.getWaterCost());
+		model.addAttribute("foodGatheringCost", heroActionService.getHuntingCost());
+		model.addAttribute("treasureHuntingCost", heroActionService.getTreasureHuntingCost());
+		model.addAttribute("adventureCost", heroActionService.getAdventureCost());
+		model.addAttribute("padavanLearningCost", heroActionService.getPadavanLearningCost());
+		model.addAttribute("masterLearningCost", heroActionService.getMasterLearningCost());
+		model.addAttribute("mageLearningCost", heroActionService.getMageLearningCost());
+		
 
 		return "hero_actions.html";
 	}
@@ -59,7 +70,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.gatherWater(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.gatherWater(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -84,7 +100,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 		
-		String message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -108,7 +129,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.getTreasures(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.getTreasures(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -132,7 +158,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.goToAnAdvanture(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.goToAnAdvanture(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -156,7 +187,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.developWelldrillingSkill(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.developWelldrillingSkill(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -180,7 +216,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.developHuntingSkill(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.developHuntingSkill(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -204,7 +245,12 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.developAstronomerSkill(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.developAstronomerSkill(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
 //		model.addAttribute("message", new Gson().toJson(message));
 //		model.addAttribute("sessionData", sessionService);
@@ -228,11 +274,17 @@ public class HeroActionController {
 			return "redirect:/profile";
 		}
 
-		String message = heroActionService.developTreasureHunterSkill(sessionService.getCurrentHeroName());
+		String message;
+		try {
+			message = heroActionService.developTreasureHunterSkill(sessionService.getCurrentHeroName());
+		} catch (InsufficientActionPointsException e) {
+			return e.getMessage();
+		}
 		
-		model.addAttribute("message", new Gson().toJson(message));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "redirect:/hero_actions";
+//		model.addAttribute("message", new Gson().toJson(message));
+//		model.addAttribute("sessionData", sessionService);
+//		
+//		return "redirect:/hero_actions";
+		return message;
 	}
 }

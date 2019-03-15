@@ -19,6 +19,16 @@
 	font-style: italic;
 }
 
+.actionPoints {
+	position:absolute;
+	display: block;
+	right:20px;
+	position: fixed;
+	z-index: 8000;
+	margin: 0px;
+	color: red;
+}
+
 table {
     margin-left:auto; 
     margin-right:auto;
