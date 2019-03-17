@@ -10,9 +10,7 @@ import com.mycompany.heromarsspring.daos.ItemRepository;
 import com.mycompany.heromarsspring.daos.UserRepository;
 import com.mycompany.heromarsspring.entities.Hero;
 import com.mycompany.heromarsspring.entities.Item;
-import com.mycompany.heromarsspring.entities.Skill;
 import com.mycompany.heromarsspring.model.ItemEnum;
-import com.mycompany.heromarsspring.model.SkillEnum;
 import com.mycompany.heromarsspring.viewmodel.HeroFormData;
 
 @Service

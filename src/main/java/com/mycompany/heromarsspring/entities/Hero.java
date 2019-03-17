@@ -2,7 +2,6 @@ package com.mycompany.heromarsspring.entities;
 
 import com.mycompany.heromarsspring.model.HairColorEnum;
 import com.mycompany.heromarsspring.model.SexEnum;
-import com.mycompany.heromarsspring.model.SkillEnum;
 import com.mycompany.heromarsspring.model.SpeciesEnum;
 import java.io.Serializable;
 import java.time.LocalDate;

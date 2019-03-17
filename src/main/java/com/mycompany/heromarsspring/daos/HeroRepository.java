@@ -21,6 +21,12 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 
 	@Query(value = "SELECT h.heroName, h.water FROM Hero h")
 	List<Object[]> getAllHeroNamesAndWater();
+	
+	@Query(value = "SELECT h.heroName, h.food FROM Hero h")
+	List<Object[]> getAllHeroNamesAndFood();
+	
+	@Query(value = "SELECT h.heroName, h.actionPoint, h.species FROM Hero h")
+	List<Object[]> getAllHeroNamesActionPointSpecies();
 
 	@Query(value = "SELECT h.actionPoint FROM Hero h WHERE h.heroName = :heroName")
 	int getHeroActionPoints(@Param("heroName") String heroName);
