@@ -77,10 +77,7 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-		
-//		return "redirect:/hero_actions";
+		model.addAttribute("heroActionPoints", heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
 		return message;
 
 	}
@@ -107,10 +104,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 
@@ -136,10 +129,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 	
@@ -165,10 +154,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 	
@@ -194,10 +179,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 	
@@ -223,10 +204,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 	
@@ -252,10 +229,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 	
@@ -281,10 +254,6 @@ public class HeroActionController {
 			return e.getMessage();
 		}
 		
-//		model.addAttribute("message", new Gson().toJson(message));
-//		model.addAttribute("sessionData", sessionService);
-//		
-//		return "redirect:/hero_actions";
 		return message;
 	}
 }

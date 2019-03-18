@@ -10,7 +10,7 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
 <script
@@ -22,13 +22,12 @@
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
 	
-<script type="text/javascript">
-		function gatherWater() {					
-			var messageToShow = JSON.parse('${message}');
-	        alert(messageToShow);		
-		}
 	
-</script> 
+
+
+<script src="../js/hero_actions_js.js">
+
+</script>
 		
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
 <link rel="stylesheet" type="text/css" href="../css/hero_actions.css" />
@@ -84,7 +83,7 @@
 	<form action="#" th:action="@{/hero_actions}"method="GET">
 	
 	<div class="actionPoints">
-		<p align="right" th:text="'Akciópontok száma: ' + ${hero.actionPoint}"></p>
+		<p align="right" id="actionPoints" th:text="'Akciópontok száma: ' + ${hero.actionPoint}"></p>
 	</div>
 		
 	<div class="actionsMenu" align="center">
@@ -99,8 +98,8 @@
 					A vízszerzés sikerét, a megszerzett víz mennyiségét a Kútfúró képesség szintje és a Bölcsesség szintje egyaránt
 					befolyásolja.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/gathering_water} + '\''" 
-					value="Vizért megyek"/>
+					<input type="button" class="actionbutton" value="Vizért megyek" id="getWaterAjax"/><!-- th:onclick="'window.location.href = \'' + @{/gathering_water} + '\''" --> 
+					
 				</td>
 				<td th:text="${waterGatheringCost}"></td>
 		  	</tr>
