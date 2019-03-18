@@ -180,9 +180,11 @@ public class HeroActionService {
 		
 		if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
 			skillToGain= SkillEnum.WELLDRILLING_MAGE;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.WELLDRILLING_MASTER));
 			decreaseActionPoints(hero, getMageLearningCost());
 		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
 			skillToGain= SkillEnum.WELLDRILLING_MASTER;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.WELLDRILLING_PADAVAN));
 			decreaseActionPoints(hero, getMasterLearningCost());
 		} else {
 			skillToGain= SkillEnum.WELLDRILLING_PADAVAN;
@@ -202,7 +204,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
 	}
 	
 	public String developHuntingSkill(String heroName) throws InsufficientActionPointsException {
@@ -218,9 +220,11 @@ public class HeroActionService {
 		 
 		if (heroSkills.contains(SkillEnum.HUNTER_MASTER.getDescription())) {
 			skillToGain= SkillEnum.HUNTER_MAGE;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.HUNTER_MASTER));
 			decreaseActionPoints(hero, getMageLearningCost());
 		} else if (heroSkills.contains(SkillEnum.HUNTER_PADAVAN.getDescription())) {
 			skillToGain= SkillEnum.HUNTER_MASTER;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.HUNTER_PADAVAN));
 			decreaseActionPoints(hero, getMasterLearningCost());
 		} else {
 			skillToGain= SkillEnum.HUNTER_PADAVAN;
@@ -240,7 +244,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
 	}
 	
 	public String developAstronomerSkill(String heroName) throws InsufficientActionPointsException {
@@ -256,9 +260,11 @@ public class HeroActionService {
 		 
 		if (heroSkills.contains(SkillEnum.ASTRONOMER_MASTER.getDescription())) {
 			skillToGain= SkillEnum.ASTRONOMER_MAGE;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.ASTRONOMER_MASTER));
 			decreaseActionPoints(hero, getMageLearningCost());
 		} else if (heroSkills.contains(SkillEnum.ASTRONOMER_PADAVAN.getDescription())) {
 			skillToGain= SkillEnum.ASTRONOMER_MASTER;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.ASTRONOMER_PADAVAN));
 			decreaseActionPoints(hero, getMasterLearningCost());
 		} else {
 			skillToGain= SkillEnum.ASTRONOMER_PADAVAN;
@@ -278,7 +284,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
 	}
 	
 	public String developTreasureHunterSkill(String heroName) throws InsufficientActionPointsException {
@@ -294,9 +300,11 @@ public class HeroActionService {
 		 
 		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MASTER.getDescription())) {
 			skillToGain= SkillEnum.TREASURE_HUNTER_MAGE;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.TREASURE_HUNTER_MASTER));
 			decreaseActionPoints(hero, getMageLearningCost());
 		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_PADAVAN.getDescription())) {
 			skillToGain= SkillEnum.TREASURE_HUNTER_MASTER;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.TREASURE_HUNTER_PADAVAN));
 			decreaseActionPoints(hero, getMasterLearningCost());
 		} else {
 			skillToGain= SkillEnum.TREASURE_HUNTER_PADAVAN;
@@ -316,7 +324,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
 	}
 
 	public double getTreasureHuntingSuccesRate(String heroName) {
