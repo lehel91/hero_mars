@@ -58,7 +58,7 @@ public class SmithController {
 			return "redirect:/profile";
 		}
 		
-		String craftMessage = "You have successfully crafted a " + heroFormData.getCraftedItem().getDescription();
+		String craftMessage = heroService.craftItem(sessionService.getCurrentHeroName(), heroFormData.getCraftedItem());
 		
 		model.addAttribute("craftMessage", craftMessage);
 		model.addAttribute("sessionData", sessionService);

@@ -96,7 +96,7 @@ public class HeroService {
 		hero.setWisdom(hero.getWisdom() + item2.getItemStrengthMod());
 		hero.setHp(hero.getHp() + item2.getItemHpMod());
 		hero.setStrength(hero.getStrength() + item2.getItemStrengthMod());
-		
+
 		return heroRepository.saveAndFlush(hero);
 	}
 
@@ -165,14 +165,46 @@ public class HeroService {
 	}
 
 	public SmithData getSmithData(String currentHeroName) {
-		
+
 		SmithData smithData = new SmithData();
-		
+
 		List<Object[]> heroData = heroRepository.getSmithData(currentHeroName);
-		
+
 		smithData.setHeroMoney(Integer.valueOf(heroData.get(0)[0].toString()));
 		smithData.setHeroLevel(Integer.valueOf(heroData.get(0)[1].toString()));
-		
+
 		return smithData;
+	}
+
+	public String craftItem(String currentHeroName, ItemEnum craftedItem) {
+
+		Hero hero = heroRepository.findByHeroName(currentHeroName);
+
+		Integer price = 100 * hero.getHeroLevel();
+
+		if (price <= hero.getMoney()) {
+
+			hero.setMoney(hero.getMoney() - price);
+
+			Item item = new Item();
+
+			item.setDurability(craftedItem.getDurability());
+			item.setHero(hero);
+			item.setIsInUse(false);
+			item.setItemHpMod(craftedItem.getHealthMod() * hero.getHeroLevel());
+			item.setItemStrengthMod(craftedItem.getStrengthMod() * hero.getHeroLevel());
+			item.setItemWisdomMod(craftedItem.getWisdomMod() * hero.getHeroLevel());
+			item.setLevel(hero.getHeroLevel());
+			item.setName(craftedItem);
+			item.setType(craftedItem.getType());
+
+			itemRepository.saveAndFlush(item);
+
+			return "A hősöd sikeresen kovácsoltatott egy " + hero.getHeroLevel() + ". szintű "
+					+ craftedItem.getDescription() + "(o)t";
+
+		}
+
+		return "A hősödnek nincs elegendő pénze a választott eszköz kovácsolására!";
 	}
 }
