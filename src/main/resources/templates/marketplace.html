@@ -77,10 +77,14 @@
 	<br/>
 	<br/>
 
+	<h3 align="center" th:text="${message}"> </h3>
+
+	<br/>
+
 	
 	<form align="center" th:object="${itemMarket}" th:action="@{/searchByType}" method="get">
         <input type="text" name="type" th:value="${type}"/>
-        <input type="submit" value="Keresés"/>
+        <input type="submit" value="Keresés az eszköz típusa szerint"/>
     </form>
     <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
         <input type="submit" value="Mutass mindent"/>

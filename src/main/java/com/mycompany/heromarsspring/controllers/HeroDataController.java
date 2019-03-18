@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.heromarsspring.entities.Item;
+import com.mycompany.heromarsspring.entities.ItemMarket;
 import com.mycompany.heromarsspring.services.HeroService;
 import com.mycompany.heromarsspring.services.MarketService;
 import com.mycompany.heromarsspring.services.SessionService;
@@ -86,7 +88,7 @@ public class HeroDataController {
 			return "redirect:/profile";
 		}
 		
-		String message = marketService.saveItem(itemId, 200);
+		String message = marketService.saveItem(itemId, 50);
 		
 		model.addAttribute("sessionData", sessionService);
 		model.addAttribute("itemChangeMessage", message);
