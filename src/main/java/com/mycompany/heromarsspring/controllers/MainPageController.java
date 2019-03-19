@@ -14,12 +14,12 @@ public class MainPageController {
 @Autowired
 SessionService sessionService;
 	
-	@RequestMapping(value = "index", method = RequestMethod.GET)
+	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String showMainMenu(Model model) {
 		
 		model.addAttribute("sessionData", sessionService);
 		
-		return "index.html";
+		return "main.html";
 	}
 
 }

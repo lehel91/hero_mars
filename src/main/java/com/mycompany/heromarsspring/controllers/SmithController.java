@@ -58,6 +58,10 @@ public class SmithController {
 			return "redirect:/profile";
 		}
 		
+		if (null == heroFormData.getCraftedItem()) {
+			return "redirect:/smith";
+		}
+		
 		String craftMessage = heroService.craftItem(sessionService.getCurrentHeroName(), heroFormData.getCraftedItem());
 		
 		model.addAttribute("craftMessage", craftMessage);
