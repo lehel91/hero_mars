@@ -25,7 +25,7 @@
 	
 
 
-<script src="../js/hero_actions_js.js">
+<script src="../js/hero_actions.js">
 
 </script>
 		
@@ -98,7 +98,7 @@
 					A vízszerzés sikerét, a megszerzett víz mennyiségét a Kútfúró képesség szintje és a Bölcsesség szintje egyaránt
 					befolyásolja.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" value="Vizért megyek" id="getWaterAjax"/><!-- th:onclick="'window.location.href = \'' + @{/gathering_water} + '\''" --> 
+					<input type="button" class="actionbutton" value="Vizért megyek" id="getWater"/> 
 					
 				</td>
 				<td th:text="${waterGatheringCost}"></td>
@@ -107,8 +107,7 @@
 		  		<td colspan="3">Enni kell ha életben akarsz maradni. A vadászat sikerét és a megszerzett étel mennyiségét a 
 		  		Vadászó képesség szintje és a Bölcsesség szintje egyaránt befolyásolja.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/gathering_food} + '\''" 
-					value="Vadászni megyek" />
+					<input type="button" class="actionbutton" value="Vadászni megyek" id="getFood"/>
 				</td>
 				<td th:text="${foodGatheringCost}"></td>
 		  	</tr>
@@ -116,8 +115,7 @@
 		  		<td colspan="3">Pénzre lesz szükséged, ha majd eszközöket szeretnél vásárolni. A Marson kincsvadászatra 
 		  		mehetsz, hogy további pénzre tegyél szert. A megszerzett pénz mennyiségét befolyásolja a bölcsességed mértéke<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/hunting_treasure} + '\''" 
-					value="Kincset keresek" />
+					<input type="button" class="actionbutton" value="Kincset keresek" id="getTreasure"/>
 				</td>
 				<td th:text="${treasureHuntingCost}"></td>
 		  	</tr>
@@ -125,8 +123,7 @@
 		  		<td colspan="3">A Kútfúró képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 		  		szintre jutsz, annál több vizet szerezhetsz. A megszerzett képességek további jellemzőidet befolyásolják.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/learning_welldrilling_skill} + '\''" 
-					value="Kútfúró képességet fejlesztek" />
+					<input type="button" class="actionbutton" value="Kútfúró képességet fejlesztek" id="learnWelldrillingSkill"/>
 				</td>
 				<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 		  	</tr>
@@ -134,8 +131,7 @@
 		  		<td colspan="3">A Vadászó képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 		  		szintre jutsz, annál több élelmet szerezhetsz. A megszerzett képességek további jellemzőidet befolyásolják.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/learning_hunting_skill} + '\''" 
-					value="Vadászó képességet fejlesztek" />
+					<input type="button" class="actionbutton" value="Vadászó képességet fejlesztek" id="learnHuntingSkill"/>
 				</td>
 				<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 		  	</tr>
@@ -143,8 +139,7 @@
 		  		<td colspan="3">A Csillagvizsgló képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 		  		szintre jutsz, annál több bölcsességre teszel  szert.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/learning_astronomer_skill} + '\''" 
-					value="Csillagvizsgáló képességet fejlesztek" />
+					<input type="button" class="actionbutton" value="Csillagvizsgáló képességet fejlesztek" id="learnAstronomerSkill"/>
 				</td>
 				<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 		  	</tr>
@@ -152,8 +147,7 @@
 		  		<td colspan="3">A Kincsvadász képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 		  		szintre jutsz, annál több pénzt szerezhetsz a kincsvadászaton.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/learning_treasure_hunter_skill} + '\''" 
-					value="Kincsvadász képességet fejlesztek" />
+					<input type="button" class="actionbutton" value="Kincsvadász képességet fejlesztek" id="learnTreasureHuntingSkill"/>
 				</td>
 				<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 		  	</tr>
@@ -161,8 +155,7 @@
 		  		<td colspan="3">Küldetésre mehetsz, hogy új eszközökre tegyél szert. A küldetésed sikerét a Kincsvadászó képességed
 		  		és a bölcsességed egyaránt befolyásolja.<br/></td>
 				<td colspan="1">
-					<input type="button" class="actionbutton" th:onclick="'window.location.href = \'' + @{/go_to_an_adventure} + '\''" 
-					value="Küldetésre megyek" />
+					<input type="button" class="actionbutton" value="Küldetésre megyek" id="goingToAdvanture"/>
 				</td>
 				<td th:text="${adventureCost}"></td>
 		  	</tr>

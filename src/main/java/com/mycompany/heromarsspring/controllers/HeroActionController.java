@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.mycompany.heromarsspring.exceptions.InsufficientActionPointsException;
 import com.mycompany.heromarsspring.services.HeroActionService;
 import com.mycompany.heromarsspring.services.HeroService;

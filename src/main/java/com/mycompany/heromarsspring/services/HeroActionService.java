@@ -164,7 +164,7 @@ public class HeroActionService {
 
 		heroRepository.saveAndFlush(hero);
 
-		return item.getType() + "-t sikerült szerezned.";
+		return "A következő eszközt szerezted meg: " + item.getName().getDescription();
 	}
 	
 	public String developWelldrillingSkill(String heroName) throws InsufficientActionPointsException {
@@ -204,7 +204,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
 	}
 	
 	public String developHuntingSkill(String heroName) throws InsufficientActionPointsException {
@@ -244,7 +244,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
 	}
 	
 	public String developAstronomerSkill(String heroName) throws InsufficientActionPointsException {
@@ -284,7 +284,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
 	}
 	
 	public String developTreasureHunterSkill(String heroName) throws InsufficientActionPointsException {
@@ -324,7 +324,7 @@ public class HeroActionService {
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
 
-		return skill.getSkillType().getDescription() + "képességet sikerült szerezned.";
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
 	}
 
 	public double getTreasureHuntingSuccesRate(String heroName) {
