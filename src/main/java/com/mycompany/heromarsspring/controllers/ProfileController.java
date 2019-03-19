@@ -19,93 +19,103 @@ public class ProfileController {
 
 	@Autowired
 	SessionService sessionService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String showProfile(Model model) {
 
 		if (sessionService == null) {
-			
+
 			return "redirect:/index";
-			
-		} else if (sessionService.getCurrentUserName()==null) {
-			
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
 			return "redirect:/login";
-			
+
 		}
-		
+
 		ProfileData profileData = new ProfileData();
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		model.addAttribute("profileData", profileData);
 		model.addAttribute("sessionData", sessionService);
-		
+
 		return "profile.html";
 	}
-	
+
 	@RequestMapping(value = "modifyEmail", method = RequestMethod.POST)
-	public String modifyUserEmail(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
+	public String modifyUserEmail(@ModelAttribute("profileData") @Valid ProfileData profileData,
+			BindingResult bindingResult, Model model) {
 
 		if (sessionService == null) {
-			
+
 			return "redirect:/index";
-			
-		} else if (sessionService.getCurrentUserName()==null) {
-			
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
 			return "redirect:/login";
-			
+
 		}
-		
-		
+
 		if (!bindingResult.hasFieldErrors("eMail")) {
 			userService.setUserEmail(profileData.getEMail(), sessionService.getCurrentUserName());
 		}
 
 		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
 		model.addAttribute("sessionData", sessionService);
-		
+
 		return "profile.html";
 	}
-	
+
 	@RequestMapping(value = "modifyPassword", method = RequestMethod.POST)
-	public String modifyUserPassword(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
-		
-		if (sessionService == null) {
-			
-			return "redirect:/index";
-			
-		} else if (sessionService.getCurrentUserName()==null) {
-			
-			return "redirect:/login";
-			
-		}
-		
-		if (!bindingResult.hasFieldErrors("newPassword") && !bindingResult.hasFieldErrors("confirmNewPassword")) {
-		userService.setUserPassword(profileData.getNewPassword(), sessionService.getCurrentUserName());
-		}
-		
-		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
-		model.addAttribute("sessionData", sessionService);
-		
-		return "profile.html";
-	}
-	
-	@RequestMapping(value = "setHero", method = RequestMethod.POST)
-	public String setHero(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,  Model model) {
+	public String modifyUserPassword(@ModelAttribute("profileData") @Valid ProfileData profileData,
+			BindingResult bindingResult, Model model) {
 
 		if (sessionService == null) {
-			
+
 			return "redirect:/index";
-			
-		} else if (sessionService.getCurrentUserName()==null) {
-			
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
 			return "redirect:/login";
-			
+
 		}
-		
+
+		if (!bindingResult.hasFieldErrors("newPassword") && !bindingResult.hasFieldErrors("confirmNewPassword")) {
+			userService.setUserPassword(profileData.getNewPassword(), sessionService.getCurrentUserName());
+		}
+
+		profileData.setHeroNames(userService.getHeroNames(sessionService.getCurrentUserName()));
+		model.addAttribute("sessionData", sessionService);
+
+		return "profile.html";
+	}
+
+	@RequestMapping(value = "setHero", method = RequestMethod.POST)
+	public String setHero(@ModelAttribute("profileData") @Valid ProfileData profileData, BindingResult bindingResult,
+			Model model) {
+
+		if (sessionService == null) {
+
+			return "redirect:/index";
+
+		} else if (sessionService.getCurrentUserName() == null) {
+
+			return "redirect:/login";
+
+		}
+
+		String heroName = profileData.getSelectedHeroName();
+
+		if (null == heroName || "".equals(heroName)) {
+
+			return "redirect:/profile";
+
+		}
+
 		sessionService.setCurrentHeroName(profileData.getSelectedHeroName());
-		
+
 		return "redirect:/hero";
 	}
 
