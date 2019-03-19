@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycompany.heromarsspring.exceptions.InsufficientActionPointsException;
+import com.mycompany.heromarsspring.model.AjaxResponse;
 import com.mycompany.heromarsspring.services.HeroActionService;
 import com.mycompany.heromarsspring.services.HeroService;
 import com.mycompany.heromarsspring.services.SessionService;
@@ -55,204 +56,157 @@ public class HeroActionController {
 	}
 
 	@RequestMapping(value = "gathering_water", method = RequestMethod.GET)
-	public @ResponseBody String getWater(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse getWater(Model model) {
+		
 		String message;
+		AjaxResponse waterResponse = new AjaxResponse();
 		try {
 			message = heroActionService.gatherWater(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			waterResponse.setMessage(e.getMessage());
+			waterResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return waterResponse;
 		}
 		
-		model.addAttribute("heroActionPoints", heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
-		return message;
+		waterResponse.setMessage(message);
+		waterResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
 
+		return waterResponse;
+		
 	}
-
+	
 	@RequestMapping(value = "gathering_food", method = RequestMethod.GET)
-	public @ResponseBody String getFood(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
+	public @ResponseBody AjaxResponse getFood(Model model) {
 		
 		String message;
+		AjaxResponse foodResponse = new AjaxResponse();
 		try {
 			message = heroActionService.gatherFood(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			foodResponse.setMessage(e.getMessage());
+			foodResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return foodResponse;
 		}
 		
-		return message;
+		foodResponse.setMessage(message);
+		foodResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return foodResponse;
+		
 	}
 
 	@RequestMapping(value = "hunting_treasure", method = RequestMethod.GET)
-	public @ResponseBody String getTreasures(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse getTreasures(Model model) {
+		
 		String message;
+		AjaxResponse treasureResponse = new AjaxResponse();
 		try {
 			message = heroActionService.getTreasures(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			treasureResponse.setMessage(e.getMessage());
+			treasureResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return treasureResponse;
 		}
 		
-		return message;
+		treasureResponse.setMessage(message);
+		treasureResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return treasureResponse;	
 	}
 	
 	@RequestMapping(value = "go_to_an_adventure", method = RequestMethod.GET)
-	public @ResponseBody String goToAnAdvanture(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse goToAnAdvanture(Model model) {
+		
 		String message;
+		AjaxResponse adventureResponse = new AjaxResponse();
 		try {
 			message = heroActionService.goToAnAdvanture(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			adventureResponse.setMessage(e.getMessage());
+			adventureResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return adventureResponse;
 		}
 		
-		return message;
+		adventureResponse.setMessage(message);
+		adventureResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return adventureResponse;	
 	}
 	
 	@RequestMapping(value = "learning_welldrilling_skill", method = RequestMethod.GET)
-	public @ResponseBody String developWelldrillingSkill(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse developWelldrillingSkill(Model model) {
+		
 		String message;
+		AjaxResponse welldrillingResponse = new AjaxResponse();
 		try {
 			message = heroActionService.developWelldrillingSkill(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			welldrillingResponse.setMessage(e.getMessage());
+			welldrillingResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return welldrillingResponse;
 		}
 		
-		return message;
+		welldrillingResponse.setMessage(message);
+		welldrillingResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return welldrillingResponse;	
 	}
 	
 	@RequestMapping(value = "learning_hunting_skill", method = RequestMethod.GET)
-	public @ResponseBody String developHuntingSkill(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse developHuntingSkill(Model model) {
+		
 		String message;
+		AjaxResponse huntingResponse = new AjaxResponse();
 		try {
 			message = heroActionService.developHuntingSkill(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			huntingResponse.setMessage(e.getMessage());
+			huntingResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return huntingResponse;
 		}
 		
-		return message;
+		huntingResponse.setMessage(message);
+		huntingResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return huntingResponse;	
 	}
 	
 	@RequestMapping(value = "learning_astronomer_skill", method = RequestMethod.GET)
-	public @ResponseBody String developAstronomerSkill(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse developAstronomerSkill(Model model) {
+		
 		String message;
+		AjaxResponse astronomerResponse = new AjaxResponse();
 		try {
 			message = heroActionService.developAstronomerSkill(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			astronomerResponse.setMessage(e.getMessage());
+			astronomerResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return astronomerResponse;
 		}
 		
-		return message;
+		astronomerResponse.setMessage(message);
+		astronomerResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return astronomerResponse;	
 	}
 	
 	@RequestMapping(value = "learning_treasure_hunter_skill", method = RequestMethod.GET)
-	public @ResponseBody String developTreasureHunterSkill(Model model) {
-		if (sessionService == null) {
-
-			return "redirect:/index";
-
-		} else if (sessionService.getCurrentUserName() == null) {
-
-			return "redirect:/login";
-
-		} else if (sessionService.getCurrentHeroName() == null) {
-
-			return "redirect:/profile";
-		}
-
+	public @ResponseBody AjaxResponse developTreasureHunterSkill(Model model) {
+		
 		String message;
+		AjaxResponse treasureHunterResponse = new AjaxResponse();
 		try {
 			message = heroActionService.developTreasureHunterSkill(sessionService.getCurrentHeroName());
 		} catch (InsufficientActionPointsException e) {
-			return e.getMessage();
+			treasureHunterResponse.setMessage(e.getMessage());
+			treasureHunterResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+			return treasureHunterResponse;
 		}
 		
-		return message;
+		treasureHunterResponse.setMessage(message);
+		treasureHunterResponse.setActionPoints(heroService.findHeroByName(sessionService.getCurrentHeroName()).getActionPoint());
+
+		return treasureHunterResponse;	
 	}
+	
 }
