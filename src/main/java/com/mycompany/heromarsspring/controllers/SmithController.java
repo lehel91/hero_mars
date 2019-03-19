@@ -25,7 +25,7 @@ public class SmithController {
 		
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		} else if (sessionService.getCurrentUserName()==null) {
 			
@@ -47,7 +47,7 @@ public class SmithController {
 		
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		} else if (sessionService.getCurrentUserName()==null) {
 			
@@ -56,6 +56,10 @@ public class SmithController {
 		} else if (sessionService.getCurrentHeroName()==null) {
 			
 			return "redirect:/profile";
+		}
+		
+		if (null == heroFormData.getCraftedItem()) {
+			return "redirect:/smith";
 		}
 		
 		String craftMessage = heroService.craftItem(sessionService.getCurrentHeroName(), heroFormData.getCraftedItem());

@@ -14,7 +14,6 @@ public class HeromarsspringApplication {
 		ConfigurableApplicationContext context = SpringApplication.run(new Class<?>[]{HeromarsspringApplication.class, MarsConfig.class}, args);
 		
 		HeroService heroService = context.getBean(HeroService.class);
-		
 		System.out.println(heroService.findHeroById(1));
 		
 	}

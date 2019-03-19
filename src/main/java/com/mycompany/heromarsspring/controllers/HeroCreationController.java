@@ -28,7 +28,7 @@ public class HeroCreationController {
 	
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		} else if (sessionService.getCurrentUserName()==null) {
 			
@@ -48,7 +48,7 @@ public class HeroCreationController {
 
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		} else if (sessionService.getCurrentUserName()==null) {
 			
