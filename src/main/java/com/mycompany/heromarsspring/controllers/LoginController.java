@@ -29,7 +29,7 @@ public class LoginController {
 
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		}
 		
@@ -44,7 +44,7 @@ public class LoginController {
 
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		}
 		

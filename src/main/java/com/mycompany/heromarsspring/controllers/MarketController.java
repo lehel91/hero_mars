@@ -28,7 +28,7 @@ public class MarketController {
 
 		if (sessionService == null) {
 
-			return "redirect:/index";
+			return "redirect:/main";
 
 		} else if (sessionService.getCurrentUserName() == null) {
 

@@ -21,7 +21,7 @@ public class LogoutController {
 
 		if (sessionService == null) {
 			
-			return "redirect:/index";
+			return "redirect:/main";
 			
 		} else if (sessionService.getCurrentUserName()==null) {
 			
@@ -31,6 +31,6 @@ public class LogoutController {
 		
 		session.invalidate();
 
-		return "redirect:/index";
+		return "redirect:/main";
 	}
 }
