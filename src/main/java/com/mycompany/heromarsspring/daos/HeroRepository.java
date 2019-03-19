@@ -58,4 +58,7 @@ public interface HeroRepository extends JpaRepository<Hero, Integer> {
 	void updateHeroStats(@Param("heroName") String heroName, @Param("hp") Integer hp,
 			@Param("strength") Integer strength, @Param("wisdom") Integer wisdom);
 
+	@Query(value = "SELECT h.money, h.heroLevel FROM Hero h WHERE h.heroName = :heroName")
+	List<Object[]> getSmithData(@Param("heroName") String currentHeroName);
+
 }
