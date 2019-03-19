@@ -198,6 +198,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 
+		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 		
@@ -238,6 +239,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 		
+		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -278,6 +280,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 		
+		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -318,6 +321,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 		
+		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -367,12 +371,15 @@ public class HeroActionService {
 	public Skill getSkillAsLearningReward(SkillEnum skillType) {
 		Skill skill = new Skill();
 		skill.setSkillType(skillType);
-		return skill;
-		
+		return skill;	
 	}
 
 	public int getMoneyAsTreasureHuntingReward(String heroName) {
 		int additionalMoneyOnTreasureHunt = getWisdomModificationRate(heroName);
 		return defaultAmountOfMoneyOnTreasureHunt + additionalMoneyOnTreasureHunt;
+	}
+	
+	public int addNewWisdomAmount(SkillEnum skillGained) {
+		return skillGained.getSkillWisdomMod();
 	}
 }
