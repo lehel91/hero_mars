@@ -198,7 +198,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 
-		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
+		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 		
@@ -239,7 +239,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 		
-		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
+		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -280,7 +280,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 		
-		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
+		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -321,7 +321,7 @@ public class HeroActionService {
 			skill = existingSkillInDb;
 		}
 		
-		hero.setWisdom(hero.getWisdom() + addNewWisdomAmount(skillToGain));
+		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
@@ -379,7 +379,9 @@ public class HeroActionService {
 		return defaultAmountOfMoneyOnTreasureHunt + additionalMoneyOnTreasureHunt;
 	}
 	
-	public int addNewWisdomAmount(SkillEnum skillGained) {
-		return skillGained.getSkillWisdomMod();
+	public void setNewValuesForGlobalAttributesBySkillMod(Hero hero, SkillEnum skillGained) {
+		 hero.setWisdom(hero.getWisdom() + skillGained.getSkillWisdomMod());
+		 hero.setStrength(hero.getStrength() + skillGained.getSkillStrengthMod());
+		 hero.setHp(hero.getHp() + skillGained.getSkillHpMod());
 	}
 }
