@@ -35,8 +35,20 @@
 		}
 		
 		function placeItemToMarket(itemId) {
+
+			var price = definePrice();
 			
-			window.location.href = '/placeToMarket?itemId=' + itemId;
+			if (price == null){
+				window.location.href = '/hero';
+			} else {
+				window.location.href = '/placeToMarket?itemId=' + itemId + '&price=' + price;	
+			}
+
+		}
+		
+		function definePrice(){
+			
+			return window.prompt("Add meg az eladni kívánt eszköz árát!", 1);
 			
 		}
 	

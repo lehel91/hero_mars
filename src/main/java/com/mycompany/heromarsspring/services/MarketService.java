@@ -34,14 +34,15 @@ public class MarketService {
 		Item item = itemRepository.findByItemId(itemId);
 		ItemMarket market = new ItemMarket();
 		
-		Integer calculatedPrice = (int)(price * item.getLevel() * (item.getDurability()/100.0));
+//		Integer calculatedPrice = (int)(price * item.getLevel() * (item.getDurability()/100.0));
 
-		market.setPrice(calculatedPrice);
+//		market.setPrice(calculatedPrice);
+		market.setPrice(price);
 		item.setMarketPresence(market);
 
 		marketRepo.saveAndFlush(market);
 		
-		message = "Sikeresen kitetted a " + item.getName().getDescription() + " eszközödet a piacra " + calculatedPrice
+		message = "Sikeresen kitetted a " + item.getName().getDescription() + " eszközödet a piacra " + price
 				+ " buznyák áron!"; 
 
 		return message;

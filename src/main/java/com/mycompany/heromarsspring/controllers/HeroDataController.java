@@ -71,7 +71,7 @@ public class HeroDataController {
 	}
 	
 	@RequestMapping(value = "placeToMarket", method = RequestMethod.GET)
-	public String placeToMarket(@RequestParam Integer itemId, Model model) {
+	public String placeToMarket(@RequestParam Integer itemId, @RequestParam Integer price, Model model) {
 		
 		if (sessionService == null) {
 			
@@ -86,7 +86,7 @@ public class HeroDataController {
 			return "redirect:/profile";
 		}
 		
-		String message = marketService.saveItem(itemId, 50);
+		String message = marketService.saveItem(itemId, price);
 		
 		model.addAttribute("sessionData", sessionService);
 		model.addAttribute("itemChangeMessage", message);
