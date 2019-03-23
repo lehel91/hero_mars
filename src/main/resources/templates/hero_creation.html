@@ -5,94 +5,85 @@
 <meta charset="UTF-8">
 <title>HeroMars - Create a new hero</title>
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
 </head>
 
 <body>
 
-	<ul class="nav nav-tabs justify-content-center">
-		<li class="nav-item">
-        	<a class="nav-link" th:href="@{/main}">Főoldal</a>
-      	</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}">Regisztráció</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}">Bejelentkezés</a>
-      	</li>
-      	<li class="nav-item">
-			<a class="nav-link" th:href="@{/profile}" >Profil</a>
-		</li>
-      	<li class="nav-item">
-        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData.currentHeroName == null}">Hős</a>
-      	</li>
-       	<li class="nav-item">
-			<a class="nav-link" th:href="@{/market}" th:unless="${sessionData.currentHeroName == null}">Marketplace</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
-		</li>
-    </ul>
+	<div class="menuLine">
+		<div class="mainMenu">
 
-	<h1 align="center">&ltHero!Mars!/&gt</h1>
+			<div class = "top-bar-data"></div>
 
-	<form action="#" th:action="@{/create_hero}"
-		th:object="${heroFormData}" method="POST">
-		<br />
-		<p th:errors="*{heroName}"></p>
-		Hero Name: <input type="text" th:field="*{heroName}" /> 
-		<br /> 
-		<br />
-		<label for="species">Faj:</label>
-		<select th:field="*{species}">
-  			<option value="" selected> Válassz fajt! </option>
-  			<option th:each="species : ${T(com.mycompany.heromarsspring.model.SpeciesEnum).values()}" 
-  				th:value="${species}" 
-  				th:selected="${species == T(com.mycompany.heromarsspring.model.SpeciesEnum)}"
-  				th:text="${species.description}"></option>
-		</select>
-		<br /> 
-		<br />
-		<label for="sex">Nem:</label>
-		<select th:field="*{sex}">
-  			<option value="" selected> Válassz nemet! </option>
-  			<option th:each="sex : ${T(com.mycompany.heromarsspring.model.SexEnum).values()}" 
-  				th:value="${sex}" 
-  				th:selected="${sex == T(com.mycompany.heromarsspring.model.SexEnum)}"
-  				th:text="${sex.description}"></option>
-		</select>
-		<br /> 
-		<br />
-		<label for="hairColor">Hajszín:</label> 
-		<select th:field="*{hairColor}">
-			<option value="" selected> Válassz hajszínt! </option>
- 			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
-  				th:value="${hairColor}" 
-  				th:selected="${hairColor == T(com.mycompany.heromarsspring.model.HairColorEnum)}"
-  				th:text="${hairColor.description}"></option>
-		</select>
-		<br /> 
-		<br />
-		<input type="submit" value="Hős létrehozása" />
-	</form>
+	        <a th:href="@{/main}">
+	        	<div class = "top-bar-data">Főoldal</div>
+	        </a>
+
+			<a th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">
+				<div class = "top-bar-data">Profil</div>
+			</a>
+			
+	        <a th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">
+	        	<div class = "top-bar-data">Hős</div>
+	        </a>
+	        	        
+	        <a th:href="@{/login}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >
+				<div class = "top-bar-log top-bar-data">Bejelentkezés</div>
+			</a>
+			
+			<a th:href="@{/logout}" th:unless="${sessionData == null || sessionData.currentUserName == null}">
+				<div class = "top-bar-log top-bar-data">Kijelentkezés</div>
+			</a>
+			
+			<div class = "top-bar-data top-bar-log"></div>
+			
+	    </div>
+ 	</div>
+ 	  
+	<div class="content">
+
+		<form action="#" th:action="@{/create_hero}"
+			th:object="${heroFormData}" method="POST">
+			<br />
+			<p th:errors="*{heroName}"></p>
+			Hero Name: <input type="text" th:field="*{heroName}" /> 
+			<br /> 
+			<br />
+			<label for="species">Faj:</label>
+			<select th:field="*{species}">
+	  			<option value="" selected> Válassz fajt! </option>
+	  			<option th:each="species : ${T(com.mycompany.heromarsspring.model.SpeciesEnum).values()}" 
+	  				th:value="${species}" 
+	  				th:selected="${species == T(com.mycompany.heromarsspring.model.SpeciesEnum)}"
+	  				th:text="${species.description}"></option>
+			</select>
+			<br /> 
+			<br />
+			<label for="sex">Nem:</label>
+			<select th:field="*{sex}">
+	  			<option value="" selected> Válassz nemet! </option>
+	  			<option th:each="sex : ${T(com.mycompany.heromarsspring.model.SexEnum).values()}" 
+	  				th:value="${sex}" 
+	  				th:selected="${sex == T(com.mycompany.heromarsspring.model.SexEnum)}"
+	  				th:text="${sex.description}"></option>
+			</select>
+			<br /> 
+			<br />
+			<label for="hairColor">Hajszín:</label> 
+			<select th:field="*{hairColor}">
+				<option value="" selected> Válassz hajszínt! </option>
+	 			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
+	  				th:value="${hairColor}" 
+	  				th:selected="${hairColor == T(com.mycompany.heromarsspring.model.HairColorEnum)}"
+	  				th:text="${hairColor.description}"></option>
+			</select>
+			<br /> 
+			<br />
+			<input type="submit" value="Hős létrehozása" />
+		</form>
+		
+	</div>
 
 </body>
 </html>

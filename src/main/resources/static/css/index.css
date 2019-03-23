@@ -1,22 +1,22 @@
 @charset "UTF-8";
 
 body {
-	background-image: url('../img/mars2_bigger.jpg');
+	background-image: url('../img/background.jpg');
 	background-color: black;
 	background-repeat: no-repeat;
 	color: whitesmoke;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif,
-		Haettenschweiler, 'Arial Narrow Bold', sans-serif, 'Gill Sans MT',
-		Calibri, 'Trebuchet MS', sans-serif;
+	font-family: open sans,Arial,Helvetica,sans-serif;
 	display: block;
+	margin-top: 35px;
+
 }
 
 h1 {
 	text-align: center;
 }
 
-.nav {
-    background-color:lightskyblue;
+a {
+	font-size: 13px;
 }
 
 .menuLine {
@@ -24,14 +24,46 @@ h1 {
 	position: fixed;
 	z-index: 8000;
 	width: 100%;
-	background-color:lightskyblue;
+	background: transparent url('../img/top_bar.png') repeat-x;
+	box-shadow: 0 0 2px #000;
+	height: 35px;
+	right: 0;
+	left: 0;
+	margin: 0;
+	top: 0;
 }
 
 .mainMenu {
     margin: auto;
-    width: 70%;
+    width: 980px;
     display: block;
-    position: relative;
+    height: 35px;
+}
+
+.top-bar-data {
+	text-transform: uppercase;
+    color: #fff;
+    background: transparent none;
+    width: auto;
+    height: 35px;
+    float: left;
+    font-size: 13px;
+    line-height: 35px;
+    text-align: center;
+    padding: 0 8px;
+    border-right: 1px solid #000;
+    display: block;
+    font-weight: bold;
+}
+
+.top-bar-log {
+    float: right!important;
+}
+
+.top-bar-data:hover {
+	color: red;
+	background-color: #2F4F4F;
+	box-shadow: 0 0 2px #000;
 }
 
 .secondaryMenu {
@@ -39,13 +71,31 @@ h1 {
 	display: block;
 	z-index: 90000;
 	top: 60px;
-	left: -50px;
 	margin: 0px;
+	width: 120px;
+	background-color: grey;
+	opacity: 0.5;
 }
 
-.logout {
-	position: fixed;
-	right: 20px;
-	margin: 0;
-	z-index: 90000;
+.secondaryMenu a {
+	background-color: #eee;
+	color: black;
+	display: block;
+	padding: 10px;
+	text-decoration: none;
+}
+
+.secondaryMenu a:hover {
+	background-color: #2F4F4F;
+	color: white;
+	font-weight: bold;
+	
+}
+
+.content {
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+    width: 980px;
+    display: block;
 }

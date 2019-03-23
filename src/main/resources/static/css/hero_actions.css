@@ -20,7 +20,6 @@
 }
 
 .actionPoints {
-	position:absolute;
 	display: block;
 	right:20px;
 	position: fixed;

@@ -7,125 +7,112 @@
 
 <title>User Profile</title>
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
 </head>
 <body>
 
 	<div class="menuLine">
-	
 		<div class="mainMenu">
 
-			<ul class="nav nav-tabs justify-content-center">
-				<li class="nav-item">
-		        	<a class="nav-link" th:href="@{/main}">Főoldal</a>
-		      	</li>
-		      	<li class="nav-item">
-		        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
-		      	</li>
-		      	<li class="nav-item">
-					<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
-		      	</li>
-		      	<li class="nav-item">
-					<a class="nav-link active" th:href="@{/profile}" >Profil</a>
-				</li>
-		      	<li class="nav-item">
-		        	<a class="nav-link" th:href="@{/hero}" th:unless="${sessionData.currentHeroName == null}">Hős</a>
-		      	</li>
-		    </ul>
-		    
+			<div class = "top-bar-data"></div>
+
+	        <a th:href="@{/main}">
+	        	<div class = "top-bar-data">Főoldal</div>
+	        </a>
+
+			<a th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">
+				<div class = "top-bar-data">Profil</div>
+			</a>
+			
+	        <a th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">
+	        	<div class = "top-bar-data">Hős</div>
+	        </a>
+	        	        
+	        <a th:href="@{/login}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >
+				<div class = "top-bar-log top-bar-data">Bejelentkezés</div>
+			</a>
+			
+			<a th:href="@{/logout}" th:unless="${sessionData == null || sessionData.currentUserName == null}">
+				<div class = "top-bar-log top-bar-data">Kijelentkezés</div>
+			</a>
+			
+			<div class = "top-bar-data top-bar-log"></div>
+			
 	    </div>
-    
  	</div>
- 	
- 	<div class="logout">
-		<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
-	</div>		    
+ 	  
+	<div class="content">		    
 
-	<h1 align="center"
-		th:text="'Welcome in the world of HeroMars ' + ${sessionData.currentUserName} + '!'"></h1>
-
-	<br />
-
-	<div th:object="${profileData}">
-
-		<p>Amennyiben módosítani kívánja a jelszavát, azt itt teheti meg:</p>
-
-		<form action="#" th:action="@{/modifyPassword}" method="POST">
-			<p th:errors="*{newPassword}"></p>
-			Új jelszó: <input type="password" th:field="*{newPassword}" /> <br />
-			<br />
-			<p th:errors="*{confirmNewPassword}"></p>
-			Új jelszó megerősítése: <input type="password"
-				th:field="*{confirmNewPassword}" /> <input type="submit"
-				value="Új jelszó mentése" />
-		</form>
-
+		<h1 align="center"
+			th:text="'Welcome in the world of HeroMars ' + ${sessionData.currentUserName} + '!'"></h1>
+	
 		<br />
-		<p>Amennyiben módosítani kívánja az e-Mail címét, azt itt teheti
-			meg:</p>
-
-		<form action="#" th:action="@{/modifyEmail}" method="POST">
-			<p th:errors="*{eMail}"></p>
-			Új e-Mail cím: <input type="email" th:field="*{eMail}" /> <input
-				type="submit" value="Új e-Mail cím mentése" />
-		</form>
-
-	</div>
-
-	<br />
-
-	<div th:unless="${profileData.heroNames == null}">
-
-		<form action="#" th:action="@{/setHero}" th:object="${profileData}"
-			method="POST">
-
-			<select th:field="*{selectedHeroName}">
-
-				<option value="" selected>--- Válassz Hőst! ---</option>
-				<option th:each="String: *{heroNames}" th:value="${String}"
-					th:text="${String}"></option>
-
-			</select> <input type="submit" value="Hős kiválasztása" />
-
-		</form>
-
-	</div>
-
-	<br />
-
-	<div th:switch="${sessionData.currentHeroName}">
-		<p th:case="null">No selected hero</p>
-		<p th:case="*" th:text="'Selected hero: ' + ${sessionData.currentHeroName}"></p>
-	</div>
-
-	<br />
-
-	<div>
-
-		<form action="#" th:action="@{/create_hero}" method="GET">
-
-			<input type="submit" value="Hős létrehozása" />
-
-		</form>
-
+	
+		<div th:object="${profileData}">
+	
+			<p>Amennyiben módosítani kívánja a jelszavát, azt itt teheti meg:</p>
+	
+			<form action="#" th:action="@{/modifyPassword}" method="POST">
+				<p th:errors="*{newPassword}"></p>
+				Új jelszó: <input type="password" th:field="*{newPassword}" /> <br />
+				<br />
+				<p th:errors="*{confirmNewPassword}"></p>
+				Új jelszó megerősítése: <input type="password"
+					th:field="*{confirmNewPassword}" /> <input type="submit"
+					value="Új jelszó mentése" />
+			</form>
+	
+			<br />
+			<p>Amennyiben módosítani kívánja az e-Mail címét, azt itt teheti
+				meg:</p>
+	
+			<form action="#" th:action="@{/modifyEmail}" method="POST">
+				<p th:errors="*{eMail}"></p>
+				Új e-Mail cím: <input type="email" th:field="*{eMail}" /> <input
+					type="submit" value="Új e-Mail cím mentése" />
+			</form>
+	
+		</div>
+	
+		<br />
+	
+		<div th:unless="${profileData.heroNames == null}">
+	
+			<form action="#" th:action="@{/setHero}" th:object="${profileData}"
+				method="POST">
+	
+				<select th:field="*{selectedHeroName}">
+	
+					<option value="" selected>--- Válassz Hőst! ---</option>
+					<option th:each="String: *{heroNames}" th:value="${String}"
+						th:text="${String}"></option>
+	
+				</select> <input type="submit" value="Hős kiválasztása" />
+	
+			</form>
+	
+		</div>
+	
+		<br />
+	
+		<div th:switch="${sessionData.currentHeroName}">
+			<p th:case="null">No selected hero</p>
+			<p th:case="*" th:text="'Selected hero: ' + ${sessionData.currentHeroName}"></p>
+		</div>
+	
+		<br />
+	
+		<div>
+	
+			<form action="#" th:action="@{/create_hero}" method="GET">
+	
+				<input type="submit" value="Hős létrehozása" />
+	
+			</form>
+	
+		</div>
+	
 	</div>
 
 </body>

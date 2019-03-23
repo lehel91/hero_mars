@@ -2,128 +2,112 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Marketplace</title>
-
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-
-<link rel="stylesheet" type="text/css" href="../css/index.css" />
-<link rel="stylesheet" type="text/css" href="../css/hero_data.css" />
-
+	<meta charset="UTF-8">
+	<title>Marketplace</title>
+	<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	<link rel="stylesheet" type="text/css" href="../css/hero_data.css" />
 </head>
 <body>
 
 	<div class="menuLine">
-	
 		<div class="mainMenu">
 
-			<ul class="nav nav-tabs justify-content-center">
-				<li class="nav-item">
-		        	<a class="nav-link" th:href="@{/main}">Főoldal</a>
-		      	</li>
-		      	<li class="nav-item">
-		        	<a class="nav-link" th:href="@{/register}" th:unless="${sessionData.currentUserName != null}" >Regisztráció</a>
-		      	</li>
-		      	<li class="nav-item">
-					<a class="nav-link" th:href="@{/login}" th:unless="${sessionData.currentUserName != null}" >Bejelentkezés</a>
-		      	</li>
-		      	<li class="nav-item">
-					<a class="nav-link" th:href="@{/profile}">Profil</a>
-				</li>
-		      	<li class="nav-item">
-		        	<a class="nav-link" th:href="@{/hero}">Hős</a>
-		      	</li>
-		    </ul>
-		    
-	    	<div class="secondaryMenu">
-				<a class="nav-link" th:href="@{/hero}" >Hős statisztika</a>
-				<a class="nav-link" th:href="@{/hero_actions}" >Hős akciók</a>
-				<a class="nav-link" th:href="@{/market}">Piactér</a>
-				<a class="nav-link active" th:href="@{/smith}">Kovácsműhely</a>
+			<div class = "top-bar-data"></div>
+
+	        <a th:href="@{/main}">
+	        	<div class = "top-bar-data">Főoldal</div>
+	        </a>
+
+			<a th:href="@{/profile}" th:unless="${sessionData == null || sessionData.currentUserName == null}">
+				<div class = "top-bar-data">Profil</div>
+			</a>
+			
+	        <a th:href="@{/hero}" th:unless="${sessionData == null || sessionData.currentUserName == null || sessionData.currentHeroName == null}">
+	        	<div class = "top-bar-data">Hős</div>
+	        </a>
+	        	        
+	        <a th:href="@{/login}" th:unless="${sessionData == null || sessionData.currentUserName != null}" >
+				<div class = "top-bar-log top-bar-data">Bejelentkezés</div>
+			</a>
+			
+			<a th:href="@{/logout}" th:unless="${sessionData == null || sessionData.currentUserName == null}">
+				<div class = "top-bar-log top-bar-data">Kijelentkezés</div>
+			</a>
+			
+			<div class = "top-bar-data top-bar-log"></div>
+			
+			<div class="secondaryMenu">
+				<a th:href="@{/hero}" >Hős statisztika</a>
+				<a th:href="@{/hero_actions}" >Hős akciók</a>
+				<a th:href="@{/market}">Piactér</a>
+				<a th:href="@{/smith}">Kovácsműhely</a>
 			</div>
-	    
+			
 	    </div>
-    
  	</div>
- 	
- 	<div class="logout">
-		<a class="nav-link" th:href="@{/logout}" >Kijelentkezés</a>
-	</div>		    
+ 	  
+	<div class="content">
+		    
+		<br/>
     
-    <br/>
-	<br/>
-    
-    <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
-
-	<br/>
-	<br/>
+	    <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
 	
-	<h3 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h3>
+		<br/>
+		<br/>
+		
+		<h3 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h3>
+		
+		<br/>
+		<br/>
 	
-	<br/>
-	<br/>
-
-	<h3 align="center" th:text="${message}"> </h3>
-
-	<br/>
-
+		<h3 align="center" th:text="${message}"> </h3>
 	
-	<form align="center" th:object="${itemMarket}" th:action="@{/searchByType}" method="get">
-        <input type="text" name="type" th:value="${type}"/>
-        <input type="submit" value="Keresés az eszköz típusa szerint"/>
-    </form>
-    <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
-        <input type="submit" value="Mutass mindent"/>
-    </form>
-    <form align="center" th:object="${itemMarket}" th:action="@{/orderedByPrice}" method="get">
-        <input type="submit" value="Ár szerint növekvő lista"/>
-    </form>
-	<div class="tableContainer" th:object="${itemMarket}">
-		<table>
-		 <thead>
-			<tr>
-				<th>Eszköz neve</th>
-				<th>Eszköz szintje</th>
-				<th>Eszköz típusa</th>
-				<th>Vételár</th>
-				<th>Eladó</th>
-				<th></th>
-			</tr>
-		 </thead>
-		 <tbody>
-			<tr th:if="${itemMarkets.empty}">
-            <td align="center" colspan="2"> There is no item on market! </td>
-        	</tr>
-			<tr th:each="itemMarket: ${itemMarkets}" >
-				<td th:text="${itemMarket.item.name.description}" />
-				<td th:text="${itemMarket.item.level}" />
-				<td th:text="${itemMarket.item.type}" />
-				<td th:text="${itemMarket.price}" />
-		    	<td th:text="${itemMarket.item.hero.heroName}"></td>
-		    	<td>
-		    		<form th:object="${itemMarket}" th:action="@{/buyItem}" method="get">
-		    			<input type="hidden" name="id" th:value="${itemMarket.marketId}" />
-        				<input type="submit" value="Megveszem" >
-    				</form>
-    			</td>
-		  	</tr>
-		  	</tbody>
-		</table>
+		<br/>
+	
+		
+		<form align="center" th:object="${itemMarket}" th:action="@{/searchByType}" method="get">
+	        <input type="text" name="type" th:value="${type}"/>
+	        <input type="submit" value="Keresés az eszköz típusa szerint"/>
+	    </form>
+	    <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
+	        <input type="submit" value="Mutass mindent"/>
+	    </form>
+	    <form align="center" th:object="${itemMarket}" th:action="@{/orderedByPrice}" method="get">
+	        <input type="submit" value="Ár szerint növekvő lista"/>
+	    </form>
+		<div class="tableContainer" th:object="${itemMarket}">
+			<table>
+			 <thead>
+				<tr>
+					<th>Eszköz neve</th>
+					<th>Eszköz szintje</th>
+					<th>Eszköz típusa</th>
+					<th>Vételár</th>
+					<th>Eladó</th>
+					<th></th>
+				</tr>
+			 </thead>
+			 <tbody>
+				<tr th:if="${itemMarkets.empty}">
+	            <td align="center" colspan="2"> There is no item on market! </td>
+	        	</tr>
+				<tr th:each="itemMarket: ${itemMarkets}" >
+					<td th:text="${itemMarket.item.name.description}" />
+					<td th:text="${itemMarket.item.level}" />
+					<td th:text="${itemMarket.item.type}" />
+					<td th:text="${itemMarket.price}" />
+			    	<td th:text="${itemMarket.item.hero.heroName}"></td>
+			    	<td>
+			    		<form th:object="${itemMarket}" th:action="@{/buyItem}" method="get">
+			    			<input type="hidden" name="id" th:value="${itemMarket.marketId}" />
+	        				<input type="submit" value="Megveszem" >
+	    				</form>
+	    			</td>
+			  	</tr>
+			  	</tbody>
+			</table>
+		</div>
+	
 	</div>
 
 </body>
