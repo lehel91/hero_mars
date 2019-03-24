@@ -72,12 +72,12 @@
 			
 		<div class="actionsMenu" align="center">
 			<table>
-				<tr>
+				<tr class="tableHeader">
 			    	<th colspan="3">Akció leírása</th>
 			    	<th colspan="1">Akció</th>
 			    	<th colspan="1">Akciópont költség</th>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">A víz nélkülözhetetlen a túléléshez. A vízszerzés sikerét, a megszerzett víz mennyiségét a 
 			  		Kútfúró képesség szintje és a Bölcsesség szintje egyaránt befolyásolja.<br/></td>
 					<td colspan="1">
@@ -86,7 +86,7 @@
 					</td>
 					<td th:text="${waterGatheringCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">Enni kell ha életben akarsz maradni. A vadászat sikerét és a megszerzett étel mennyiségét a 
 			  		Vadászó képesség szintje és a Bölcsesség szintje egyaránt befolyásolja.<br/></td>
 					<td colspan="1">
@@ -94,7 +94,7 @@
 					</td>
 					<td th:text="${foodGatheringCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">Pénzre lesz szükséged, ha majd eszközöket szeretnél vásárolni. A Marson kincsvadászatra 
 			  		mehetsz, hogy további pénzre tegyél szert. A megszerzett pénz mennyiségét befolyásolja a bölcsességed mértéke.<br/></td>
 					<td colspan="1">
@@ -102,7 +102,7 @@
 					</td>
 					<td th:text="${treasureHuntingCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">A Kútfúró képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 			  		szintre jutsz, annál több vizet szerezhetsz. A megszerzett képességek további jellemzőidet befolyásolják.<br/></td>
 					<td colspan="1">
@@ -110,7 +110,7 @@
 					</td>
 					<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">A Vadászó képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 			  		szintre jutsz, annál több élelmet szerezhetsz. A megszerzett képességek további jellemzőidet befolyásolják.<br/></td>
 					<td colspan="1">
@@ -118,7 +118,7 @@
 					</td>
 					<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">A Csillagvizsgló képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 			  		szintre jutsz, annál több bölcsességre teszel  szert.<br/></td>
 					<td colspan="1">
@@ -126,7 +126,7 @@
 					</td>
 					<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">A Kincsvadász képességed fejleszteni tudod. Három szint van, Inas, Mester, Mágus. Minél magasabb
 			  		szintre jutsz, annál több pénzt szerezhetsz a kincsvadászaton.<br/></td>
 					<td colspan="1">
@@ -134,7 +134,7 @@
 					</td>
 					<td th:text="${padavanLearningCost} + '/' + ${masterLearningCost} + '/' + ${mageLearningCost}"></td>
 			  	</tr>
-			  	<tr>
+			  	<tr class="tableRow">
 			  		<td colspan="3">Küldetésre mehetsz, hogy új eszközökre tegyél szert. A küldetésed sikerét a Kincsvadászó képességed
 			  		és a bölcsességed egyaránt befolyásolja.<br/></td>
 					<td colspan="1">

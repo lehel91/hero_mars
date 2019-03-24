@@ -39,11 +39,16 @@ table {
 
 td {
     border-collapse: collapse;
-    border: 3px solid antiquewhite;
+    border: 3px thin;
     padding: 10px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.tableRow:hover {
+	background-color: #C0C0C0;
+}
+
 
 th {
 	text-align: center;
