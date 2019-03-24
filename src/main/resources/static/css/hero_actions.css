@@ -1,12 +1,14 @@
 @charset "UTF-8";
 
 .actionbutton {
-	background-color: #C0C0C0;
+	background-color: #2F4F4F;
+	color:white;
 	border: none;
 	padding: 5px 10px;
 	text-align: center;
 	display: inline-block;
-	font-size: 20px;
+	font-size: 12px;
+	font-weight:bold;
 	margin: 4px 2px;
   	cursor: pointer;
   	width: 100%;
@@ -17,15 +19,17 @@
 	margin: auto;
 	width: 70%;
 	font-style: italic;
+	font-size: 16px;
 }
 
 .actionPoints {
 	display: block;
+	font-weight:bold;
 	right:20px;
 	position: fixed;
 	z-index: 8000;
 	margin: 0px;
-	color: red;
+	color: white;
 }
 
 table {
@@ -38,6 +42,7 @@ td {
     border: 3px solid antiquewhite;
     padding: 10px;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 th {
