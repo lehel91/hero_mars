@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.letter_container {
+	margin: auto;
+  	width: 70%;
+  	background-image: url('../img/mainPageBackground.png');
+  	background-position-x: center;
+}
+
+h3 {
+	text-align: center;
+}
+
+.welcome_text {
+	margin: auto;
+  	width: 70%;
+  	font-size: 13px;
+  	font-family:Lucida handwriting, cursive;
+  	color: black;
+}
+
+.creators {
+	text-align: right;
+}
+

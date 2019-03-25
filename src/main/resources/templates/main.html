@@ -6,6 +6,7 @@
 <title>HeroMars - Főoldal</title>
 
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
+<link rel="stylesheet" type="text/css" href="../css/main_page.css" />
 
 </head>
 
@@ -44,22 +45,66 @@
 	<div class="content">
 		
 	
-		<br />
+<!-- 		<br /> -->
 	
-		<p th:text="'Logged in as: ' + ${sessionData.currentUserName}"
-			th:unless="${sessionData == null || sessionData.currentUserName == null}"></p>
-		<p th:text="'Selected hero: ' + ${sessionData.currentHeroName}"
-			th:unless="${sessionData == null || sessionData.currentHeroName == null}"></p>
+<!-- 		<p th:text="'Logged in as: ' + ${sessionData.currentUserName}" -->
+<!-- 			th:unless="${sessionData == null || sessionData.currentUserName == null}"></p> -->
+<!-- 		<p th:text="'Selected hero: ' + ${sessionData.currentHeroName}" -->
+<!-- 			th:unless="${sessionData == null || sessionData.currentHeroName == null}"></p> -->
 	
 		
-		<div th:switch="${sessionData.currentUserName}" th:unless="${sessionData == null}">
-			<p th:case="null">Not logged in</p>
-			<p th:case="*" th:text="'Logged in as: ' + ${sessionData.currentUserName}"></p>
-		</div>
+<!-- 		<div th:switch="${sessionData.currentUserName}" th:unless="${sessionData == null}"> -->
+<!-- 			<p th:case="null">Not logged in</p> -->
+<!-- 			<p th:case="*" th:text="'Logged in as: ' + ${sessionData.currentUserName}"></p> -->
+<!-- 		</div> -->
 	
-		<div th:switch="${sessionData.currentHeroName}" th:unless="${sessionData == null}">
-			<p th:case="null">No selected hero</p>
-			<p th:case="*" th:text="'Selected hero: ' + ${sessionData.currentHeroName}"></p>
+<!-- 		<div th:switch="${sessionData.currentHeroName}" th:unless="${sessionData == null}"> -->
+<!-- 			<p th:case="null">No selected hero</p> -->
+<!-- 			<p th:case="*" th:text="'Selected hero: ' + ${sessionData.currentHeroName}"></p> -->
+<!-- 		</div> -->
+		
+		<div class="letter_container">
+			<div class="welcome_text">
+				<br/><br/>
+				<br/><br/>
+				<br/><br/>
+				<br/><br/>
+				<br/><br/>
+				<h3 class="title">Üdvözlünk, leendő marslakó!</h3>
+				<br/>
+				<p>Nem számít, hogy szánt szándékkal jöttél erre, vagy véletlenül tévedtél ide, egy dologban biztos lehetsz: 
+				ezen túl már soha nem lesz semmi sem olyan, mint eddig volt...</p>
+				
+				<p>Egy olyan ösvényre tévedtél, amelyen tovább lépve örökre megváltozik az életed. Biztos lehetsz abban is,
+				hogy az úton tovább menve hihetetlen élményekben lesz részed. Nem túlzunk, ha azt mondjuk, életed legmeghatározóbb 
+				történései veszik kezdetüket hamarosan.</p>
+				
+				<p>Az úton tovább menve a Marson találod majd magad, ahol különböző fajok bőrébe bújva próbálhatsz majd szerencsét. 
+				Mindegy, hogy a Mantid, a Szaurián, a Zéta, a Raptoid, vagy éppen a Plejádi faj képviselője vagy, itt garantáltan 
+				megtalálod majd a helyed.</p>
+				
+				<p>Ittléted során különböző képességekre tehetsz majd szert. Lehet, hogy világklasszis kútfúróvá válsz, az is lehet, 
+				hogy ki tudod majd olvasni a jövőt a csillagokból. Nincs kizárva az sem, hogy megtéveszthetetlen kincsvadásszá válsz
+				majd.</p>
+				
+				<p>A továbbiakban arra is lehetőséged nyílik, hogy a meglévő eszközeidet eladd a piactéren, vagy vásárolj egy másikat 
+				néhány buznyákért. Ha olyan eszközre lesz szükséged, amihez még csak hasonlót sem láttál, kovácsoltathatsz magadnak a 
+				kovácsműhelyben. </p>
+				
+				<p>Úgy gondoljuk, nyugodt szívvel kijelenthetjük, hogy a java csak most kezdődik, szóval kalandra fel, kedves látogató, 
+				sok szerencsét kíván neked: </p>
+				<br/>
+				
+				<p class="creators">
+				Együd Balázs – A Bolygók Egyesült Föderációjának elnöke<br/>
+				Malmos Péter – A Csillagflotta Hírszerzésének vezetője<br/>
+				Mezei Lehel – A Csillagflotta Biztonsági Részlegének vezetője<br/>
+				</p>
+				<br/><br/>
+				<br/><br/>
+				<br/><br/>
+				<br/><br/>
+			</div>
 		</div>
 
 	</div>
