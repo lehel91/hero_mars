@@ -375,7 +375,7 @@ public class HeroActionService {
 	}
 
 	public int getMoneyAsTreasureHuntingReward(String heroName) {
-		int additionalMoneyOnTreasureHunt = getWisdomModificationRate(heroName);
+		int additionalMoneyOnTreasureHunt = (int) getTreasureHuntingSuccesRate(heroName);
 		return defaultAmountOfMoneyOnTreasureHunt + additionalMoneyOnTreasureHunt;
 	}
 	
