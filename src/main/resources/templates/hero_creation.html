@@ -6,6 +6,7 @@
 <title>HeroMars - Create a new hero</title>
 
 <link rel="stylesheet" type="text/css" href="../css/index.css" />
+<link rel="stylesheet" type="text/css" href="../css/hero_creation.css" />
 
 </head>
 
@@ -47,40 +48,51 @@
 			th:object="${heroFormData}" method="POST">
 			<br />
 			<p th:errors="*{heroName}"></p>
-			Hero Name: <input type="text" th:field="*{heroName}" /> 
-			<br /> 
-			<br />
-			<label for="species">Faj:</label>
-			<select th:field="*{species}">
-	  			<option value="" selected> Válassz fajt! </option>
-	  			<option th:each="species : ${T(com.mycompany.heromarsspring.model.SpeciesEnum).values()}" 
-	  				th:value="${species}" 
-	  				th:selected="${species == T(com.mycompany.heromarsspring.model.SpeciesEnum)}"
-	  				th:text="${species.description}"></option>
-			</select>
-			<br /> 
-			<br />
-			<label for="sex">Nem:</label>
-			<select th:field="*{sex}">
-	  			<option value="" selected> Válassz nemet! </option>
-	  			<option th:each="sex : ${T(com.mycompany.heromarsspring.model.SexEnum).values()}" 
-	  				th:value="${sex}" 
-	  				th:selected="${sex == T(com.mycompany.heromarsspring.model.SexEnum)}"
-	  				th:text="${sex.description}"></option>
-			</select>
-			<br /> 
-			<br />
-			<label for="hairColor">Hajszín:</label> 
-			<select th:field="*{hairColor}">
-				<option value="" selected> Válassz hajszínt! </option>
-	 			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
-	  				th:value="${hairColor}" 
-	  				th:selected="${hairColor == T(com.mycompany.heromarsspring.model.HairColorEnum)}"
-	  				th:text="${hairColor.description}"></option>
-			</select>
-			<br /> 
-			<br />
-			<input type="submit" value="Hős létrehozása" />
+			<p>
+				<label>Hős neve:</label> 
+				<input type="text" class="heroAttribute" th:field="*{heroName}" /> 
+				<br /> 
+				<br />
+			</p>
+			<p>
+				<label for="species">Faj:</label>
+				<select class="heroAttribute" th:field="*{species}">
+		  			<option value="" selected> Válassz fajt! </option>
+		  			<option th:each="species : ${T(com.mycompany.heromarsspring.model.SpeciesEnum).values()}" 
+		  				th:value="${species}" 
+		  				th:selected="${species == T(com.mycompany.heromarsspring.model.SpeciesEnum)}"
+		  				th:text="${species.description}"></option>
+				</select>
+				<br /> 
+				<br />
+			</p>
+			<p>
+				<label for="sex">Nem:</label>
+				<select class="heroAttribute" th:field="*{sex}">
+		  			<option value="" selected> Válassz nemet! </option>
+		  			<option th:each="sex : ${T(com.mycompany.heromarsspring.model.SexEnum).values()}" 
+		  				th:value="${sex}" 
+		  				th:selected="${sex == T(com.mycompany.heromarsspring.model.SexEnum)}"
+		  				th:text="${sex.description}"></option>
+				</select>
+				<br /> 
+				<br />
+			</p>
+			<p>
+				<label for="hairColor">Hajszín:</label> 
+				<select class="heroAttribute" th:field="*{hairColor}">
+					<option value="" selected> Válassz hajszínt! </option>
+		 			<option th:each="hairColor : ${T(com.mycompany.heromarsspring.model.HairColorEnum).values()}" 
+		  				th:value="${hairColor}" 
+		  				th:selected="${hairColor == T(com.mycompany.heromarsspring.model.HairColorEnum)}"
+		  				th:text="${hairColor.description}"></option>
+				</select>
+				<br /> 
+				<br />
+			</p>
+			<p>
+				<input type="submit" class="createButton" value="Hős létrehozása" />
+			</p>
 		</form>
 		
 	</div>

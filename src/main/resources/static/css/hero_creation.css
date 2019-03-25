@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+.content {
+	width: 70%;
+	margin: auto;
+	align-content: center;
+}
+
+form {
+	font-size: 16px;
+	font-weight: bolder;
+	display: table;
+	background-color: rgba(0, 0, 0, 0.6);
+	margin: auto;
+	margin-top: 100px;
+	padding: 30px;
+	border-radius: 15px;
+}
+
+p {
+	display: table-row;
+}
+
+label {
+	display: table-cell;
+}
+
+.heroAttribute {
+	display: table-cell;
+	width: 100%;
+}
+
+.createButton {
+	background-color: #2F4F4F;
+	color: white;
+	border-width: 1px;
+	padding: 5px 10px;
+	text-align: center;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-left: 75%;
+	margin-top: 50%;
+	border-radius: 20px;
+}
+
+select {
+	border-radius: 20px;
+    background-color: #2f4f4f;
+    color: white;
+}
+
+input {
+	background-color: #2F4F4F;
+	color: white;
+	border-radius: 20px;
+	border-width: 1px;
+}
