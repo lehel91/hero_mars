@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+.login-box {
+	width: 320px;
+	margin: 80px auto auto auto;
+	padding: 10px;
+	background: #1c1c1c none;
+	box-shadow: 0 0 5px #000;
+}
+
+#login-form p {
+	text-align: left;
+	display: block;
+    overflow: hidden;
+    margin: 5px 2px;
+    padding-bottom: 3px;
+}
+
+label {
+	display: inline-block;
+	color: #aaa;
+	font-size: 12px;
+	margin: 3px 0 0 1px;
+}
+
+
+.input-field {
+	width: 304px;
+	border: 1px solid #fff;
+	background: #f2f2f2;
+	padding: 5px;
+	font-size: 16px;
+    border-radius: 4px;
+}
+
+.enter-button {
+	margin: 10px auto 0 auto;
+	padding: 6px 15px 4px 15px;
+	height: 40px;
+	font-size: 18px;
+	width: 315px;
+	border: 1px solid #2a7c0d;
+	border-radius: 4px;
+	background: #2a7c0d;
+	color: #fff;
+}
+
+.enter-button:hover {
+	cursor: pointer;
+	font-size: 20px;
+	text-decoration: blink;
+	text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.error-message {
+	color: red;
+	text-align: right!important;
+	font-size: 10px;
+}
+
+.separator {
+	text-align: center!important;
+	background: transparent url('../img/separator.png') center 1px ;
+	margin: 10px 0 0 0!important;
+	font-size: 12px;
+}
+
+form a {
+	display: inline-block;
+    width: 315px;
+    padding: 5px;
+    text-align: center;
+    background-color: #333;
+    margin: 4px 0;
+    font-size: 11px;
+    box-shadow: 0 0 1px #333;
+    color: #ccc;
+    text-decoration: none;
+}
+
+form a:hover {
+	color: #ffc600;
+	background-color: #444;
+}
