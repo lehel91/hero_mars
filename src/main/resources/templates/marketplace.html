@@ -6,6 +6,7 @@
 	<title>Marketplace</title>
 	<link rel="stylesheet" type="text/css" href="../css/index.css" />
 	<link rel="stylesheet" type="text/css" href="../css/hero_data.css" />
+	<link rel="stylesheet" type="text/css" href="../css/market.css" />
 </head>
 <body>
 
@@ -55,7 +56,7 @@
 		<br/>
 		<br/>
 		
-		<h3 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h3>
+		<h2 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h2>
 		
 		<br/>
 		<br/>
@@ -63,18 +64,23 @@
 		<h3 align="center" th:text="${message}"> </h3>
 	
 		<br/>
-	
 		
 		<form align="center" th:object="${itemMarket}" th:action="@{/searchByType}" method="get">
-	        <input type="text" name="type" th:value="${type}"/>
-	        <input type="submit" value="Keresés az eszköz típusa szerint"/>
+			<p th:text="'Kereshetsz az eszköz típusa szerint: '"></p>
+			<input type="text" name="type" value="Adj meg egy típust" th:value="${type}"/>
+		    <input type="submit" value="Keresés az eszköz típusa szerint"/>
 	    </form>
-	    <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
-	        <input type="submit" value="Mutass mindent"/>
-	    </form>
+	    <br/>
+	    
 	    <form align="center" th:object="${itemMarket}" th:action="@{/orderedByPrice}" method="get">
-	        <input type="submit" value="Ár szerint növekvő lista"/>
+	        <input type="submit" value="Ár szerint növekvő listát szeretnék látni!"/>
 	    </form>
+	   	<br/>
+	    <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
+	        <input type="submit" value="Minden terméket látni szeretnék!"/>
+	    </form>	    
+	    <br/>
+	    
 		<div class="tableContainer" th:object="${itemMarket}">
 			<table>
 			 <thead>
@@ -89,7 +95,7 @@
 			 </thead>
 			 <tbody>
 				<tr th:if="${itemMarkets.empty}">
-	            <td align="center" colspan="2"> There is no item on market! </td>
+	            <td align="center" colspan="2"> Jelenleg nincs eszköz a piactéren! </td>
 	        	</tr>
 				<tr th:each="itemMarket: ${itemMarkets}" >
 					<td th:text="${itemMarket.item.name.description}" />
@@ -107,7 +113,6 @@
 			  	</tbody>
 			</table>
 		</div>
-	
 	</div>
 
 </body>

@@ -59,6 +59,7 @@ public class MarketController {
     	model.addAttribute("sessionData", sessionService);
     	model.addAttribute("hero", heroService.findHeroByName(sessionService.getCurrentHeroName()));
         model.addAttribute("itemMarkets", marketService.findByType(type));
+        model.addAttribute("message", marketService.getMessage());
         return "marketplace.html";
     }
     
