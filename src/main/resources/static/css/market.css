@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.content {
+	background-color: gray;
+	opacity: 0.6;
+}
+
+body {
+	color: black;
+}

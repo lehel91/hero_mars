@@ -57,7 +57,13 @@ public class MarketService {
 	}
 
 	public List<ItemMarket> findByType(String type) {
-		return marketRepo.findByType(type);
+    	if (type.equals("") || type==null) {
+    		message="Nem adtál meg típust, ezért a teljes listád látod!";
+    		return marketRepo.findAll();
+    	} else {
+    		message="";
+    		return marketRepo.findByType(type);
+    	}
 	}
 
 	public List<ItemMarket> buyItem(Integer id, String heroName) {
