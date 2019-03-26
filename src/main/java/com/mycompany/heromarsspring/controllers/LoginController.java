@@ -59,6 +59,7 @@ public class LoginController {
 		}
 
 		model.addAttribute("sessionData", sessionService);
+		model.addAttribute("loginFailed", "failed");
 		
 		return "login.html";
 	}

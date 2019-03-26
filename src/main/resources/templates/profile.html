@@ -3,12 +3,11 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-
-<title>User Profile</title>
-
-<link rel="stylesheet" type="text/css" href="../css/index.css" />
-
+	<meta charset="UTF-8">
+	<title>Felhasználói profil</title>
+	
+	<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	<link rel="stylesheet" type="text/css" href="../css/login.css" />
 </head>
 <body>
 
@@ -43,72 +42,101 @@
  	</div>
  	  
 	<div class="content">		    
-
-		<h1 align="center"
-			th:text="'Welcome in the world of HeroMars ' + ${sessionData.currentUserName} + '!'"></h1>
 	
-		<br />
-	
-		<div th:object="${profileData}">
-	
-			<p>Amennyiben módosítani kívánja a jelszavát, azt itt teheti meg:</p>
-	
-			<form action="#" th:action="@{/modifyPassword}" method="POST">
-				<p th:errors="*{newPassword}"></p>
-				Új jelszó: <input type="password" th:field="*{newPassword}" /> <br />
-				<br />
-				<p th:errors="*{confirmNewPassword}"></p>
-				Új jelszó megerősítése: <input type="password"
-					th:field="*{confirmNewPassword}" /> <input type="submit"
-					value="Új jelszó mentése" />
+		<div class="login-box" th:object="${profileData}">
+			
+			<form id="login-form" action="#" th:action="@{/setHero}"
+				method="POST" th:unless="${profileData.heroNames == null}">
+			
+				<p class="separator">
+					HŐS VÁLASZTÓ
+				</p>
+				
+				<br/>
+				
+				<p>
+					<select class="input-field" th:field="*{selectedHeroName}">
+						<option value="" selected>- - - - - - - - Válassz Hőst! - - - - - - - -</option>
+						<option th:each="String: *{heroNames}" th:value="${String}"
+							th:text="${String}"></option>
+					</select>
+				</p>
+				
+				<p>
+					<input type="submit" class="enter-button" value="KIVÁLASZT" />
+				</p>
+				
+				<p th:switch="${sessionData.currentHeroName}">
+					<label class="input-label" th:case="null">Nincs még hős kiválasztva</label>
+					<label class="input-label" th:case="*" th:text="'Választott hős: ' + ${sessionData.currentHeroName}"></label>
+				</p>
+				 
+				<br/>
+				
 			</form>
-	
-			<br />
-			<p>Amennyiben módosítani kívánja az e-Mail címét, azt itt teheti
-				meg:</p>
-	
-			<form action="#" th:action="@{/modifyEmail}" method="POST">
-				<p th:errors="*{eMail}"></p>
-				Új e-Mail cím: <input type="email" th:field="*{eMail}" /> <input
-					type="submit" value="Új e-Mail cím mentése" />
+			
+			<form id="login-form" action="#" th:action="@{/create_hero}" method="GET">
+				
+				<p class="separator">
+					HŐS LÉTREHOZÓ
+				</p>
+				
+				<p>
+					<input type="submit" class="enter-button" value="LÉTREHOZ" />
+				</p>
+				 
+				<br/>
+				
 			</form>
-	
-		</div>
-	
-		<br />
-	
-		<div th:unless="${profileData.heroNames == null}">
-	
-			<form action="#" th:action="@{/setHero}" th:object="${profileData}"
-				method="POST">
-	
-				<select th:field="*{selectedHeroName}">
-	
-					<option value="" selected>--- Válassz Hőst! ---</option>
-					<option th:each="String: *{heroNames}" th:value="${String}"
-						th:text="${String}"></option>
-	
-				</select> <input type="submit" value="Hős kiválasztása" />
-	
+			
+			<form id="login-form" action="#" th:action="@{/modifyPassword}" method="POST">
+			
+				<p class="separator">MÓDOSÍTÁS I.</p>
+				
+				<p>
+					<label for="newPassword" class="input-label">ÚJ JELSZÓ:</label>
+				</p>
+				<p>
+					<input type="password" id="newPassword" class="input-field" th:field="*{newPassword}" />
+				</p>
+				<p class="error-message" th:errors="*{newPassword}"></p>
+				
+				<p>
+					<label for="confirmNewPassword" class="input-label">JELSZÓ MEGERŐSÍTÉSE:</label>
+				</p>
+				<p>
+					<input type="password" id="confirmNewPassword" class="input-field" th:field="*{confirmNewPassword}" />
+				</p>
+				<p class="error-message" th:errors="*{confirmNewPassword}"></p>
+				
+				<p>
+					<input type="submit" class="enter-button" value="Új jelszó mentése" />
+				</p>
+				 
+				<br/>
+			
 			</form>
-	
-		</div>
-	
-		<br />
-	
-		<div th:switch="${sessionData.currentHeroName}">
-			<p th:case="null">No selected hero</p>
-			<p th:case="*" th:text="'Selected hero: ' + ${sessionData.currentHeroName}"></p>
-		</div>
-	
-		<br />
-	
-		<div>
-	
-			<form action="#" th:action="@{/create_hero}" method="GET">
-	
-				<input type="submit" value="Hős létrehozása" />
-	
+			
+			<form id="login-form" action="#" th:action="@{/modifyEmail}" method="POST">
+			
+				<p class="separator">MÓDOSÍTÁS II.</p>
+				
+				<p>
+					<label for="newEMail" class="input-label">ÚJ E-MAIL:</label>
+				</p>
+				
+				<p>
+					<input type="email" id="newEMail" class="input-field" th:field="*{eMail}" />
+				</p>
+				
+				<p class="error-message" th:errors="*{eMail}"></p>
+				
+				<p>
+					<input type="submit" class="enter-button" value="Új e-Mail cím mentése" />
+				</p>
+				 
+				<br/>
+			
 			</form>
 	
 		</div>
