@@ -30,7 +30,6 @@ form td {
 }
 
 .createButton {
-	color: white;
 	border-width: 1px;
 	padding: 5px 10px;
 	text-align: center;
@@ -38,8 +37,6 @@ form td {
 	font-size: 0px;
 	cursor: pointer;
 	border-radius: 20px;
-	left: 40%;
-    position: relative;
     background: url(../img/hammer.png);
     background-repeat: no-repeat;
     background-position: center;
