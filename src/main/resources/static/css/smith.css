@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+.content {
+	width: 70%;
+	margin: auto;
+	align-content: center;
+}
+
+form {
+	font-size: 16px;
+	font-weight: bolder;
+	display: table;
+	background-color: rgba(0, 0, 0, 0.6);
+	margin: auto;
+	padding: 25px;
+	border-radius: 15px;
+}
+
+form th {
+	font-weight: bold;
+	font-size: 18px;
+	padding: 10px;
+	text-align: center;
+	    color: darkgray;
+}
+
+form td {
+	padding: 10px;
+	text-align: center;
+}
+
+.createButton {
+	color: white;
+	border-width: 1px;
+	padding: 5px 10px;
+	text-align: center;
+	display: inline-block;
+	font-size: 0px;
+	cursor: pointer;
+	border-radius: 20px;
+	left: 40%;
+    position: relative;
+    background: url(../img/hammer.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: darkgrey;
+    width: 150px;
+    height: 50px;
+}
+
+.createButton:hover {
+	 border-width:3px; 
+}
