@@ -33,10 +33,7 @@ public class MarketService {
 
 		Item item = itemRepository.findByItemId(itemId);
 		ItemMarket market = new ItemMarket();
-		
-//		Integer calculatedPrice = (int)(price * item.getLevel() * (item.getDurability()/100.0));
 
-//		market.setPrice(calculatedPrice);
 		market.setPrice(price);
 		item.setMarketPresence(market);
 
@@ -58,7 +55,7 @@ public class MarketService {
 
 	public List<ItemMarket> findByType(String type) {
     	if (type.equals("") || type==null) {
-    		message="Nem adtál meg típust, ezért a teljes listád látod!";
+    		message="Nem adtál meg típust, ezért az eszközök teljes listáját látod!";
     		return marketRepo.findAll();
     	} else {
     		message="";
