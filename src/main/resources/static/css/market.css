@@ -5,6 +5,47 @@
 	opacity: 0.6;
 }
 
+.buttons {
+	background-color: #000000b0;
+	border: 3px thin;
+	text-align: center;
+	margin-left: 35%;
+	margin-right: 35%;
+}
+
 body {
-	color: black;
+	color: white;
+}
+
+.tableRow:hover {
+	background-color: #C0C0C0;
+}
+
+td {
+	border-collapse: collapse;
+	border: 3px thin;
+	padding: 10px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.actionbutton {
+	background-color: #2F4F4F;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 4px 2px;
+	cursor: pointer;
+	height: 100%;
+}
+
+td {
+	border-collapse: collapse;
+	border: 3px thin;
+	padding: 10px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.6);
 }

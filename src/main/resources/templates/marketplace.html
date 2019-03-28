@@ -49,57 +49,59 @@
 	    </div>
  	</div>
  	  
-	<div class="content">
-		    
-		<br/>
-    
-	    <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
+	<br/>
+   
+    <h1 align="center" th:text="'Isten hozott a HeroMars piacterén, ' + ${sessionData.currentHeroName} + '!'"></h1>
+
+	<br/>
+	<br/>
 	
-		<br/>
-		<br/>
-		
-		<h2 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h2>
-		
-		<br/>
-		<br/>
+	<h2 align="center" th:text="'A rendelkezésre álló egyenleged: ' + ${hero.money}"> </h2>
 	
-		<h3 align="center" th:text="${message}"> </h3>
-	
-		<br/>
+	<br/>
+	<br/>
+
+	<h3 align="center" th:text="${message}"> </h3>
+
+	<br/>
 		
+	<div class="buttons">		
 		<form align="center" th:object="${itemMarket}" th:action="@{/searchByType}" method="get">
-			<p th:text="'Kereshetsz az eszköz típusa szerint: '"></p>
+			<p th:text="'Itt tudsz keresni vagy rendezni a listát: '"></p>
 			<input type="text" name="type" value="Adj meg egy típust" th:value="${type}"/>
-		    <input type="submit" value="Keresés az eszköz típusa szerint"/>
+		    <input type="submit" class="actionbutton" value="Keresés az eszköz típusa szerint"/>
 	    </form>
 	    <br/>
 	    
 	    <form align="center" th:object="${itemMarket}" th:action="@{/orderedByPrice}" method="get">
-	        <input type="submit" value="Ár szerint növekvő listát szeretnék látni!"/>
+	        <input type="submit" class="actionbutton" value="Ár szerint növekvő listát szeretnék látni az eszközökről!"/>
 	    </form>
 	   	<br/>
 	    <form align="center" th:object="${itemMarket}" th:action="@{/market}" method="get">
-	        <input type="submit" value="Minden terméket látni szeretnék!"/>
-	    </form>	    
-	    <br/>
-	    
-		<div class="tableContainer" th:object="${itemMarket}">
-			<table>
-			 <thead>
-				<tr>
-					<th>Eszköz neve</th>
-					<th>Eszköz szintje</th>
-					<th>Eszköz típusa</th>
-					<th>Vételár</th>
-					<th>Eladó</th>
-					<th></th>
-				</tr>
-			 </thead>
-			 <tbody>
+	        <input type="submit" class="actionbutton" value="Minden eszközt látni szeretnék!"/>
+	    </form>
+	</div>
+	
+	<br/>
+    
+	<div class="tableContainer" th:object="${itemMarket}">
+		<table>
+		 <thead>
+			<tr>
+				<th>Eszköz neve</th>
+				<th>Eszköz szintje</th>
+				<th>Eszköz típusa</th>
+				<th>Vételár</th>
+				<th>Eladó</th>
+				<th></th>
+			</tr>
+		 </thead>
+		 <tbody>
+			 <div class="content">
 				<tr th:if="${itemMarkets.empty}">
 	            <td align="center" colspan="2"> Jelenleg nincs eszköz a piactéren! </td>
 	        	</tr>
-				<tr th:each="itemMarket: ${itemMarkets}" >
+				<tr class="tableRow" th:each="itemMarket: ${itemMarkets}" >
 					<td th:text="${itemMarket.item.name.description}" />
 					<td th:text="${itemMarket.item.level}" />
 					<td th:text="${itemMarket.item.type}" />
@@ -108,14 +110,14 @@
 			    	<td>
 			    		<form th:object="${itemMarket}" th:action="@{/buyItem}" method="get">
 			    			<input type="hidden" name="id" th:value="${itemMarket.marketId}" />
-	        				<input type="submit" value="Megveszem" >
+	        				<input type="submit" class="actionbutton" value="Megveszem" >
 	    				</form>
 	    			</td>
 			  	</tr>
-			  	</tbody>
+			  </div>
+		  	</tbody>
 			</table>
 		</div>
-	</div>
 
 </body>
 </html>
