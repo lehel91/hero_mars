@@ -7,22 +7,77 @@ table {
 
 .contentContainer {
     margin: auto;
-    width: 70%;
-    padding-top: 60px;
+    width: 75.5%;
+    margin-top: 60px;
     display: block;
+    background: #1c1c1c none;
+    opacity: 0.8;
+}
+
+.actualMenu {
+	text-decoration: underline!important;
 }
 
 td {
+    padding: 8px;
+    font-size: 14px;
     border-collapse: collapse;
-    border: 3px solid antiquewhite;
-    padding: 10px;
+    border: 2px solid antiquewhite;
+    height: 30px;
+}
+
+.pictureContainer {
+    padding: 0px;
 }
 
 th {
 	text-align: center;
+	height: 30px;
 }
 
 .itemList tr:hover {
     background-color: dodgerblue;
     opacity: 0.5;
+}
+
+.species {
+	width: 150px;
+}
+
+.lineWrapper {
+	width: 100%;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.tableContainer1 {
+	width: 50%;
+    float:left;
+}
+
+.tableContainer2 {
+	width: 50%;
+    float:left;
+}
+
+h3 {
+	background-color: green;
+	margin-left: 100px;
+    margin-right: 100px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+}
+
+h4 {
+	color: yellow;
+	margin-bottom: 0px;
+}
+
+.message {
+	text-align: center;
+}
+
+.title2 {
+	font-size: 12px!important;
 }
