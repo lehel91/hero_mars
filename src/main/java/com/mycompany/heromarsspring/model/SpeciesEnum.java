@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 public enum SpeciesEnum {
-    RAPTOID("Raptoid",80,170,1,10,10,10,10,10,10,20),
-    SAURIAN("Szaurián",90,190,1,10,10,10,10,10,10,15),
-    ZETAN("Zéta",60,160,1,10,10,10,10,10,10,25),
-    MANTID("Mantid",80,230,1,10,10,10,10,10,10,20),
-    PLEIADIAN("Plejádi",70,180,1,10,10,10,10,10,10,22);
+    RAPTOID("Raptoid",80,170,1,10,10,10,10,10,150,20),
+    SAURIAN("Szaurián",90,190,1,10,10,10,10,10,150,15),
+    ZETAN("Zéta",60,160,1,10,10,10,10,10,150,25),
+    MANTID("Mantid",80,230,1,10,10,10,10,10,150,20),
+    PLEIADIAN("Plejádi",70,180,1,10,10,10,10,10,150,22);
     
 	private final String description;
     private final int weight;
