@@ -21,17 +21,45 @@ public class HeroActionService {
 
 	@Autowired
 	private HeroRepository heroRepository;
-	
+
 	@Autowired
 	private SkillRepository skillRepository;
 
-	public static final int treasureHuntSuccessRateLow = 1;
-	public static final int treasureHuntSuccessRateMedium = 2;
-	public static final int treasureHuntSuccessRateHigh = 3;
-	public static final int defaultAmountOfMoneyOnTreasureHunt = 10;
+	public static final int TREASUREHUNT_SUCCESS_RATE_LOW = 1;
+	public static final int TREASUREHUNT_SUCCESS_RATE_MEDIUM = 2;
+	public static final int TREASUREHUNT_SUCCESS_RATE_HIGH = 3;
+	public static final int DEFAULT_AMOUNT_OF_MONEY_ON_TREASUREHUNT = 10;
 
-	public Hero findHeroByHeroName(String heroName) {
-		return heroRepository.findByHeroName(heroName);
+	public int getWaterCost() {
+		return 2;
+	}
+
+	public int getBlacksmithVisitingCost() {
+		return 2;
+	}
+
+	public int getAdventureCost() {
+		return 2;
+	}
+
+	public int getPadavanLearningCost() {
+		return 2;
+	}
+
+	public int getMasterLearningCost() {
+		return 3;
+	}
+
+	public int getMageLearningCost() {
+		return 5;
+	}
+
+	public int getHuntingCost() {
+		return 2;
+	}
+
+	public int getTreasureHuntingCost() {
+		return 2;
 	}
 
 	public void decreaseActionPoints(Hero hero, int decreaseAmount) throws InsufficientActionPointsException {
@@ -49,42 +77,10 @@ public class HeroActionService {
 		return (int) (Math.random() * ((currentWisdom + 3) - (currentWisdom - 3) + 1) + (currentWisdom - 3));
 	}
 
-	public int getWaterCost() {
-		return 2;
-	}
-	
-	public int getBlacksmithVisitingCost() {
-		return 2;
-	}
-
-	public int getAdventureCost() {
-		return 2;
-	}
-
-	public int getPadavanLearningCost() {
-		return 2;
-	}
-	
-	public int getMasterLearningCost() {
-		return 3;
-	}
-	
-	public int getMageLearningCost() {
-		return 5;
-	}
-
-	public int getHuntingCost() {
-		return 2;
-	}
-	
-	public int getTreasureHuntingCost() {
-		return 2;
-	}
-	
 	public String gatherWater(String heroName) throws InsufficientActionPointsException {
 		int waterGathered;
 		Hero hero = heroRepository.findByHeroName(heroName);
-		
+
 		decreaseActionPoints(hero, getWaterCost());
 
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
@@ -111,9 +107,9 @@ public class HeroActionService {
 	public String gatherFood(String heroName) throws InsufficientActionPointsException {
 		int foodGathered;
 		Hero hero = heroRepository.findByHeroName(heroName);
-		
+
 		decreaseActionPoints(hero, getHuntingCost());
-		
+
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
 
 		if (heroSkills.contains(SkillEnum.HUNTER_MAGE.getDescription())) {
@@ -132,28 +128,28 @@ public class HeroActionService {
 	}
 
 	public String getTreasures(String heroName) throws InsufficientActionPointsException {
-		
+
 		Hero hero = heroRepository.findByHeroName(heroName);
 		int treasuresGatheredOnTreasureHunt = getMoneyAsTreasureHuntingReward(hero.getHeroName());
-		
+
 		decreaseActionPoints(hero, getTreasureHuntingCost());
 		hero.setMoney(hero.getMoney() + treasuresGatheredOnTreasureHunt);
-		
+
 		heroRepository.saveAndFlush(hero);
 
 		return treasuresGatheredOnTreasureHunt + " pénzt sikerült szerezned.";
 	}
-	
+
 	public String goToAnAdvanture(String heroName) throws InsufficientActionPointsException {
 		Item item;
 		Hero hero = heroRepository.findByHeroName(heroName);
-		double treasureHuntSuccessRate = getTreasureHuntingSuccesRate(heroName);
-		
+		double treasureHuntingSuccessRate = getTreasureHuntingSuccesRate(heroName);
+
 		decreaseActionPoints(hero, getTreasureHuntingCost());
-		
-		if (treasureHuntSuccessRate > treasureHuntSuccessRateHigh) {
+
+		if (treasureHuntingSuccessRate > TREASUREHUNT_SUCCESS_RATE_HIGH) {
 			item = getItemAsAdvantureReward(ItemEnum.MAGIC_RING, 3);
-		} else if (treasureHuntSuccessRate > treasureHuntSuccessRateMedium) {
+		} else if (treasureHuntingSuccessRate > TREASUREHUNT_SUCCESS_RATE_MEDIUM) {
 			item = getItemAsAdvantureReward(ItemEnum.LIGHTSWORD, 3);
 		} else {
 			item = getItemAsAdvantureReward(ItemEnum.HELMET, 3);
@@ -166,169 +162,176 @@ public class HeroActionService {
 
 		return "A következő eszközt szerezted meg: " + item.getName().getDescription();
 	}
-	
+
 	public String developWelldrillingSkill(String heroName) throws InsufficientActionPointsException {
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
 		Hero hero = heroRepository.findByHeroName(heroName);
 
-		if(heroSkills.contains(SkillEnum.WELLDRILLING_MAGE.getDescription())) {
+		if (heroSkills.contains(SkillEnum.WELLDRILLING_MAGE.getDescription())) {
 			return "Már maximumra fejlesztetted ezt a képességet.";
 		}
-		
-		Skill skill;
-		SkillEnum skillToGain; 
-		
-		if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
-			skillToGain= SkillEnum.WELLDRILLING_MAGE;
-			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.WELLDRILLING_MASTER));
-			decreaseActionPoints(hero, getMageLearningCost());
-		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
-			skillToGain= SkillEnum.WELLDRILLING_MASTER;
-			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.WELLDRILLING_PADAVAN));
-			decreaseActionPoints(hero, getMasterLearningCost());
-		} else {
-			skillToGain= SkillEnum.WELLDRILLING_PADAVAN;
-			decreaseActionPoints(hero, getPadavanLearningCost());
-		}
-		
-		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
-		skill = getSkillAsLearningReward(skillToGain);
-		
-		if (existingSkillInDb != null) {
-			skill = existingSkillInDb;
-		}
 
-		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
-		skill.getHeroes().add(hero);
-		hero.getSkills().add(skill);
-		
-		skillRepository.saveAndFlush(skill);
-		heroRepository.saveAndFlush(hero);
+		Skill skill;
+		SkillEnum skillToGain = defineNextLevelOfHerosWelldrillingSkill(heroSkills, hero);
+
+		skill = setNewSkillFromDbIfExists(skillToGain);
+		setNewValuesForGlobalHeroAttributesBySkillModificationValues(hero, skillToGain);
+		saveNewHeroSkill(hero, skill);
 
 		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
 	}
-	
+
+	private SkillEnum defineNextLevelOfHerosWelldrillingSkill(List<String> heroSkills, Hero hero)
+			throws InsufficientActionPointsException {
+		SkillEnum skillToGain;
+
+		if (heroSkills.contains(SkillEnum.WELLDRILLING_MASTER.getDescription())) {
+			skillToGain = SkillEnum.WELLDRILLING_MAGE;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.WELLDRILLING_MASTER));
+			decreaseActionPoints(hero, getMageLearningCost());
+		} else if (heroSkills.contains(SkillEnum.WELLDRILLING_PADAVAN.getDescription())) {
+			skillToGain = SkillEnum.WELLDRILLING_MASTER;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.WELLDRILLING_PADAVAN));
+			decreaseActionPoints(hero, getMasterLearningCost());
+		} else {
+			skillToGain = SkillEnum.WELLDRILLING_PADAVAN;
+			decreaseActionPoints(hero, getPadavanLearningCost());
+		}
+		return skillToGain;
+	}
+
 	public String developHuntingSkill(String heroName) throws InsufficientActionPointsException {
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
 		Hero hero = heroRepository.findByHeroName(heroName);
 
-		if(heroSkills.contains(SkillEnum.HUNTER_MAGE.getDescription())) {
+		if (heroSkills.contains(SkillEnum.HUNTER_MAGE.getDescription())) {
 			return "Már maximumra fejlesztetted ezt a képességet.";
 		}
-		
-		Skill skill;
-		SkillEnum skillToGain; 
-		 
+
+		SkillEnum skillToGain = defineNextLevelOfHerosHunterSkill(heroSkills, hero);
+		Skill skill = setNewSkillFromDbIfExists(skillToGain);
+
+		setNewValuesForGlobalHeroAttributesBySkillModificationValues(hero, skillToGain);
+		saveNewHeroSkill(hero, skill);
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
+	}
+
+	private SkillEnum defineNextLevelOfHerosHunterSkill(List<String> heroSkills, Hero hero)
+			throws InsufficientActionPointsException {
+		SkillEnum skillToGain;
+
 		if (heroSkills.contains(SkillEnum.HUNTER_MASTER.getDescription())) {
-			skillToGain= SkillEnum.HUNTER_MAGE;
+			skillToGain = SkillEnum.HUNTER_MAGE;
 			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.HUNTER_MASTER));
 			decreaseActionPoints(hero, getMageLearningCost());
 		} else if (heroSkills.contains(SkillEnum.HUNTER_PADAVAN.getDescription())) {
-			skillToGain= SkillEnum.HUNTER_MASTER;
+			skillToGain = SkillEnum.HUNTER_MASTER;
 			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.HUNTER_PADAVAN));
 			decreaseActionPoints(hero, getMasterLearningCost());
 		} else {
-			skillToGain= SkillEnum.HUNTER_PADAVAN;
+			skillToGain = SkillEnum.HUNTER_PADAVAN;
 			decreaseActionPoints(hero, getPadavanLearningCost());
 		}
-		
-		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
-		skill = getSkillAsLearningReward(skillToGain);
-		
-		if (existingSkillInDb != null) {
-			skill = existingSkillInDb;
-		}
-		
-		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
-		skill.getHeroes().add(hero);
-		hero.getSkills().add(skill);
-
-		skillRepository.saveAndFlush(skill);
-		heroRepository.saveAndFlush(hero);
-
-		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
+		return skillToGain;
 	}
-	
-	public String developAstronomerSkill(String heroName) throws InsufficientActionPointsException {
-		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
-		Hero hero = heroRepository.findByHeroName(heroName);
 
-		if(heroSkills.contains(SkillEnum.ASTRONOMER_MAGE.getDescription())) {
-			return "Már maximumra fejlesztetted ezt a képességet.";
-		}
-		
-		Skill skill;
-		SkillEnum skillToGain; 
-		 
-		if (heroSkills.contains(SkillEnum.ASTRONOMER_MASTER.getDescription())) {
-			skillToGain= SkillEnum.ASTRONOMER_MAGE;
-			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.ASTRONOMER_MASTER));
-			decreaseActionPoints(hero, getMageLearningCost());
-		} else if (heroSkills.contains(SkillEnum.ASTRONOMER_PADAVAN.getDescription())) {
-			skillToGain= SkillEnum.ASTRONOMER_MASTER;
-			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.ASTRONOMER_PADAVAN));
-			decreaseActionPoints(hero, getMasterLearningCost());
-		} else {
-			skillToGain= SkillEnum.ASTRONOMER_PADAVAN;
-			decreaseActionPoints(hero, getPadavanLearningCost());
-		}
-		
-		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
-		skill = getSkillAsLearningReward(skillToGain);
-		
-		if (existingSkillInDb != null) {
-			skill = existingSkillInDb;
-		}
-		
-		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
-		skill.getHeroes().add(hero);
-		hero.getSkills().add(skill);
-
-		skillRepository.saveAndFlush(skill);
-		heroRepository.saveAndFlush(hero);
-
-		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
-	}
-	
 	public String developTreasureHunterSkill(String heroName) throws InsufficientActionPointsException {
 		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
 		Hero hero = heroRepository.findByHeroName(heroName);
 
-		if(heroSkills.contains(SkillEnum.TREASURE_HUNTER_MAGE.getDescription())) {
+		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MAGE.getDescription())) {
 			return "Már maximumra fejlesztetted ezt a képességet.";
 		}
-		
+
 		Skill skill;
-		SkillEnum skillToGain; 
-		 
+		SkillEnum skillToGain = defineNextLevelOfHerosTreasureHunterSkill(heroSkills, hero);
+
+		skill = setNewSkillFromDbIfExists(skillToGain);
+		setNewValuesForGlobalHeroAttributesBySkillModificationValues(hero, skillToGain);
+		saveNewHeroSkill(hero, skill);
+
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
+	}
+
+	private SkillEnum defineNextLevelOfHerosTreasureHunterSkill(List<String> heroSkills, Hero hero)
+			throws InsufficientActionPointsException {
+		SkillEnum skillToGain;
+
 		if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_MASTER.getDescription())) {
-			skillToGain= SkillEnum.TREASURE_HUNTER_MAGE;
+			skillToGain = SkillEnum.TREASURE_HUNTER_MAGE;
 			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.TREASURE_HUNTER_MASTER));
 			decreaseActionPoints(hero, getMageLearningCost());
 		} else if (heroSkills.contains(SkillEnum.TREASURE_HUNTER_PADAVAN.getDescription())) {
-			skillToGain= SkillEnum.TREASURE_HUNTER_MASTER;
+			skillToGain = SkillEnum.TREASURE_HUNTER_MASTER;
 			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.TREASURE_HUNTER_PADAVAN));
 			decreaseActionPoints(hero, getMasterLearningCost());
 		} else {
-			skillToGain= SkillEnum.TREASURE_HUNTER_PADAVAN;
+			skillToGain = SkillEnum.TREASURE_HUNTER_PADAVAN;
 			decreaseActionPoints(hero, getPadavanLearningCost());
 		}
-		
-		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
-		skill = getSkillAsLearningReward(skillToGain);
-		
-		if (existingSkillInDb != null) {
-			skill = existingSkillInDb;
+		return skillToGain;
+	}
+
+	public String developAstronomerSkill(String heroName) throws InsufficientActionPointsException {
+		List<String> heroSkills = getStringifiedHeroSkillList(heroName);
+		Hero hero = heroRepository.findByHeroName(heroName);
+
+		if (heroSkills.contains(SkillEnum.ASTRONOMER_MAGE.getDescription())) {
+			return "Már maximumra fejlesztetted ezt a képességet.";
 		}
-		
-		setNewValuesForGlobalAttributesBySkillMod(hero, skillToGain);
+
+		Skill skill;
+		SkillEnum skillToGain = defineNextLevelOfHerosAstronomerSkill(heroSkills, hero);
+
+		skill = setNewSkillFromDbIfExists(skillToGain);
+		setNewValuesForGlobalHeroAttributesBySkillModificationValues(hero, skillToGain);
+		saveNewHeroSkill(hero, skill);
+
+		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
+	}
+
+	private SkillEnum defineNextLevelOfHerosAstronomerSkill(List<String> heroSkills, Hero hero)
+			throws InsufficientActionPointsException {
+		SkillEnum skillToGain;
+
+		if (heroSkills.contains(SkillEnum.ASTRONOMER_MASTER.getDescription())) {
+			skillToGain = SkillEnum.ASTRONOMER_MAGE;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.ASTRONOMER_MASTER));
+			decreaseActionPoints(hero, getMageLearningCost());
+		} else if (heroSkills.contains(SkillEnum.ASTRONOMER_PADAVAN.getDescription())) {
+			skillToGain = SkillEnum.ASTRONOMER_MASTER;
+			hero.getSkills().remove(skillRepository.findBySkillType(SkillEnum.ASTRONOMER_PADAVAN));
+			decreaseActionPoints(hero, getMasterLearningCost());
+		} else {
+			skillToGain = SkillEnum.ASTRONOMER_PADAVAN;
+			decreaseActionPoints(hero, getPadavanLearningCost());
+		}
+		return skillToGain;
+	}
+
+	private void saveNewHeroSkill(Hero hero, Skill skill) {
 		skill.getHeroes().add(hero);
 		hero.getSkills().add(skill);
 
 		skillRepository.saveAndFlush(skill);
 		heroRepository.saveAndFlush(hero);
+	}
 
-		return skill.getSkillType().getDescription() + " képességet sikerült szerezned.";
+	/*
+	 * This is the way in which we can evaluate, if a skill is already existing in
+	 * the database. If it is not there yet, we are placing it, otherwise we set
+	 * that skill for the hero.
+	 */
+	private Skill setNewSkillFromDbIfExists(SkillEnum skillToGain) {
+
+		Skill skill;
+		Skill existingSkillInDb = skillRepository.findBySkillType(skillToGain);
+		skill = getSkillAsLearningReward(skillToGain);
+
+		if (existingSkillInDb != null) {
+			skill = existingSkillInDb;
+		}
+		return skill;
 	}
 
 	public double getTreasureHuntingSuccesRate(String heroName) {
@@ -347,10 +350,9 @@ public class HeroActionService {
 	}
 
 	public List<String> getStringifiedHeroSkillList(String heroName) {
-		
-		 List<String> heroSkills = findHeroByHeroName(heroName).getSkills().stream()
-				.map(s -> s.getSkillType().getDescription())
-				.collect(Collectors.toList());
+
+		List<String> heroSkills = heroRepository.findByHeroName(heroName).getSkills().stream()
+				.map(s -> s.getSkillType().getDescription()).collect(Collectors.toList());
 		return heroSkills;
 	}
 
@@ -367,21 +369,21 @@ public class HeroActionService {
 		item.setMarketPresence(null);
 		return item;
 	}
-	
+
 	public Skill getSkillAsLearningReward(SkillEnum skillType) {
 		Skill skill = new Skill();
 		skill.setSkillType(skillType);
-		return skill;	
+		return skill;
 	}
 
 	public int getMoneyAsTreasureHuntingReward(String heroName) {
 		int additionalMoneyOnTreasureHunt = (int) getTreasureHuntingSuccesRate(heroName);
-		return defaultAmountOfMoneyOnTreasureHunt + additionalMoneyOnTreasureHunt;
+		return DEFAULT_AMOUNT_OF_MONEY_ON_TREASUREHUNT + additionalMoneyOnTreasureHunt;
 	}
-	
-	public void setNewValuesForGlobalAttributesBySkillMod(Hero hero, SkillEnum skillGained) {
-		 hero.setWisdom(hero.getWisdom() + skillGained.getSkillWisdomMod());
-		 hero.setStrength(hero.getStrength() + skillGained.getSkillStrengthMod());
-		 hero.setHp(hero.getHp() + skillGained.getSkillHpMod());
+
+	public void setNewValuesForGlobalHeroAttributesBySkillModificationValues(Hero hero, SkillEnum skillGained) {
+		hero.setWisdom(hero.getWisdom() + skillGained.getSkillWisdomMod());
+		hero.setStrength(hero.getStrength() + skillGained.getSkillStrengthMod());
+		hero.setHp(hero.getHp() + skillGained.getSkillHpMod());
 	}
 }
